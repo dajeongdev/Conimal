@@ -1,0 +1,90 @@
+body{
+    background-color: #d0d0d0;
+}
+.header{
+    padding-left: 50px;
+    padding-top: 30px;
+}
+#list-container{
+    margin-left: 50px;
+    margin-bottom: 100px;
+}
+
+.list{
+    margin-top: 242px;
+}
+/* title date and tag */
+.title h1{
+    font-size: 30px;
+}
+
+.date-and-tag{
+    margin-top: 20px;
+    display: flex;
+}
+
+.date{
+    height:24px;
+}
+
+.date span{
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.tags{
+    height:24px;
+    margin-left: 20px;
+    display: flex;
+}
+
+.tag-name{
+    height: 24px;
+    background-color:#eaeaea;
+    list-style-type: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    text-align: center;
+}
+.tag-name span{
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 10px;
+    line-height: 24px;
+    margin: 0 8px;
+}
+
+
+/* footer section */
+
+#footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.footer{
+    display: flex;
+    justify-content: space-between;
+}
+.footer span{
+    font-size: 10px;
+}
+.right{
+    display: flex;
+}
+.left{
+    margin-left: 50px;
+}
+.right{
+    margin-right: 50px;
+}
+.right-element{
+    margin-left: 30px;
+}

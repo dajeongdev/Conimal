@@ -1,0 +1,40 @@
+.header{
+    padding-left: 50px;
+    padding-top: 30px;
+}
+
+.list{
+	padding: 50px;
+	width: 100%; 
+	height: 360px; 
+	display:flex;
+	box-sizing : border-box;
+	flex-direction: column;
+	justify-content :  flex-end;
+	
+}
+
+
+/* title date and tag */
+.title h1{
+    font-size: 30px;
+}
+
+.date-and-tag{
+    margin-top: 20px;
+    display: flex;
+}
+
+.date{
+    height:24px;
+}
+
+.date span{
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+

@@ -1,0 +1,232 @@
+/* 헤더 영역 */
+
+
+header {
+	height: 90px; 
+	/* background-color : #fff; */ 
+  color: #fff;
+  width: 1060px;
+	padding: 30px 50px; 
+/* 	box-sizing: border-box; */
+	text-align: center; 
+	position: fixed; 
+	top : 0; 
+	z-index : 1000;
+  margin: 0 auto;
+}
+
+.logo {
+	font-size: 30px;
+	display:inline-block;
+}
+
+.category {
+	text-align: center;
+	display: inline-block; 
+	line-height: 30px; 
+}
+
+.category li {
+	float: left; 
+	width: 100px; 
+}
+
+.category li.active{
+	border: 2px solid #ddd; 
+	border-radius : 20px; 
+}
+ 
+
+.header-right {
+	float:right;
+	display:inline-block; 
+	/* height: 100px;  */
+}
+
+header .login-btn {
+	background: #fff;
+  color: #002F6C;
+  width: 175px;
+  font-weight: bold;
+	
+}
+
+
+
+
+/* 페이지 컨테이너  */
+
+.page-container{
+	width: 1060px; 
+	margin: auto; 
+	margin-top: 120px; 
+	padding-top: 30px; 
+	
+}
+
+
+
+
+
+
+/* 메인 컨텐츠 */
+.main-container {
+	display: flex;
+	position: relative;
+
+}
+
+.pet-dictionary,
+.community
+{
+	width: 50%; 
+	height: 100vh; 
+	box-sizing : border-box;
+	padding: 90px 0;
+	 
+}
+
+
+
+/* 메인 펫과사전 */
+
+.pet-dictionary{
+	background: #ddd;
+	overflow : scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.pet-dictionary::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.petdic-detail-container{
+	margin-top: 242px;
+}
+
+.pet-contents{
+	width: 100%;
+  	height: 360px;
+  	background-color: #d0d0d0;
+}
+
+.contents-title {
+	width: 310px;
+  height: 40px;
+  font-family: NotoSansCJKkr;
+  font-size: 30px;
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  color: #000000;
+}
+
+
+.mouse-wheel{
+	width: 30px; 
+	height: 50px; 
+	border: 3px solid #000; 
+	position: absolute;
+	top: calc( 50vh - 25px );
+	left : calc( 50vw - 70px);
+}
+
+
+
+
+/* 사이드메뉴 영역 aisde */
+
+aside {
+	width: 250px; 
+	height: 447px; 
+	padding : 50px 20px; 
+	box-sizing: border-box;
+	border: 2px solid #F0F0F0; 
+	float: left;
+	text-align:center;  
+}
+
+
+.nickname {
+	line-height: 36px; ;
+	margin-bottom: 15px; 
+	display:inline-block; 
+	
+}
+
+.userId {
+	font-family: Noto Sans CJK KR;
+	font-style: normal;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 21px; 
+	color: #c8c8c8; 
+	margin-bottom: 37px; 
+}
+
+.my-page-list li {
+	line-height: 23px; 
+	font-size: 16px; 
+	color: #828282;
+	margin-bottom: 20px; 
+	font-weight:bold;
+}
+
+.my-page-list li:hover {
+	cursor: pointer;
+	color: #002F6C;
+}
+
+
+/* 서브 컨테이너 */
+
+.sub-container {
+	width: 790px;
+	height: auth;
+	float: right; 
+	border: 2px solid #F0F0F0;
+	box-sizing: border-box;
+	padding: 46px; 
+}
+
+
+
+
+/* 푸터 영역 */
+
+footer{
+    /* position: fixed; */
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 80px; 
+    box-sizing: border-box;
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between; 
+    font-size: 13px; 
+    position: fixed; 
+  	left: 0;
+    bottom: 0;
+    z-index : 1000;
+}
+
+
+.copyright{
+   display: flex;
+}
+
+
+.terms{
+    display: flex;
+    margin-right: 50px;
+}
+
+.right-element{
+    margin-left: 30px;
+}
+
+

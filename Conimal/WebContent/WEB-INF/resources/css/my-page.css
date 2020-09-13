@@ -1,0 +1,61 @@
+.badge-box {
+	overflow: scroll-x;
+}
+
+.my-badge {
+	display:inline-block;
+	width: 100px; 
+	height: auto; 
+	margin-right: 20px; 
+	margin-left: -4px;
+	margin-bottom: 40px;
+}
+
+.my-badge:nth-child(6n){
+	margin-right: 0;
+}
+.badge {
+	width: 100px; 
+	height: 100px;
+	background: #EFB661;	
+	box-sizing: border-box;
+	border-radius : 100%; 
+	display:inline-block; 
+	margin-bottom: 12px;
+}
+
+.badge:hover {
+	border: 2px solid #002F6C;
+	box-sizing: border-box;
+	filter: drop-shadow(0px 6px 0px #DCDCDC);
+}
+
+.badge-title {
+	font-size: 12px; 
+	text-align:center;
+}
+
+
+.my-pets {
+	
+}
+
+
+.pet {
+	width: 300px; 
+	height: 160px; 
+	background: #EFB661;	
+	box-sizing: border-box;
+	border-radius: 5px;
+	padding: 20px 30px;
+	display: inline-block;
+	border: 2px solid #EFB661;  
+}
+
+.pet:hover {
+	border: 2px solid #002F6C;
+}
+
+.pet-name {
+	
+}

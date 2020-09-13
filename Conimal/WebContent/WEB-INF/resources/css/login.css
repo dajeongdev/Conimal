@@ -1,0 +1,125 @@
+/* 로그인 */
+
+.login-wrapper {
+	width: 622px;
+	padding: 130px 0px 80px; 
+	margin: 0 auto; 
+	text-align: center; 
+}
+
+
+.login-container{
+	display: flex; 
+	margin-bottom: 43px; 
+}
+
+.login-box{
+	width: 50%;
+	border-right: 2px solid #f0f0f0;	
+	flex-direction  : row-reverse;
+	padding-right: 30px;
+	text-align : center; 
+}
+
+.user-input  {
+	width: 280px;
+	text-align:center;	
+	font-weight: bold;
+	margin-bottom: 6px; 
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+
+.user-input input{
+	text-align:center;
+}
+
+.user-input input::placeholder {
+	color: #C8C8C8; 
+}
+
+.err-msg {
+	color:#DA291C; 
+	line-height: 19px;
+	margin-top: 6px;
+	font-size:12px; 
+	display:none;;
+}
+
+.user-email {
+	width: 200px !important;
+	vertical-align: middle;
+}
+
+.auth_btn  {
+	width: 70px; 
+	padding: 0 10px;
+	margin-top: 0;  
+	margin-left: 6px;
+	vertical-align: middle;
+
+}
+
+.login-box div span{
+	width: 60px; 
+	line-height: 20px; 
+	margin-right: 10px;
+	text-align:left;
+}
+
+.login-api-box{
+	width: 50%;
+	padding-left: 30px; 
+}
+
+.login-api {
+	width: 280px;
+	height: 43px; 
+	border-radius: 5px;
+	line-height: 43px; 
+	text-align: center;
+	background:#002F6C;
+	color: #fff;
+	font-weight: bold;  
+	margin: 0 auto 15px; 
+	border: none; 
+	display: block; 
+}
+
+#google-api {
+	background: #EA4335;
+}
+
+#kakao-api{
+	background : #F9DF32;
+	color: #3B1E1E; 
+}
+
+
+.user-find-box{
+	text-align: center;
+	width: 200px; 
+	margin: 0 auto; 
+}
+
+
+/* join */
+
+.join-container {
+	padding: 130px 50px 80px; 
+	font-size: 14px;
+	font-weight: 800; 
+	text-align: center; 
+}
+
+.join-api-box {
+	width: 100%;
+	padding-right: 50px;
+	text-align : center; 
+}
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+/* Main pt1 Header */
+.main-pt1-header{
+    background-color:#002E6D;
+    height: 800px;
+    width: 100%;
+    border-bottom: solid 30px #EFB661;
+  }
+  
+  .main-header-content{
+    padding-top: 273px;
+    color:#fff;
+    text-align:center;
+  }
+  
+  .main-header-content h1{
+    color:#fff;
+  }
+  
+  .main-header-content h2{
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    margin-top: 40px;
+  }
+
+  /* info card */
+  .main-info{
+    position: relative;
+    top: -100px;
+  }
+
+  /* Main pt2 */
+
+.main-pt2-header{
+    margin-top:400px;
+    background-color:#002E6D;
+    height: 500px;
+    width: 100%;
+    display:flex;
+  }
+  
+  .main-pt2-img{
+    width:50%;
+    background-color:#002E6D;
+  }
+  
+  .main-pt2-content{
+    width:50%;
+    background-color:#EFB661;
+    padding-left:40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .main-pt2-content h1{
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 150%;
+  }
+  .main-pt2-content h2{
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    margin-top: 20px;
+  }
+  .main-pt2-content h2 span{
+    line-height: 250%;
+  }
+  
+  .index-lists{
+    list-style: none;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 160%;
+    margin-top: 22.5px;
+  }
+
+  .look-around{
+    width: 172px;
+  }
+
+  /*Product section*/
+
+
+  .product-cards-container{
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+  }
+

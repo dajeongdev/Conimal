@@ -1,0 +1,262 @@
+/* 메인 커뮤니티 */
+
+.community-container {
+	width: 698px; 
+	margin: 0 auto; 
+}
+
+.community-intro {
+	margin-bottom:60px; 
+}
+
+.community-intro .title{
+	color: #002F6C;
+	text-align: center;
+	line-height: 36px;
+	margin-bottom: 20px; 
+}
+
+.community-intro .sub{
+	color: #4f4f4f;
+	text-align:center;
+	margin-bottom:30px; 
+}
+
+
+.community-intro .tags { 
+	width: 644px;
+	padding: 10px; 
+	box-sizing: border-box;
+	margin: 0 auto; 
+}
+
+
+.community-nav {
+	display: flex; 
+	justify-content: space-between;
+	margin-bottom: 40px;
+}
+
+.community-intro .search-input {
+	display:inline-block;
+	padding: 0 25px;
+	width: 190px;
+	height: 29px;	
+	line-height:29px;
+	vertical-align:middle;
+	color: #C8C8C8;
+	margin-right: 6px;
+	margin-left: 2px;
+	font-size: 14px;
+}
+
+.write-btn {
+  width: 70px;
+  height: 24px;
+  border-radius: 20px;
+  background-color: #eaeaea;
+  border: none; 
+  float: right; 
+  font-size:12px;
+}
+
+
+
+.board-list {
+	width: 100%; 
+	box-sizing: border-box; 
+}
+
+.board-item {
+ 	border-bottom : 1px solid #ddd;
+	text-align:left;  
+	padding: 0 0 15px 0;
+    box-sizing: border-box;
+    margin-bottom: 25px; 
+}
+
+.board-first-raw {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom:10px; 
+}
+
+.board-second-raw {
+	display: flex;
+	justify-content: space-between;
+}
+		
+.new {
+	display:inline-block;
+	width: 44px;
+	height: 21px;
+	background: #EFB661;
+	color: white; 
+	line-height: 21px; 
+	text-align : center; 
+}
+
+
+
+
+.board-item.view-cnt {
+	width:8%;
+	text-align: right; 
+}
+
+.board.pre-next {
+	width:18%;
+	text-align: left; 
+}
+
+.community-intro .tag-name {
+	margin-bottom: 10px;
+}
+
+.board-item:hover .tag-name {
+	background : #002F6C;
+	color:white;
+}
+
+.board-item:hover .title ,
+.board-item:hover .user ,
+.board-item:hover .comment,
+.board-item:hover .date {
+	color:#002F6C;
+}
+
+.board-item:hover .new {
+	background: #A5C8FF;
+}
+
+.board-item:hover .view-cnt {
+	color: #A5C8FF;
+}
+
+
+
+.user-img {
+	display: inline-block; 
+	width: 20px; 
+	height: 20px; 
+	border-radius : 100%; 
+	background : #ddd; 
+	margin-top: -3px;
+    vertical-align: middle;	
+}
+
+
+
+
+
+
+
+
+
+
+
+/* 게시판 디테일  */
+.select-box {
+	padding: 20px 10px; 
+	
+}
+
+.write-btn {
+  width: 70px;
+  height: 24px;
+  border-radius: 20px;
+  background-color: #eaeaea;
+  border: none; 
+  float: right; 
+  font-size:12px;
+}
+
+.detail-header {
+	line-height: 21px;
+	margin-bottom: 10px;
+	font-weight: bold; 
+}
+
+.detail-title{
+	font-size: 30px; 
+	font-weight: 900;
+}
+
+.detail-info {
+	display: flex; 
+	width: 50%; 
+	justify-content: space-between;
+	height: 60px; 
+	line-height: 60px;  
+}
+
+.detail-contents{
+	margin: auto; 
+	padding: 50px 0; 
+	min-height: 100px;
+}
+
+.detail-comment{
+	margin-top: 1px solid #ddd; 
+}
+
+.detail-cnt {
+	display: flex;  
+	justify-content: space-between;
+	height: 60px; 
+	line-height: 60px;  
+}
+
+.like-cnt {
+	text-align:right;
+}
+
+
+
+.comment-items {
+  padding: 15px 0;
+  box-sizing: border-box; 
+  line-height: 26px;
+}
+
+.comment-info {
+	display: flex; 
+	justify-content: space-between; 
+	margin-bottom: 10px;
+}
+
+.comment-date{
+	margin-right: 20px;	
+}
+
+.comment-contents{
+	padding-left: 23px
+}
+
+.comment.child {
+	background: #bbb;
+	padding-left: 40px; 
+	
+}
+
+
+
+/* write-form */
+
+
+
+.community-contents {
+	padding: 10px 25px;
+	width: 100%;
+	height: 233px;
+}
+
+.community-tags {
+	
+}
+
+.community-files {
+	width: 280px !important;
+	vertical-align:middle
+}
+

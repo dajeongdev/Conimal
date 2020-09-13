@@ -1,0 +1,62 @@
+#whole-container{
+    margin-top:242px;
+}
+
+#title-container{
+    margin-left: 50px;
+}
+/* title date and tag */
+
+.title h1{
+    font-weight: bolder;
+    font-size: 50px;
+}
+
+.date-and-tag{
+    margin-top: 40px;
+    display: flex;
+}
+
+.date{
+    height:24px;
+}
+
+.date span{
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.content{
+    margin: 100 50;
+}
+
+
+/* nav section */
+#nav-section{
+    position: relative;
+    z-index:1;
+    top: 30px;
+    margin-top: 20px;
+}
+.nav-box-container{
+    
+    display: flex;
+
+}
+.nav-box{
+    padding-left: 50px;
+    padding-top: 50px;
+    width:534px;
+    height:342px;
+    background-color: #aeaeae;
+}
+
+.nav-box-top{
+    margin-bottom: 28px;
+}
+.nav-box-top span{
+    font-weight: 500;
+}
