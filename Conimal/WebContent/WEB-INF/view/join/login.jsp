@@ -1,14 +1,13 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 	<title>Home</title>
-	<%@ include file="include/head.jsp" %>
+	<%@ include file="../include/head.jsp" %>
 </head>
 
 <body>
-<%@ include file="include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <div class = "page-container">
 
 
@@ -30,13 +29,13 @@
 		</div>
 		<div class="user-find-box">
 			<a href ="#" class="text-button">아이디 / 비밀번호 찾기</a>
-			<a href ="#" class="text-button">회원가입</a>
+			<a href ="/join/join-select" class="text-button">회원가입</a>
 		</div>
 	
 	</div>
 	
 	
 </div>
-<%@ include file="include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 </body>
 </html>

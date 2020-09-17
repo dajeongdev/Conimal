@@ -4,15 +4,15 @@
 <html>
 <head>
 	<title>Home</title>
-	<%@ include file="include/head.jsp" %>
+	<%@ include file="../include/head.jsp" %>
 </head>
 
 <body>
-<%@ include file="include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <div class = "page-container">
 	<div class="join-container">
 		<div class="join-box">
-		
+			
 			<div class="user-input" >
 				<input id="user-nickname" type="text" placeholder="닉네임" />
 				<p class="err-msg"></p>
@@ -30,24 +30,28 @@
 				<p class="err-msg"></p>
 			</div>
 			<div class="user-input">
-				<input class="user-email" id="user-email" type="text" placeholder="이메일" />
-				<button class="btn auth_btn marT_20" id ="login">인증</button>
+				<form action="sendCode.do" method="post">
+					<input class="user-email" id="user-email" type="text" placeholder="이메일" />
+					<button class="btn auth_btn marT_20" id="login" name="submit" type="button">전송</button>
+				</form>
+
 				<p class="err-msg"></p>
 			</div>
 			<div class="user-input">
-				<input id="auth-email" type="text" placeholder="비밀번호 재입력" />
+				<form action="emailAuth.do" method="post">
+					<input id="auth-email" type="text" placeholder="이메일 인증 코드" />			
+					<button class="btn auth_btn marT_20" id="login" name="submit" type="button">인증</button>
+				</form>
 				<p class="err-msg"></p>
 			</div>
 	
-			
-			<button class="btn marT_20" id ="login">회원가입</button>
-			
-		
+			<a class="btn marT_20" id ="login" href="${pageContext.request.contextPath}/join/join-form">회원가입</a>
+
 		</div>
 	
 	</div>
 	
 </div>
-<%@ include file="include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
 </body>
 </html>
