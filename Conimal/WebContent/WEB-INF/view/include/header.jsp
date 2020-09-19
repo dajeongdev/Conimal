@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ page import="kr.com.conimal.model.command.LoginCommand" %>
 <% String hostname = request.getScheme() + "://" + request.getServerName() +":" + request.getServerPort() + "/conimal/"; %>
 <c:set var="hostname" value="<%=hostname%>"/>
 
@@ -12,7 +13,7 @@
 <header>
 	<div class="logo"><span>코니멀</span></div>
 	<!-- 비로그인 상태 -->
-	<c:if test="${empty sessionScope.MINFO}">
+	<c:if test="${empty sessionScope.UI}">
 	<ul class="category">
 		<li><a href="">코니멀소개</a></li>
 		<li><a href="/pet_dictionary/pet_dictionary">펫과사전</a></li>
@@ -24,7 +25,7 @@
 	</div>
 	</c:if>
 	<!-- 로그인 상태 -->
-	<c:if test="${not empty sessionScope.MINFO}">
+	<c:if test="${not empty sessionScope.UI}">
 	<ul class="category">
 		<li><a href="">코니멀소개</a></li>
 		<li><a href="/pet_dictionary/pet_dictionary">펫과사전</a></li>

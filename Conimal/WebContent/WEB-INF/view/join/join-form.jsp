@@ -12,7 +12,7 @@
 <div class = "page-container">
 	<div class="join-container">
 		<div class="join-box">
-			
+			<form name="insert" action="insert" method="post" onsubmit="return join()">
 			<div class="user-input" >
 				<input id="user-nickname" type="text" placeholder="닉네임" />
 				<p class="err-msg"></p>
@@ -30,23 +30,19 @@
 				<p class="err-msg"></p>
 			</div>
 			<div class="user-input">
-				<form action="sendCode.do" method="post">
-					<input class="user-email" id="user-email" type="text" placeholder="이메일" />
-					<button class="btn auth_btn marT_20" id="login" name="submit" type="button">전송</button>
-				</form>
+				<input class="user-email" id="user-email" type="text" placeholder="이메일" />
+				<button class="btn auth_btn marT_20" id="login" name="submit" type="button">전송</button>
 
 				<p class="err-msg"></p>
 			</div>
 			<div class="user-input">
-				<form action="emailAuth.do" method="post">
-					<input id="auth-email" type="text" placeholder="이메일 인증 코드" />			
-					<button class="btn auth_btn marT_20" id="login" name="submit" type="button">인증</button>
-				</form>
+				<input id="auth-email" type="text" placeholder="이메일 인증 코드" />			
+				<button class="btn auth_btn marT_20" id="login" name="submit" type="button">인증</button>
 				<p class="err-msg"></p>
 			</div>
 	
 			<a class="btn marT_20" id ="login" href="${pageContext.request.contextPath}/join/join-form">회원가입</a>
-
+			</form>
 		</div>
 	
 	</div>
