@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="dictionary">
+	<!-- 강아지 / 고양이별 글 정렬 -->
+	
+	
+	<!-- 전체 글 목록 / 코니멀 타입, 제목, 투표율 -->
+	
+	
+	<!-- 글 보기 / 코니멀 타입, 제목, 투표 가능 코니멀, 투표 선택, 메모 -->
+	
 	
 </mapper>
