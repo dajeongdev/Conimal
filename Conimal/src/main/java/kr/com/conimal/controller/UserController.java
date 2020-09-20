@@ -41,24 +41,20 @@ public class UserController {
 	@Autowired
 	EmailService emailService;
 	
-	// 메인 페이지
-	@RequestMapping(value = "/main")
+	// 메인 페이지 
+	/* @RequestMapping(value = "/main")
 	public ModelAndView selectAll() {
 		ModelAndView mav = new ModelAndView();
 		List<UserDto> users = ud.selectAll();
 		mav.setViewName("main");
 		mav.addObject("users", users);
 		return mav;
-	}
+	} */
 	
-	// 회원가입 입력 페이지로 이동 
-	@RequestMapping(value = "/join/join-form")
-	public String joinForm() {
-		return "/join/join-form";
-	}
+
 	
 	// 회원가입
-	@RequestMapping(value = "/join-form/insert", method = RequestMethod.POST)
+	/* @RequestMapping(value = "/join-form/insert", method = RequestMethod.POST)
 	public String join(UserDto userDto, HttpSession session) throws Exception {
 		System.out.println("join-form.jsp 진입");
 		int i = us.join(userDto);
@@ -66,30 +62,30 @@ public class UserController {
 			session.setAttribute("success", userDto.getUser_idx());
 			System.out.println("join :: " + i);
 			session.setAttribute("sc", i);
-			return "redirect:join/login";
+			return "redirect:/join/login";
 		} else {
-			return "redirect:join/join-form";
+			return "redirect:/join/join-form";
 		}
-	}
+	} */
 	
 	// 아이디 중복 체크
-	@RequestMapping(value = "/login/checkId", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/login/checkId", method = RequestMethod.POST)
 	@ResponseBody
 	public int checkId(LoginCommand lc) throws Exception {
 		int i = us.checkId(lc);
 		return i;
-	}
+	} */
 	
 	// 이메일 중복 체크 
-	@RequestMapping(value = "/login/checkEmail", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/login/checkEmail", method = RequestMethod.POST)
 	@ResponseBody
 	public int checkEmail(LoginCommand lc) throws Exception {
 		int i = us.checkEmail(lc);
 		return i;
-	}
+	} */
 	
 	// 메일 보내기 
-	@RequestMapping(value = "/join/sendCode", produces = "application/json; charset=UTF-8")
+	/*@RequestMapping(value = "/join/sendCode", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String mailSending(String email) throws Exception {
 		EmailDto edto = new EmailDto();
@@ -104,43 +100,39 @@ public class UserController {
 		
 		int result = emailService.sendEmail(edto);
 		return result + "";
-	}
+	} */
 	
 	// 닉네임 중복 체크
-	@RequestMapping(value = "/login/checkNick", method = RequestMethod.POST)
+	/*@RequestMapping(value = "/login/checkNick", method = RequestMethod.POST)
 	@ResponseBody
 	public int checkNick(LoginCommand lc) throws Exception {
 		int i = us.checkNick(lc);
 		return i;
-	}
+	} */
 	
-	// 로그인 페이지로 이동 
-	@RequestMapping(value = "/join/login", method = RequestMethod.GET)
-	public String loginPage() {
-		return "join/login";
-	}
+
 	
 	// 로그인
-	@RequestMapping(value = "/login/loginOk") // login.jsp의 loginOk 라는 form 태그가 넘어올 때 
+	/*@RequestMapping(value = "/login/loginOk") // login.jsp의 loginOk 라는 form 태그가 넘어올 때 
 	public String login(LoginCommand lc, HttpSession session) {
 		int i = us.login(lc, session);
 		
 		System.out.println(i);
 		
 		if(i == 0) { // 로그인 실패 
-			return "redirect:login";
+			return "redirect:/join/login";
 		} else { // 로그인 성공 
 			us.setSession(session, lc);
-			return "redirect:main";
+			return "redirect:/main";
 		}
-	}
+	} */
 	
-	// 로그아웃
+	/*// 로그아웃
 	@RequestMapping(value = "/login/logout")
 	public String logut(HttpSession session) {
 		session.invalidate();
-		return "redirect:main";
-	}
+		return "redirect:/main";
+	} */
 	
 	
 	// ID 찾기
