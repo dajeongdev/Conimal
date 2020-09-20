@@ -11,9 +11,10 @@
 </head> 
 
 <header>
-	<div class="logo"><span>코니멀</span></div>
+	
 	<!-- 비로그인 상태 -->
 	<c:if test="${empty sessionScope.UI}">
+	<div class="logo"><span><a href="main">코니멀</a></span></div>
 	<ul class="category">
 		<li><a href="">코니멀소개</a></li>
 		<li><a href="/pet_dictionary/pet_dictionary">펫과사전</a></li>
@@ -24,8 +25,10 @@
 		<div class="btn login-btn"><a href="/join/login">Login</a></div>
 	</div>
 	</c:if>
+	
 	<!-- 로그인 상태 -->
 	<c:if test="${not empty sessionScope.UI}">
+	<div class="logo"><span><a href="main">코니멀</a></span></div>
 	<ul class="category">
 		<li><a href="">코니멀소개</a></li>
 		<li><a href="/pet_dictionary/pet_dictionary">펫과사전</a></li>
@@ -33,7 +36,7 @@
 	</ul>
 
 	<div class="header-right">
-		<div class="btn login-btn"><a href=/conimal/view/mypage/my-page">마이 페이지</a></div>
+		<div class="btn login-btn"><a href=/mypage/my-page">마이 페이지</a></div>
 		<!-- 로그아웃 -->
 	</div>
 	</c:if>
