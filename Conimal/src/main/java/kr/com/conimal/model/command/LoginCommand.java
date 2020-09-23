@@ -5,6 +5,7 @@ public class LoginCommand {
 	private String user_id;
 	private String password;
 	private String nickname;
+	private String email;
 	
 	public int getUser_idx() {
 		return user_idx;
@@ -29,6 +30,12 @@ public class LoginCommand {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }

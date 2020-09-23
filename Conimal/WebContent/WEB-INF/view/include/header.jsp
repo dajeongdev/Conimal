@@ -22,7 +22,8 @@
 	</ul>
 
 	<div class="header-right">
-		<div class="btn login-btn"><a href="/join/login">Login</a></div>
+		<div class="btn login-btn"><button onclick="location.href='/join/login'">Login</button></div>
+		<div class="btn login-btn"><button onclick="location.href='/my-page/my-page'">마이 페이지</button></div>
 	</div>
 	</c:if>
 	
@@ -36,7 +37,7 @@
 	</ul>
 
 	<div class="header-right">
-		<div class="btn login-btn"><a href=/mypage/my-page">마이 페이지</a></div>
+		<div class="btn login-btn"><button onclick="location.href='/my-page/my-page'">마이 페이지</button></div>
 		<!-- 로그아웃 -->
 	</div>
 	</c:if>

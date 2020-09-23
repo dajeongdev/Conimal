@@ -3,10 +3,8 @@
 <mapper namespace="user">
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="kr.com.conimal.model.dto.UserDto">
-		insert into user (user_idx, user_id, password, nickname, email, 
-		level, badge_idx, reg_date, update_date, last_login, del_yn) 
-		values (#{user_idx}, #{user_id}, #{password}, #{nickname}, #{email}, 
-		1, 1, #{reg_date}, #{update_date}, null, 'N')
+		insert into user (user_idx, user_id, password, nickname, email, user_key, level, reg_date, update_date, last_login, del_yn) 
+		values (#{user_idx}, #{user_id}, #{password}, #{nickname}, #{email}, null, 1, #{reg_date}, #{update_date}, null, 'N')
 	</insert>
 	
 	<!-- 아이디 중복 체크 -->
@@ -16,16 +14,25 @@
 	
 	<!-- 이메일 중복 체크 -->
 	<select id="checkEmail" resultType="int">
-		select COUNT(*) from user where email = #{email}
+		select COUNT(*) from user where	email = #{email}
 	</select>
+	
+	<!-- 회원 인증키 생성 -->
+	<update id="getUserKey" parameterType="Map">
+		update user set user_key = #{user_key} where user_id = #{user_id} 
+	</update>
+	<!-- 회원 인증키 확인 -->
+	<update id="updUserKey" parameterType="Map">
+		update user set user_key = 'Y' where user_id = #{user_id} and user_key = #{user_key}
+	</update>
 	
 	<!-- 닉네임 중복 체크 -->
 	<select id="checkNick" resultType="int">
-		select COUNT(*) from user nickname = #{nickname}
+		select COUNT(*) from user where nickname = #{nickname}
 	</select>
 	
 	<!-- 로그인 -->
-	<select id="login" parameterType="kr.com.conimal.model.dto.UserDto" resultType="String">
+	<select id="login" parameterType="kr.com.conimal.model.command.LoginCommand" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user where user_id = #{user_id} and password = #{password}
 	</select>
 	
@@ -46,9 +53,9 @@
 	<!-- API로 로그인 -->
 	<insert id="authentication" parameterType="kr.com.conimal.model.dto.UserDto">
 		insert into user (user_idx, user_id, password, nickname, email, 
-		level, badge_idx, reg_date, update_date, last_login, del_yn) 
+		user_key, level, reg_date, update_date, last_login, del_yn) 
 		values (#{user_idx}, #{user_id}, 0, #{nickname}, #{email}, 
-		1, 1, #{reg_date}, #{update_date}, null, 'N')
+		'Y', 2, #{reg_date}, #{update_date}, null, 'N')
 	</insert>
 	
 </mapper>

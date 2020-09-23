@@ -10,16 +10,22 @@ import kr.com.conimal.model.dto.UserDto;
 
 public interface UserDao {
 	// 회원가입 
-	public int join(UserDto userDto);
+	public int join(UserDto userDto) throws Exception;
 	
 	// 아이디 체크
-	public int checkId(LoginCommand lc) throws Exception;
+	public int checkId(String user_id) throws Exception;
 	
 	// 이메일 체크
-	public int checkEmail(LoginCommand lc) throws Exception;
+	public int checkEmail(String email) throws Exception;
+	
+	// 회원 인증키 생성
+	public int getUserKey(String user_id, String user_key) throws Exception;
+	
+	// 회원 인증키 확인 
+	public int updUserKey(String user_id, String user_key) throws Exception;
 	
 	// 닉네임 체크 
-	public int checkNick(LoginCommand lc);
+	public int checkNick(String nickname) throws Exception;
 	
 	// 로그인 
 	public List<UserDto> login(LoginCommand lc);
