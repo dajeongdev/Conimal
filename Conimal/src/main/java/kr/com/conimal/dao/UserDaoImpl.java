@@ -11,42 +11,68 @@ import kr.com.conimal.model.dto.UserDto;
 public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 
 	@Override
-	public int join(UserDto userDto) {
+	public int join(UserDto userDto) throws Exception {
+		System.out.println("UserDaoImpl join() 호출");
 		return getSqlSession().insert("user.join", userDto);
 	}
 
 	@Override
-	public int checkId(LoginCommand lc) throws Exception {
-		return getSqlSession().selectOne("user.checkId", lc);
+	public int checkId(String user_id) throws Exception {
+		int i = getSqlSession().selectOne("user.checkId", user_id);
+		System.out.println("UserDaoImpl checkId() 호출");
+		return i;
 	}
 
 	@Override
-	public int checkEmail(LoginCommand lc) throws Exception {
-		return getSqlSession().selectOne("user.checkEmail", lc);
+	public int checkEmail(String email) throws Exception {
+		int i = getSqlSession().selectOne("user.checkEmail", email);
+		System.out.println("UserDaoImpl checkEmail() 호출");
+		return i;
+	}
+	
+	@Override
+	public int getUserKey(String user_id, String user_key) throws Exception {
+		return getSqlSession().update("user.getUserKey");
 	}
 
 	@Override
-	public int checkNick(LoginCommand lc) {
-		return getSqlSession().selectOne("user.checkNick", lc);
+	public int updUserKey(String user_id, String user_key) throws Exception {
+		return getSqlSession().update("user.updUserKey");
+	}
+
+	@Override
+	public int checkNick(String nickname) throws Exception {
+		int i = getSqlSession().selectOne("user.checkNick", nickname);
+		System.out.println("UserDaoImpl checkNick() 호출");
+		return i;
 	}
 	
 	@Override
 	public UserDto findId(String user_id) {
+		System.out.println("UserDaoImpl findId() 호출");
 		return getSqlSession().selectOne("user.findId", user_id);
 	}
 
 	@Override
-	public List<UserDto> login(LoginCommand lc) {
-		return getSqlSession().selectList("user.login", lc);
+	public UserDto login(UserDto userDto) {
+		System.out.println("UserDaoImpl login() 호출");
+		return getSqlSession().selectOne("user.login", userDto);
 	}
 
 	@Override
-	public List<UserDto> selectAll() {
-		return getSqlSession().selectList("user.selectAll");
+	public List<UserDto> getAll() {
+		System.out.println("UserDaoImpl selectAll() 호출");
+		return getSqlSession().selectList("user.getAll");
+	}
+	
+	@Override
+	public UserDto getUserInfo(String user_id) {
+		return getSqlSession().selectOne("user.getUserInfo", user_id);
 	}
 	
 	@Override
 	public void authentication(UserDto userDto) {
+		System.out.println("UserDaoImpl authentication() 호출");
 		getSqlSession().insert("user.authentication", userDto);
 		
 	}

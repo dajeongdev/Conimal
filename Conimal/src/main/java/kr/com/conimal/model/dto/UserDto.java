@@ -8,13 +8,20 @@ public class UserDto {
 	private String password;
 	private String nickname;
 	private String email; 
-	private int level; // 0: 관리자, 1: 일반회원 
-	private int badge_idx; // 기본 뱃지 필요 
-	private Date reg_date;
-	private Date update_date;
-	private int last_login; // default 'Y'
+	private String user_key;
+	private int level; // 0: 관리자, 1: 일반회원, 2: API회원  
+	//private int badge_idx; // 기본 뱃지 필요
+	private String reg_date;
+	private String update_date;
+	private String last_login; 
 	private char del_yn; // default 'N'
 	
+	public String getUser_key() {
+		return user_key;
+	}
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
 	public int getUser_idx() {
 		return user_idx;
 	}
@@ -51,28 +58,22 @@ public class UserDto {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	public int getBadge_idx() {
-		return badge_idx;
-	}
-	public void setBadge_idx(int badge_idx) {
-		this.badge_idx = badge_idx;
-	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public Date getUpdate_date() {
+	public String getUpdate_date() {
 		return update_date;
 	}
-	public void setUpdate_date(Date update_date) {
+	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
 	}
-	public int getLast_login() {
+	public String getLast_login() {
 		return last_login;
 	}
-	public void setLast_login(int last_login) {
+	public void setLast_login(String last_login) {
 		this.last_login = last_login;
 	}
 	public char getDel_yn() {
