@@ -31,8 +31,13 @@
 		select COUNT(*) from user where nickname = #{nickname}
 	</select>
 	
+	<!-- 회원 정보 가져오기 -->
+	<select id="getUserInfo" resultType="kr.com.conimal.model.dto.UserDto">
+		select * from user where user_id = #{user_id} and del_yn = 'N'
+	</select>
+	
 	<!-- 로그인 -->
-	<select id="login" parameterType="kr.com.conimal.model.command.LoginCommand" resultType="kr.com.conimal.model.dto.UserDto">
+	<select id="login" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user where user_id = #{user_id} and password = #{password}
 	</select>
 	
@@ -46,7 +51,7 @@
 		update * set user where password = #{password} where email = #{email}
 	</update>
 	
-	<select id="selectAll" resultType="kr.com.conimal.model.dto.UserDto">
+	<select id="getAll" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user
 	</select>
 	

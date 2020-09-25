@@ -54,15 +54,20 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	}
 
 	@Override
-	public List<UserDto> login(LoginCommand lc) {
+	public UserDto login(UserDto userDto) {
 		System.out.println("UserDaoImpl login() 호출");
-		return getSqlSession().selectList("user.login", lc);
+		return getSqlSession().selectOne("user.login", userDto);
 	}
 
 	@Override
-	public List<UserDto> selectAll() {
+	public List<UserDto> getAll() {
 		System.out.println("UserDaoImpl selectAll() 호출");
-		return getSqlSession().selectList("user.selectAll");
+		return getSqlSession().selectList("user.getAll");
+	}
+	
+	@Override
+	public UserDto getUserInfo(String user_id) {
+		return getSqlSession().selectOne("user.getUserInfo", user_id);
 	}
 	
 	@Override
@@ -71,7 +76,5 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 		getSqlSession().insert("user.authentication", userDto);
 		
 	}
-
-
 
 }

@@ -36,7 +36,7 @@ $(document).ready(function() {
 						$('#check_id').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					} else {
-						$('#check_id').text('소문자와 숫자 4~10자리만 가능합니다.');
+						$('#check_id').text('아이디는 소문자와 숫자 4~10자리만 가능합니다.');
 						$('#check_id').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					}
@@ -71,7 +71,7 @@ $(document).ready(function() {
 						$('#check_nick').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					} else {
-						$('#check_nick').text('특수문자 제외 10자리까지만 가능합니다.');
+						$('#check_nick').text('닉네임은 특수문자 제외 10자리까지만 가능합니다.');
 						$('#check_nick').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					}
@@ -122,6 +122,7 @@ $(document).ready(function() {
 	$("#password").blur(function() {
 		var pwd = $("#password").val()
 		var pwdR = /^[A-Za-z0-9]{8,16}$/; 
+		
 		if(pwdR.test($("#password").val())) {
 			console.log("가능한 비밀번호");
 			$("#check_pwd").text("");
@@ -137,7 +138,7 @@ $(document).ready(function() {
 	});
 	// 비밀번호 일치 검사
 	$("#check-pwd").blur(function() {
-		if(($("#password").val()) != $("#check-pwd").val()) {
+		if(($("#user-pwd").val()) != $("#check-pwd").val()) {
 			console.log("비밀번호 불일치");
 			$("#cf_pwd").text("비밀번호가 일치하지 않습니다.");
 			$("#cf_pwd").css("color", "red");
@@ -156,17 +157,17 @@ $(document).ready(function() {
 		<div class="join-box">
 			<form method="post">
 			<div class="user-input" >
-				<input id="nickname" type="text" name="nickname" placeholder="닉네임" />
+				<input id="user-nickname" type="text" name="nickname" placeholder="닉네임" />
 				<div id="check_nick"></div>
 				<p class="err-msg" ></p>
 			</div>
 			<div class="user-input">
-				<input id="user_id" type="text" name="user_id" placeholder="아이디"/>
+				<input id="user-id" type="text" name="user_id" placeholder="아이디"/>
 				<div id="check_id"></div>
 				<p class="err-msg" ></p>
 			</div>
 			<div class="user-input">
-				<input id="password" type="text" name="password" placeholder="비밀번호" />
+				<input id="user-pwd" type="text" name="password" placeholder="비밀번호" />
 				<div id="check_pwd"></div>
 				<p class="err-msg"></p>
 			</div>
@@ -176,7 +177,7 @@ $(document).ready(function() {
 				<p class="err-msg" ></p>
 			</div>
 			<div class="user-input">
-				<input class="user-email" id="email" name="email" type="text" placeholder="이메일" />
+				<input class="user-email" id="user-email" name="email" type="text" placeholder="이메일" />
 				<div id="check_email"></div>
 				<p class="err-msg"></p>
 			</div>

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -47,9 +48,9 @@ public class UserController {
 	@RequestMapping(value = "main")
 	public ModelAndView selectAll() {
 		ModelAndView mav = new ModelAndView();
-		List<UserDto> users = ud.selectAll();
+		//List<UserDto> users = ud.getAll();
 		mav.setViewName("main");
-		mav.addObject("users", users);
+		//mav.addObject("users", users);
 		System.out.println("메인 페이지 이동");
 		return mav;
 	} 
@@ -123,26 +124,28 @@ public class UserController {
 	}
 	
 	// 로그인
-	/*@RequestMapping(value = "/login/loginOk") // login.jsp의 loginOk 라는 form 태그가 넘어올 때 
-	public String login(LoginCommand lc, HttpSession session) {
-		int i = us.login(lc, session);
+	@RequestMapping(value = "/login/login-success", method = RequestMethod.POST)
+	public String login(UserDto userDto, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserDto login = us.login(userDto);
 		
-		System.out.println(i);
+		System.out.println("UserController login() 호출");
 		
-		if(i == 0) { // 로그인 실패 
+		if(login == null) { // 로그인 실패 
+			session.setAttribute("user", null);
 			return "redirect:/join/login";
 		} else { // 로그인 성공 
-			us.setSession(session, lc);
-			return "redirect:/main";
+			session.setAttribute("user", login);
+			return "redirect:/";
 		}
-	} */
+	} 
 	
-	/*// 로그아웃
-	@RequestMapping(value = "/login/logout")
+	// 로그아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logut(HttpSession session) {
 		session.invalidate();
 		return "redirect:/main";
-	} */
+	}
 	
 	
 	// ID 찾기

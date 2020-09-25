@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import kr.com.conimal.dao.UserDao;
 import kr.com.conimal.model.command.LoginCommand;
+import kr.com.conimal.model.command.SessionCommand;
 import kr.com.conimal.model.dto.UserDto;
 
 @Service
@@ -46,20 +47,27 @@ public class UserServiceImpl implements UserService {
 		System.out.println("UserServiceImpl checkNick() 호출");
 		return dao.checkNick(nickname);
 	}
-	
-	// 세션 서비스
-	public void setSession(HttpSession session, LoginCommand lc) {
-		UserDto user = selectUser(lc.getUser_id());
-		
-		session.setAttribute("sc", user);
-		session.setAttribute("UI", lc.getNickname());
-	}
 
 	@Override
-	public int login(LoginCommand lc, HttpSession session) {
-		List<UserDto> list = dao.login(lc);
-		setSession(session, lc);
-		return list.size();
+	public UserDto login(UserDto userDto) {
+		System.out.println("UserService login() 호출");
+		return dao.login(userDto);
+	}
+	
+	@Override
+	public void setSession(HttpSession session, LoginCommand lc) {
+		UserDto user = getUserInfo(lc.getUser_id());
+		
+		SessionCommand sc = new SessionCommand();
+		sc.setUserDto(user);
+		session.setAttribute("sc", sc);
+		session.setAttribute("nick", lc.getNickname());
+		System.out.println("UserService setSession() 호출");
+	}
+	
+	@Override
+	public UserDto getUserInfo(String user_id) {
+		return dao.getUserInfo(user_id);
 	}
 
 	@Override

@@ -6,6 +6,7 @@ public class LoginCommand {
 	private String password;
 	private String nickname;
 	private String email;
+	private boolean remember;
 	
 	public int getUser_idx() {
 		return user_idx;
@@ -36,6 +37,12 @@ public class LoginCommand {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public boolean isRemember() {
+		return remember;
+	}
+	public void setRemember(boolean remember) {
+		this.remember = remember;
 	}
 	
 }

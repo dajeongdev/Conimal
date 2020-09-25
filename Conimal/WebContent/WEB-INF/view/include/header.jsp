@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ page import="kr.com.conimal.model.command.LoginCommand" %>
+
 <% String hostname = request.getScheme() + "://" + request.getServerName() +":" + request.getServerPort() + "/conimal/"; %>
 <c:set var="hostname" value="<%=hostname%>"/>
-
 <head>
 <%@ include file="head.jsp" %>
 </head> 
@@ -13,7 +11,7 @@
 <header>
 	
 	<!-- 비로그인 상태 -->
-	<c:if test="${empty sessionScope.UI}">
+	<c:if test="${user == null}">
 	<div class="logo"><span><a href="main">코니멀</a></span></div>
 	<ul class="category">
 		<li><a href="">코니멀소개</a></li>
@@ -22,13 +20,12 @@
 	</ul>
 
 	<div class="header-right">
-		<div class="btn login-btn"><button onclick="location.href='/join/login'">Login</button></div>
-		<div class="btn login-btn"><button onclick="location.href='/my-page/my-page'">마이 페이지</button></div>
+		<div class="btn login-btn"><button onclick="location.href='/join/login'">Login / Sign Up</button></div>
 	</div>
 	</c:if>
 	
 	<!-- 로그인 상태 -->
-	<c:if test="${not empty sessionScope.UI}">
+	<c:if test="${user != null}">
 	<div class="logo"><span><a href="main">코니멀</a></span></div>
 	<ul class="category">
 		<li><a href="">코니멀소개</a></li>
@@ -37,8 +34,8 @@
 	</ul>
 
 	<div class="header-right">
-		<div class="btn login-btn"><button onclick="location.href='/my-page/my-page'">마이 페이지</button></div>
-		<!-- 로그아웃 -->
+		<div class="btn mypage-btn"><button onclick="location.href='/my-page/my-page'">마이페이지</button></div>
+		<div class="btn logout-btn"><button onclick="location.href='/logout'">${nickname} Logout</button></div>
 	</div>
 	</c:if>
 	

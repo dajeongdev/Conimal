@@ -1,5 +1,7 @@
 package kr.com.conimal.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import kr.com.conimal.model.command.LoginCommand;
@@ -18,8 +20,11 @@ public interface UserService {
 	// 닉네임 중복 체크 
 	public int checkNick(String nickname) throws Exception;
 	
+	// 세션 서비스
+	public void setSession(HttpSession session, LoginCommand lc);
+		
 	// 로그인 
-	public int login(LoginCommand lc, HttpSession session);
+	public UserDto login(UserDto userDto);
 	
 	// ID 찾기 (회원정보 가져오기)
 	public UserDto selectUser(String user_id);
@@ -30,6 +35,8 @@ public interface UserService {
 	// API 로그인 
 	public void authentication(UserDto userDto);
 	
-	// 세션 서비스
-	public void setSession(HttpSession session, LoginCommand lc);
+	// 회원정보 가져오기
+	public UserDto getUserInfo(String user_id);
+	
+	
 }
