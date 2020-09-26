@@ -378,6 +378,13 @@ h1 {
 	line-height: 140%;
 }
 
+.noto-sans {
+	font-family: Noto Sans CJK KR;
+	font-weight: bold; 
+}
+
+
+
 h2 {
 	font-style: normal;
 	font-weight: bold;

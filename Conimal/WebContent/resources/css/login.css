@@ -1,4 +1,4 @@
-/* 로그인 */
+/* 濡쒓렇�씤 */
 
 .login-wrapper {
 	width: 622px;
@@ -10,23 +10,26 @@
 
 .login-container{
 	display: flex; 
-	margin-bottom: 43px; 
+	margin-bottom: 75px; 
 }
 
-.login-box{
+.login-box {
 	width: 50%;
+	height: 200px; 
 	border-right: 2px solid #f0f0f0;	
 	flex-direction  : row-reverse;
 	padding-right: 30px;
 	text-align : center; 
 }
 
+.login-btn {
+	width: 200px; 
+}
+
 .user-input  {
-	width: 280px;
+	width: 280px; 
 	text-align:center;	
-	font-weight: bold;
-	margin-bottom: 6px; 
-	margin: 0 auto;
+	font-weight: bold; 
 	margin-bottom: 15px;
 }
 
@@ -68,13 +71,13 @@
 }
 
 .login-api-box{
-	width: 50%;
 	padding-left: 30px; 
+	border-left:1px solid #ddd; 
 }
 
 .login-api {
 	width: 280px;
-	height: 43px; 
+	height: 41px; 
 	border-radius: 5px;
 	line-height: 43px; 
 	text-align: center;
