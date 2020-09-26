@@ -12,7 +12,7 @@
 <div class = "page-container">
 	<div class="join-container">
 		
-		<h4 class="marB_50">회원가입</h4>
+		<h2 class="navy noto-sans marB_60">회원가입</h2>
 			
 		<div class="join-api-box">
 			<button class="login-api" onclick="location.href='/join/join-form'">이메일로 회원가입</button>

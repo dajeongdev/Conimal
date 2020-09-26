@@ -12,16 +12,21 @@
 	
 	<!-- 비로그인 상태 -->
 	<c:if test="${user == null}">
-	<div class="logo"><span><a href="main">코니멀</a></span></div>
+	<div class="logo"><a href="main">코니멀</a></div>
 	<ul class="category">
 		<li><a href="">코니멀소개</a></li>
 		<li><a href="/pet_dictionary/pet_dictionary">펫과사전</a></li>
 		<li><a href="/community/community-list">커뮤니티</a></li>
 	</ul>
-
-	<div class="header-right">
-		<div class="btn login-btn"><button onclick="location.href='/join/login'">Login / Sign Up</button></div>
+	 
+	 <div class="header-right">
+		<a href='/join/login'">로그인 및 회원가입</a>
 	</div>
+	 
+	
+		
+	
+	
 	</c:if>
 	
 	<!-- 로그인 상태 -->

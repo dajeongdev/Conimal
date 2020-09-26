@@ -1,30 +1,31 @@
 /* margin */
 
-.marT_10 { margin-top: 10px;}
-.marT_20 { margin-top: 20px;}
-.marT_30 { margin-top: 30px;}
-.marT_40 { margin-top: 40px;}
-.marT_50 { margin-top: 50px;}
+.marT_10 { margin-top: 10px !important;}
+.marT_20 { margin-top: 20px !important;}
+.marT_30 { margin-top: 30px !important;}
+.marT_40 { margin-top: 40px !important;}
+.marT_50 { margin-top: 50px !important;}
 
-.marB_10 { margin-bottom: 10px;}
-.marB_20 { margin-bottom: 20px;}
-.marB_30 { margin-bottom: 30px;}
-.marB_40 { margin-bottom: 40px;}
-.marB_45 { margin-bottom: 45px;}
-.marB_50 { margin-bottom: 50px;}
-.marB_60 { margin-bottom: 60px;}
+.marB_10 { margin-bottom: 10px !important; }
+.marB_20 { margin-bottom: 20px !important;}
+.marB_30 { margin-bottom: 30px !important;}
+.marB_40 { margin-bottom: 40px !important;}
+.marB_45 { margin-bottom: 45px !important;}
+.marB_50 { margin-bottom: 50px !important;}
+.marB_60 { margin-bottom: 60px !important;}
+.marB_75 { margin-bottom: 75px !important;}
 
-.marR_10 { margin-right: 10px;}
-.marR_20 { margin-right: 20px;}
-.marR_30 { margin-right: 30px;}
-.marR_40 { margin-right: 40px;}
-.marR_50 { margin-right: 50px;}
+.marR_10 { margin-right: 10px !important;}
+.marR_20 { margin-right: 20px !important;}
+.marR_30 { margin-right: 30px !important;}
+.marR_40 { margin-right: 40px !important;}
+.marR_50 { margin-right: 50px !important;}
 
-.marL_10 { margin-left: 10px;}
-.marL_20 { margin-left: 20px;}
-.marL_30 { margin-left: 30px;}
-.marL_40 { margin-left: 40px;}
-.marL_50 { margin-left: 50px;}
+.marL_10 { margin-left: 10px !important;}
+.marL_20 { margin-left: 20px !important;}
+.marL_30 { margin-left: 30px !important;}
+.marL_40 { margin-left: 40px !important;}
+.marL_50 { margin-left: 50px !important;}
 
 .mar0_auto { margin: 0 auto; }
 
@@ -40,7 +41,7 @@
 }
 
 
-/* 색상 */
+/* �깋�긽 */
 
 .black {
 	background : #000;
@@ -60,7 +61,7 @@
 
 
 
-/* 클리어 */
+/* �겢由ъ뼱 */
 .clr:after {
 	content: '';
 	clear: both;
@@ -68,7 +69,7 @@
 }
 
 
-/* 공통 */
+/* 怨듯넻 */
 
 .bold {
 	font-weight: bold; 
@@ -79,7 +80,7 @@
 
 .btn {
 	padding: 0 25px;
-	height:43px;
+	height:41px;
 	border: 2px solid #002F6C;
 	box-sizing: border-box;
 	border-radius: 5px;
@@ -105,7 +106,7 @@
 
 
 
-/* link 링크 */
+/* link 留곹겕 */
 
 .link {
 	font-size: 16px;
@@ -120,18 +121,13 @@
 	font-weight: bold;
 	font-size: 14px;
 	line-height:21px;
-	color: black; 
+	color: #c8c8c8; 
 	text-decoration: none; 
 	display:block;
 	text-align:center;
 	margin-bottom: 8px;
 	
 }
-
-.text-button
-
-
-
 
 
 /* input */
@@ -152,7 +148,7 @@ textarea {
 	border: 2px solid #C8C8C8;
 	box-sizing: border-box;
 	border-radius: 5px;
-	height: 43px; 
+	height: 41px; 
 	width: 100%; 
 	padding: 10px 25px; 
 	font-size: 16px;
@@ -178,7 +174,7 @@ input.navy {
 
 
 
-/* 태그 tag */
+/* �깭洹� tag */
 
 .tag-name{
 	display:inline-block;
@@ -211,7 +207,7 @@ input.navy {
 
 
 
-/* 페이징 paging pagination */
+/* �럹�씠吏� paging pagination */
 .pagination {
 	width: 200px;
 	margin: 0 auto; 
