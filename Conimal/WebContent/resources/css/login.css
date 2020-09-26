@@ -2,7 +2,7 @@
 
 .login-wrapper {
 	width: 622px;
-	padding: 130px 0px 80px; 
+	/* padding: 130px 0px 80px; */ 
 	margin: 0 auto; 
 	text-align: center; 
 }
@@ -31,6 +31,7 @@
 	text-align:center;	
 	font-weight: bold; 
 	margin-bottom: 15px;
+	display:inline-block;
 }
 
 .user-input input{
@@ -49,10 +50,6 @@
 	display:none;;
 }
 
-.user-email {
-	width: 200px !important;
-	vertical-align: middle;
-}
 
 .auth_btn  {
 	width: 70px; 
@@ -109,10 +106,16 @@
 /* join */
 
 .join-container {
-	padding: 130px 50px 80px; 
+	/* padding: 130px 50px 80px; */ 
 	font-size: 14px;
 	font-weight: 800; 
 	text-align: center; 
+}
+
+.join-box {
+	width: 300px; 
+	margin: 0 auto ;
+	text-align:center;	
 }
 
 .join-api-box {
