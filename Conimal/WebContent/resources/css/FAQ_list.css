@@ -1,9 +1,3 @@
-
-.header{
-    padding-left: 50px;
-    padding-top: 30px;
-}
-
 #whole-container{
     width:860px; 
     margin:auto;
@@ -53,32 +47,3 @@
     line-height: 24px;
 }
 
-/* footer section */
-
-#footer{
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    margin-bottom: 30px;
-    width: 100%;
-}
-
-.footer{
-    display: flex;
-    justify-content: space-between;
-}
-.footer span{
-    font-size: 10px;
-}
-.right{
-    display: flex;
-}
-.left{
-    margin-left: 50px;
-}
-.right{
-    margin-right: 50px;
-}
-.right-element{
-    margin-left: 30px;
-}
