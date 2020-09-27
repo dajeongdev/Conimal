@@ -22,7 +22,7 @@
 						<input class="search-input" type ="text" placeholder ="검색어를 입력하세요"/>
 						<button class="btn small-btn">10개</button>	
 					</div>
-					<button class="btn small-btn">글쓰기</button>
+					<button class="btn small-btn" onclick="location.href='/community/community-write-form'">글쓰기</button>
 				</div>
 				
 				<div class="tags">

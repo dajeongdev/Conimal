@@ -3,6 +3,7 @@ package kr.com.conimal.dao;
 import java.util.List;
 import java.util.Map;
 
+import kr.com.conimal.model.command.CommunityCommand;
 import kr.com.conimal.model.command.PagingCommand;
 import kr.com.conimal.model.dto.BoardUsedTagDto;
 import kr.com.conimal.model.dto.CommentDto;
@@ -29,6 +30,7 @@ public interface CommunityDao {
 	// 글 보기 
 	public CommunityDto readCommunity(int community_idx);
 	public List<CommunityFileDto> readCommunityFile(int community_idx);
+	public List<TagDto> readTag(int board_idx);
 	
 	// 댓글 보기 
 	public List<CommentDto> readComment(int community_idx);

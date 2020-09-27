@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kr.com.conimal.model.command.CommunityCommand;
 import kr.com.conimal.model.command.PagingCommand;
 import kr.com.conimal.model.dto.CommentDto;
 import kr.com.conimal.model.dto.CommunityDto;
@@ -31,6 +32,8 @@ public interface CommunityService {
 		public CommunityDto readCommunity(int community_idx);
 		public List<CommunityFileDto> readCommunityFile(int community_idx);
 		public List<TagDto> readTag(int community_idx);
+		
+		public CommunityCommand getContent(int community_idx);
 		
 		// 댓글 보기 
 		public List<CommentDto> readComment(int community_idx);

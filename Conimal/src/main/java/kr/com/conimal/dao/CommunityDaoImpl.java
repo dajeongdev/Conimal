@@ -59,6 +59,11 @@ public class CommunityDaoImpl extends SqlSessionDaoSupport implements CommunityD
 	public List<CommunityFileDto> readCommunityFile(int community_idx) {
 		return getSqlSession().selectList("community.readCommunityFile", community_idx);
 	}
+	
+	@Override
+	public List<TagDto> readTag(int board_idx) {
+		return getSqlSession().selectList("tag.getTag", board_idx);
+	}
 
 	@Override
 	public List<CommentDto> readComment(int community_idx) {

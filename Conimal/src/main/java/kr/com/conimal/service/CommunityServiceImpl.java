@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.com.conimal.dao.CommunityDao;
+import kr.com.conimal.model.command.CommunityCommand;
 import kr.com.conimal.model.command.FileUploadCommand;
 import kr.com.conimal.model.command.PagingCommand;
 import kr.com.conimal.model.dto.CommentDto;
@@ -22,6 +23,8 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Autowired
 	CommunityDao dao;
+	
+	CommunityDto dto;
 	
 	@Autowired
 	FileUploadService fileService;
@@ -57,6 +60,22 @@ public class CommunityServiceImpl implements CommunityService {
 		return i;
 	}
 	
+	public CommunityDto requesting(MultipartHttpServletRequest request) {
+		dto = new CommunityDto();
+		
+		if(request.getParameter("community_idx") != null && request.getParameter("community_idx") == "") {
+			dto.setCommunity_idx(Integer.parseInt(request.getParameter("community_idx")));
+		}
+		Integer community_idx = (Integer) request.getAttribute("community_idx");
+		if(community_idx != null) {
+			dto.setCommunity_idx(community_idx);
+		}
+		dto.setContent(request.getParameter("content"));
+		dto.setTitle(request.getParameter("title"));
+		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		return dto;
+	}
+	
 	@Override
 	public void writeCommunityFile(int community_idx, MultipartHttpServletRequest request) {
 		List<FileUploadCommand> files = fileService.upload(request, "/img/community");
@@ -74,8 +93,8 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int writeComment(CommentDto comment) {
-		// TODO Auto-generated method stub
-		return 0;
+		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		return dao.writeComment(comment);
 	}
 
 	@Override
@@ -90,7 +109,18 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public List<TagDto> readTag(int community_idx) {
-		return null;
+		return dao.readTag(community_idx);
+	}
+	
+	@Override
+	public CommunityCommand getContent(int community_idx) {
+		CommunityCommand com = new CommunityCommand();
+		
+		dto = dao.readCommunity(community_idx);
+		List<CommunityFileDto> fileDto = dao.readCommunityFile(community_idx);
+		com.setCommunity(dto);
+		com.setFile(fileDto);
+		return com;
 	}
 
 	@Override
@@ -110,26 +140,23 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int editCommunity(CommunityDto community) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int editComment(CommentDto comment) {
-		// TODO Auto-generated method stub
-		return 0;
+		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		return dao.editComment(comment);
 	}
 
 	@Override
 	public int deleteCommunity(int community_idx) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.deleteCommunity(community_idx);
 	}
 
 	@Override
 	public int deleteComment(int comment_idx) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.deleteComment(comment_idx);
 	}
 	
 }
