@@ -54,10 +54,15 @@ header {
 /* �럹�씠吏� 而⑦뀒�씠�꼫  */
 
 .page-container{
-	/* width: 1060px; */ 
+	width: 1060px;  
 	margin: 80px auto; 
 	min-height: 533px; 
 
+}
+
+.page-container.my-page {
+	display: flex;
+	justify-contents: space-between; 
 }
 
 
@@ -141,7 +146,7 @@ aside {
 	padding : 50px 20px; 
 	box-sizing: border-box;
 	border: 2px solid #F0F0F0; 
-	float: left;
+	margin-right: 20px; 
 	text-align:center;  
 }
 
@@ -163,6 +168,7 @@ aside {
 	margin-bottom: 37px; 
 }
 
+
 .my-page-list li {
 	line-height: 23px; 
 	font-size: 16px; 
@@ -182,7 +188,6 @@ aside {
 .sub-container {
 	width: 790px;
 	height: auth;
-	float: right; 
 	border: 2px solid #F0F0F0;
 	box-sizing: border-box;
 	padding: 46px; 
