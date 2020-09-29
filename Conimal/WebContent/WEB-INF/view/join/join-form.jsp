@@ -154,6 +154,7 @@ $(document).ready(function() {
 <%@ include file="../include/header.jsp" %>
 <div class = "page-container">
 	<div class="join-container">
+		<h2 class="navy noto-sans marB_60">회원가입</h2>
 		<div class="join-box">
 			<form method="post">
 			<div class="user-input" >
@@ -177,7 +178,7 @@ $(document).ready(function() {
 				<p class="err-msg" ></p>
 			</div>
 			<div class="user-input">
-				<input class="user-email" id="user-email" name="email" type="text" placeholder="이메일" />
+				<input id="user-email" name="email" type="text" placeholder="이메일" />
 				<div id="check_email"></div>
 				<p class="err-msg"></p>
 			</div>

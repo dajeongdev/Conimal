@@ -2,15 +2,19 @@
 	pageEncoding="UTF-8"%>
 <footer>
 
-	<div class="copyright">
-		<span>Copyright Conimal. All Rights Reserved.</span>
-	</div>
-	<div class="terms">
-		<div class="right-element">
-			<span>이용약관</span>
+	<div class="footer">
+		<div class="footer-logo">
+			코니멀
 		</div>
-		<div class="right-element">
-			<span>개인정보취급방침</span>
+		<div class="footer-right">
+			<ul class="terms">
+				<li>개인정보 처리방침</li>
+				<li>자주 묻는 질문</li>
+				<li>문의 conimal.project@gmail.com</li>
+			</ul>
+			<div class="copyright">
+				<span>© Copyright 2020 Conimal. All Rights Reserved.</span>
+			</div>
 		</div>
 	</div>
 

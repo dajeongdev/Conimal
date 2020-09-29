@@ -1,3 +1,28 @@
+/* conimal */
+
+.conimal-detail {
+	width: 100%; 
+	background: #F0F0F0;
+	padding: 40px; 
+}
+
+.conimal-top {
+	display:flex; 
+	justify-contents : space-between;
+}
+
+.conimal-info {
+	font-weight: bold; 
+	line-height: 40px; 
+}
+
+.conimal-intended {
+	
+}
+
+
+
+
 .badge-box {
 	overflow: scroll-x;
 }

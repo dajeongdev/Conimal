@@ -65,20 +65,21 @@ $(document).ready(function() {
 <div class = "page-container">
 
 	<div class="login-wrapper">
-		<h4 class="marB_20">코니멀에 오신 것을 환영합니다</h4>
-		<p class="marB_45 bold">로그인을 하시면 펫과사전과 커뮤니티에 참여하실 수 있습니다</p>
+		<h2 class="navy noto-sans marB_75">로그인</h2>
 		<div class="login-container">
 			<c:if test="${user == null}">
-			<form action="/login/login-success" method="post">
-			<div class="login-box">		
-				<div><input class="user-input" type="text" id="user-id" name="user_id" placeholder="아이디"/><div id="check_id"></div></div>
-				<div><input class="user-input" type="password" id="user-pwd" name="password" placeholder="비밀번호"/><div id="check_pwd"></div></div>
-				<button class="btn mar0_auto" id="login-btn">로그인</button>
-			</div>
+			
+			<div class="login-box">
+			<form action="/login/login-success" method="post">		
+				<div class="user-input"><input type="text" id="user-id" name="user_id" placeholder="아이디"/><div id="check_id"></div></div>
+				<div class="user-input marB_30"><input type="password" id="user-pwd" name="password" placeholder="비밀번호"/><div id="check_pwd"></div></div>
+				<button class="btn login-btn mar0_auto" id="login-btn">로그인</button>
 			</form>
+			</div>
+			
 			</c:if>
 			
-			<div class="login-api-box">
+			<div class="login-box login-api-box">
 				<button class="login-api" id="google-api">구글 아이디로 로그인</button>
 				<button class="login-api" id="kakao-api">카카오 아이디로 로그인</button>
 			</div>

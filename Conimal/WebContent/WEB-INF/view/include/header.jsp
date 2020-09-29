@@ -18,10 +18,15 @@
 		<li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li>
 		<li><div onClick="document.location.href='/community/community-list'">커뮤니티</div></li>
 	</ul>
-
-	<div class="header-right">
-		<div class="btn login-btn"><button onclick="location.href='/join/login'">Login / Sign Up</button></div>
+	 
+	 <div class="header-right">
+		<a href='/join/login'">로그인 및 회원가입</a>
 	</div>
+	 
+	
+		
+	
+	
 	</c:if>
 	
 	<!-- 로그인 상태 -->
