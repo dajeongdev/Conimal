@@ -131,7 +131,7 @@ public class UserController {
 		return "redirect:/main";
 	}
 	
-	// 아이디 찾기 페이지 이동
+	// ID 찾기 페이지 이동
 	@RequestMapping(value = "/join/findId", method = RequestMethod.GET)
 	public String findIdPage() {
 		System.out.println("UserController 아이디 찾기 페이지 이동");
