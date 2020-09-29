@@ -4,10 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>코니멀 회원가입을 환영합니다!</title>
+	<meta charset="UTF-8">
+	<title>코니멀 회원가입을 환영합니다!</title>
+	<%@ include file="../include/head.jsp" %>
 </head>
 <body>
+	<%@ include file="../include/header.jsp" %>
 	<div style="margin: 100px;">
 		<a><!-- 로고 --></a>
 		<br><br>
@@ -17,5 +19,6 @@
 		<h3>로그인 하시면 홈페이지 내의 모든 서비스를 이용하실 수 있습니다.</h3><br> 
 		<a href="${pageContext.request.contextPath}/join/login">로그인 하러 가기</a>
 	</div>
+	<%@ include file="../include/footer.jsp" %>
 </body>
 </html>

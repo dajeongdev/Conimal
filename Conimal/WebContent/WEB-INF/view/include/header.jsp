@@ -12,11 +12,11 @@
 	
 	<!-- 비로그인 상태 -->
 	<c:if test="${user == null}">
-	<div class="logo"><span><a href="main">코니멀</a></span></div>
+	<div class="logo"><span onClick="document.location.href='main'">코니멀</span></div>
 	<ul class="category">
-		<li><a href="">코니멀소개</a></li>
-		<li><a href="/pet_dictionary/pet_dictionary">펫과사전</a></li>
-		<li><a href="/community/community-list">커뮤니티</a></li>
+		<li><div onClick="document.location.href='#'">코니멀소개</div></li>
+		<li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li>
+		<li><div onClick="document.location.href='/community/community-list'">커뮤니티</div></li>
 	</ul>
 
 	<div class="header-right">
@@ -26,11 +26,11 @@
 	
 	<!-- 로그인 상태 -->
 	<c:if test="${user != null}">
-	<div class="logo"><span><a href="main">코니멀</a></span></div>
+	<div class="logo"><span onClick="document.location.href='main'">코니멀</span></div>
 	<ul class="category">
-		<li><a href="">코니멀소개</a></li>
-		<li><a href="/pet_dictionary/pet_dictionary">펫과사전</a></li>
-		<li><a href="/community/community-list">커뮤니티</a></li>
+		<li><div onClick="document.location.href='#'">코니멀소개</div></li>
+		<li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li>
+		<li><div onClick="document.location.href='/community/community-list'">커뮤니티</div></li>
 	</ul>
 
 	<div class="header-right">

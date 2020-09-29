@@ -84,7 +84,8 @@ $(document).ready(function() {
 			</div>
 		</div>
 		<div class="user-find-box">
-			<a href ="/join/find" class="text-button">아이디 / 비밀번호 찾기</a>
+			<a href ="/join/findId" class="text-button">아이디 찾기</a>
+			<a href ="/join/findPwd" class="text-button">비밀번호 찾기</a>
 			<a href ="/join/join-select" class="text-button">회원가입</a>
 		</div>
 	

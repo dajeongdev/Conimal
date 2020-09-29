@@ -1,16 +1,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
+<!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Home</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
 
 <body>
 	<%@ include file="../include/header.jsp" %>
+	<c:if test="${info.user_idx eq session.userDto.user_idx}">
+		<c:set var="isOwnPet" value="Y" />
+	</c:if>
 	<div class = "page-container">
-	
+	<input type="hidden" name="user_idx" value="1" readonly />
 		<div class="community-container">
 		
 			<div class="community-intro">

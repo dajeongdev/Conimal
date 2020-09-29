@@ -51,7 +51,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int writeCommunity(CommunityDto community, MultipartHttpServletRequest request) {
-		community.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		community.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		int i = dao.writeCommunity(community);
 		int d = community.getCommunity_idx();
 		if(d > 0) {
@@ -72,7 +72,7 @@ public class CommunityServiceImpl implements CommunityService {
 		}
 		dto.setContent(request.getParameter("content"));
 		dto.setTitle(request.getParameter("title"));
-		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		return dto;
 	}
 	
@@ -93,7 +93,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int writeComment(CommentDto comment) {
-		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		return dao.writeComment(comment);
 	}
 
@@ -145,7 +145,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int editComment(CommentDto comment) {
-		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 		return dao.editComment(comment);
 	}
 
