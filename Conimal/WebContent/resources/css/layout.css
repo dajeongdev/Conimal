@@ -1,23 +1,19 @@
-/* 헤더 영역 */
+/* �뿤�뜑 �쁺�뿭 */
 
 
 header {
-	height: 90px; 
-	/* background-color : #fff; */ 
-  color: #fff;
-  width: 1060px;
-	padding: 30px 50px; 
-/* 	box-sizing: border-box; */
-	text-align: center; 
-	position: fixed; 
-	top : 0; 
-	z-index : 1000;
+  max-width: 1060px;
+  width: auto; 
+  padding: 30px; 
+  z-index : 1000;
   margin: 0 auto;
+ 
 }
 
 .logo {
 	font-size: 30px;
 	display:inline-block;
+	margin-right: 50px; 
 }
 
 .category {
@@ -28,8 +24,15 @@ header {
 
 .category li {
 	float: left; 
-	width: 100px; 
+	padding: 0 15px; 
+	font-weight: bold;  
+	font-size: 16px; 
 }
+
+.category li:first-of-type {
+	padding-left: 0px;  
+}
+
 
 .category li.active{
 	border: 2px solid #ddd; 
@@ -40,28 +43,26 @@ header {
 .header-right {
 	float:right;
 	display:inline-block; 
-	/* height: 100px;  */
-}
-
-header .login-btn {
-	background: #fff;
-  color: #002F6C;
-  width: 175px;
-  font-weight: bold;
-	
+	font-weight: bold;  
+	font-size: 16px; 
+	line-height: 30px; 
 }
 
 
 
 
-/* 페이지 컨테이너  */
+/* �럹�씠吏� 而⑦뀒�씠�꼫  */
 
 .page-container{
-	width: 1060px; 
-	margin: auto; 
-	margin-top: 120px; 
-	padding-top: 30px; 
-	
+	width: 1060px;  
+	margin: 80px auto; 
+	min-height: 533px; 
+
+}
+
+.page-container.my-page {
+	display: flex;
+	justify-contents: space-between; 
 }
 
 
@@ -69,7 +70,7 @@ header .login-btn {
 
 
 
-/* 메인 컨텐츠 */
+/* 硫붿씤 而⑦뀗痢� */
 .main-container {
 	display: flex;
 	position: relative;
@@ -88,7 +89,7 @@ header .login-btn {
 
 
 
-/* 메인 펫과사전 */
+/* 硫붿씤 �렖怨쇱궗�쟾 */
 
 .pet-dictionary{
 	background: #ddd;
@@ -137,7 +138,7 @@ header .login-btn {
 
 
 
-/* 사이드메뉴 영역 aisde */
+/* �궗�씠�뱶硫붾돱 �쁺�뿭 aisde */
 
 aside {
 	width: 250px; 
@@ -145,7 +146,7 @@ aside {
 	padding : 50px 20px; 
 	box-sizing: border-box;
 	border: 2px solid #F0F0F0; 
-	float: left;
+	margin-right: 20px; 
 	text-align:center;  
 }
 
@@ -167,6 +168,7 @@ aside {
 	margin-bottom: 37px; 
 }
 
+
 .my-page-list li {
 	line-height: 23px; 
 	font-size: 16px; 
@@ -181,12 +183,11 @@ aside {
 }
 
 
-/* 서브 컨테이너 */
+/* �꽌釉� 而⑦뀒�씠�꼫 */
 
 .sub-container {
 	width: 790px;
 	height: auth;
-	float: right; 
 	border: 2px solid #F0F0F0;
 	box-sizing: border-box;
 	padding: 46px; 
@@ -195,35 +196,50 @@ aside {
 
 
 
-/* 푸터 영역 */
+/* �뫖�꽣 �쁺�뿭 */
 
 footer{
     /* position: fixed; */
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 80px; 
+    width: 100%; 
     box-sizing: border-box;
-    padding: 30px 50px;
+    padding: 50px;
+    font-size: 13px; 
+    z-index : 1000;
+    background: #f0f0f0; 
+}
+
+.footer {
+	max-width: 1060px;
+	margin: 0 auto; 
     display: flex;
     justify-content: space-between; 
-    font-size: 13px; 
-    position: fixed; 
-  	left: 0;
-    bottom: 0;
-    z-index : 1000;
 }
 
-
-.copyright{
-   display: flex;
+.footer-logo {
+	
 }
 
+.footer-right{
+	text-align:right;	
+}
 
 .terms{
     display: flex;
-    margin-right: 50px;
+    margin-bottom: 15px; 
 }
+
+.terms li {
+	margin-right: 20px; 
+}
+
+.terms li:last-of-type {
+	margin-right: 0px; 
+}
+
+.terms li::after {
+	content="|"
+}
+
 
 .right-element{
     margin-left: 30px;
