@@ -1,15 +1,13 @@
 package kr.com.conimal.model.dto;
 
-import java.util.Date;
-
 public class CommunityDto {
 	private int community_idx;
 	private int user_idx; // 회원 번호 
 	private String title; // 제목 
 	private String content; // 내용 
 	private int hit; // 조회수 
-	private Date reg_date;
-	private Date update_date;
+	private String reg_date;
+	private String update_date;
 	private char show_yn; // default 'Y'
 	private char del_yn; // default 'N'
 	
@@ -43,16 +41,16 @@ public class CommunityDto {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public Date getUpdate_date() {
+	public String getUpdate_date() {
 		return update_date;
 	}
-	public void setUpdate_date(Date update_date) {
+	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
 	}
 	public char getShow_yn() {
