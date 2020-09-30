@@ -9,8 +9,7 @@ public class CommentDto {
 	private String content; // 내용 
 	private int parent_comment_idx; // 상위 댓글 번호 
 	private int depth; // 답글 단계 
-	private Date reg_date;
-	private Date update_date;
+	private String reg_date;
 	private char del_yn; // default 'N'
 	
 	public int getComment_idx() {
@@ -49,17 +48,11 @@ public class CommentDto {
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
-	}
-	public Date getUpdate_date() {
-		return update_date;
-	}
-	public void setUpdate_date(Date update_date) {
-		this.update_date = update_date;
 	}
 	public char getDel_yn() {
 		return del_yn;

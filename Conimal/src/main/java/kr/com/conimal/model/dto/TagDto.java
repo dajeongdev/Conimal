@@ -3,7 +3,14 @@ package kr.com.conimal.model.dto;
 public class TagDto {
 	private int tag_idx;
 	private String tag_name;
+	private int user_idx;
 	
+	public int getUser_idx() {
+		return user_idx;
+	}
+	public void setUser_idx(int user_idx) {
+		this.user_idx = user_idx;
+	}
 	public int getTag_idx() {
 		return tag_idx;
 	}

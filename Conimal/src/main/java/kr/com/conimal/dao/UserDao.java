@@ -30,8 +30,11 @@ public interface UserDao {
 	// 로그인 
 	public UserDto login(UserDto userDto);
 	
-	// ID 찾기
-	public UserDto findId(String user_id);
+	// 회원 정보 가져오기
+	public UserDto selectUser(String user_id);
+	
+	// 아아디 찾기
+	public String findId(String email);
 	
 	/* 비밀번호 찾기
 	public List<UserDto> findPassword(UserDto userDto);*/

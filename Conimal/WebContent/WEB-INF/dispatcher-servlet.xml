@@ -9,10 +9,16 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<bean id="userDa" class="kr.com.conimal.dao.UserDaoImpl">
+	<bean id="userDao" class="kr.com.conimal.dao.UserDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 	<bean id="mypageDao" class="kr.com.conimal.dao.MypageDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="communityDao" class="kr.com.conimal.dao.CommunityDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<bean id="tagDao" class="kr.com.conimal.dao.TagDao">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
 	

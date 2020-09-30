@@ -48,7 +48,7 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	}
 	
 	@Override
-	public UserDto findId(String user_id) {
+	public UserDto selectUser(String user_id) {
 		System.out.println("UserDaoImpl findId() 호출");
 		return getSqlSession().selectOne("user.findId", user_id);
 	}
@@ -68,6 +68,11 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	@Override
 	public UserDto getUserInfo(String user_id) {
 		return getSqlSession().selectOne("user.getUserInfo", user_id);
+	}
+	
+	@Override
+	public String findId(String email) {
+		return getSqlSession().selectOne("user.findId", email);
 	}
 	
 	@Override

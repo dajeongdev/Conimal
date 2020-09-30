@@ -72,7 +72,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto selectUser(String user_id) {
-		return dao.findId(user_id);
+		return dao.selectUser(user_id);
+	}
+	
+	@Override
+	public String findId(String email) {
+		return dao.findId(email);
 	}
 	
 	@Override
