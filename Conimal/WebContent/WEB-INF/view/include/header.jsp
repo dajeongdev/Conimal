@@ -19,9 +19,7 @@
 		<li><div onClick="document.location.href='/community/community-list'">커뮤니티</div></li>
 	</ul>
 	 
-	 <div class="header-right">
-		<a href='/join/login'">로그인 및 회원가입</a>
-	</div>
+	 	 <a class="header-right" href='/join/login'">로그인 및 회원가입</a>
 	 
 	
 		
