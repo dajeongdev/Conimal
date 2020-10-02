@@ -1,5 +1,6 @@
 package kr.com.conimal.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,13 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	public int join(UserDto userDto) throws Exception {
 		System.out.println("UserDaoImpl join() 호출");
 		return getSqlSession().insert("user.join", userDto);
+	}
+	
+	@Override
+	public int checkNick(String nickname) throws Exception {
+		int i = getSqlSession().selectOne("user.checkNick", nickname);
+		System.out.println("UserDaoImpl checkNick() 호출");
+		return i;
 	}
 
 	@Override
@@ -31,26 +39,16 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	}
 	
 	@Override
-	public int getUserKey(String user_id, String user_key) throws Exception {
-		return getSqlSession().update("user.getUserKey");
-	}
-
-	@Override
-	public int updUserKey(String user_id, String user_key) throws Exception {
-		return getSqlSession().update("user.updUserKey");
-	}
-
-	@Override
-	public int checkNick(String nickname) throws Exception {
-		int i = getSqlSession().selectOne("user.checkNick", nickname);
-		System.out.println("UserDaoImpl checkNick() 호출");
-		return i;
+	public int getUserKey(Map<String, Object> map, String user_id, String user_key) throws Exception {
+		map = new HashMap<String, Object>();
+		map.put("user_id", user_id);
+		map.put("user_key", user_key);
+		return getSqlSession().update("user.getUserKey", map);
 	}
 	
 	@Override
-	public UserDto selectUser(String user_id) {
-		System.out.println("UserDaoImpl findId() 호출");
-		return getSqlSession().selectOne("user.findId", user_id);
+	public int updUserKey(String user_id) {
+		return getSqlSession().update("user.updUserKey", user_id);
 	}
 
 	@Override
@@ -76,10 +74,24 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	}
 	
 	@Override
+	public UserDto findPwd(String user_id) {
+		return getSqlSession().selectOne("user.findPwd", user_id);
+	}
+	
+	@Override
+	public int findPassword(String user_id, String email, String key) {
+		return getSqlSession().update("user.findPassword");
+	}
+	
+	@Override
 	public void authentication(UserDto userDto) {
 		System.out.println("UserDaoImpl authentication() 호출");
 		getSqlSession().insert("user.authentication", userDto);
-		
+	}
+
+	@Override
+	public UserDto selectUser(String user_id) {
+		return null;
 	}
 
 }

@@ -20,7 +20,7 @@
 	</ul>
 	 
 	 <div class="header-right">
-		<a href='/join/login'">로그인 및 회원가입</a>
+		<a href='/join/login'>로그인 및 회원가입</a>
 	</div>
 	 
 	

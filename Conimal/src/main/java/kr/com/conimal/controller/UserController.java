@@ -42,14 +42,12 @@ public class UserController {
 	// 회원가입 선택 페이지로 이동 
 	@RequestMapping(value = "/join/join-select")
 	public String joinPage() {
-		System.out.println("회원가입 선택 페이지 이동");
 		return "/join/join-select";
 	}
 	
 	// 회원가입 입력 페이지로 이동 
 	@RequestMapping(value = "/join/join-form")
 	public String joinForm() {
-		System.out.println("회원가입 입력 페이지 이동");
 		return "/join/join-form";
 	}
 	
@@ -57,7 +55,6 @@ public class UserController {
 	@RequestMapping(value = "/join-form/checkId", method = RequestMethod.GET)
 	@ResponseBody // ajax 사용 
 	public int checkId(@RequestParam("user_id") String user_id) throws Exception {
-		System.out.println("UserController checkId() 호출");
 		int result = us.checkId(user_id);
 		return result;
 	} 
@@ -66,7 +63,6 @@ public class UserController {
 	@RequestMapping(value = "/join-form/checkEmail", method = RequestMethod.GET)
 	@ResponseBody
 	public int checkEmail(@RequestParam("email") String email) throws Exception {
-		System.out.println("UserController checkEmail() 호출");
 		int result = us.checkEmail(email);
 		return result;
 	} 
@@ -75,29 +71,25 @@ public class UserController {
 	@RequestMapping(value = "/join-form/checkNick", method = RequestMethod.GET)
 	@ResponseBody
 	public int checkNick(@RequestParam("nickname") String nickname) throws Exception {
-		System.out.println("UserController checkNick() 호출");
 		int result = us.checkNick(nickname);
 		return result;
 	} 
 	
 	// 회원가입
 	@RequestMapping(value = "/join/join-form", method = RequestMethod.POST)
-	public String join(UserDto userDto, HttpServletRequest request, HttpSession session) throws Exception {
-		System.out.println("UserController join() 진입");
+	public String join(UserDto userDto, HttpServletRequest request) throws Exception {
 		// 회원가입 메서드
 		us.join(userDto);
 		// 인증 메일 보내기 메서드 
-		System.out.println("UserController 인증 메일 보내기");
-		emailService.sendEmail(userDto.getEmail(), userDto.getNickname(), request);
-
+		emailService.sendEmail(userDto.getEmail(), userDto.getUser_id(), request);
 		return "redirect:/";
 	}
 	
 	// 이메일 인증 
-	@RequestMapping(value = "/join-form/updUserKey", method = RequestMethod.GET)
-	public String updUserKey(@RequestParam("user_id") String user_id, @RequestParam("user_key") String user_key) throws Exception {
-		emailService.updUserKey(user_id, user_key);
-		return "join/join-success";
+	@RequestMapping(value = "/updUserKey", method = RequestMethod.GET)
+	public String updUserKey(@RequestParam("user_id") String user_id) throws Exception {
+		emailService.updUserKey(user_id);
+		return "/join/join-success";
 	}
 	
 	// 로그인 페이지로 이동 
@@ -152,6 +144,14 @@ public class UserController {
 	}
 	
 	// 비밀번호 찾기 
+	@RequestMapping(value = "/join/findPwd", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView findPwd(@RequestParam String user_id, @RequestParam String email, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		emailService.sendPwd(user_id, email, request);
+		mav.setViewName("/join/login");
+		return mav;
+	}
 	
 	// API 로그인 
 	

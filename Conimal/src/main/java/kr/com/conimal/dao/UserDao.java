@@ -19,10 +19,10 @@ public interface UserDao {
 	public int checkEmail(String email) throws Exception;
 	
 	// 회원 인증키 생성
-	public int getUserKey(String user_id, String user_key) throws Exception;
+	public int getUserKey(Map<String, Object> map, String user_id, String user_key) throws Exception;
 	
 	// 회원 인증키 확인 
-	public int updUserKey(String user_id, String user_key) throws Exception;
+	public int updUserKey(String user_id);
 	
 	// 닉네임 중복 체크 
 	public int checkNick(String nickname) throws Exception;
@@ -36,8 +36,9 @@ public interface UserDao {
 	// 아아디 찾기
 	public String findId(String email);
 	
-	/* 비밀번호 찾기
-	public List<UserDto> findPassword(UserDto userDto);*/
+	// 비밀번호 찾기
+	public UserDto findPwd(String user_id);
+	public int findPassword(String user_id, String email, String key);
 	
 	// API 로그인 
 	public void authentication(UserDto userDto);

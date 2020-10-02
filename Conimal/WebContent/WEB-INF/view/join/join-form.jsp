@@ -12,8 +12,8 @@
 <script>
 $(document).ready(function() {
 	// 아이디 유효성 검사 (4자리 이상 10자리 이하, 소문자와 숫자 조합)
-	$('#user_id').blur(function() {
-		var user_id = $('#user_id').val();
+	$('#user-id').blur(function() {
+		var user_id = $('#user-id').val();
 		var idR = /^[a-z0-9]{4,10}$/;
 
 		$.ajax({
@@ -29,13 +29,16 @@ $(document).ready(function() {
 					$('#join_submit').attr("disabled", true);
 				} else { // 중복 아님 
 					if(idR.test(user_id)) { // 사용 가능 
+						console.log("아이디 사용 가능!");
 						$('#check_id').text("");
 						$('#join_submit').attr("disabled", false);
 					} else if(user_id == "") { 
+						console.log("아이디 미입력");
 						$('#check_id').text('아이디를 입력해주세요.');
 						$('#check_id').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					} else {
+						console.log("불가능한 아이디");
 						$('#check_id').text('아이디는 소문자와 숫자 4~10자리만 가능합니다.');
 						$('#check_id').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
@@ -43,12 +46,13 @@ $(document).ready(function() {
 				}
 			}, error : function() {
 				console.log("아이디 중복 체크 실패");
+				$('#join_submit').attr("disabled", true);
 			}
 		});
 	});
 	// 닉네임 유효성 검사 (2자리 이상 10자 이내, 특수문자 제외)
-	$('#nickname').blur(function() {
-		var nick = $('#nickname').val();
+	$('#user-nickname').blur(function() {
+		var nick = $('#user-nickname').val();
 		var nickR = /^[a-z0-9]{2,10}$/;
 
 		$.ajax({
@@ -59,18 +63,22 @@ $(document).ready(function() {
 				console.log("1 = 중복, 0 = 사용 가능 : " + data);
 
 				if(data == 1) { // 닉네임 중복!
+					console.log("닉네임 사용 불가");
 					$('#check_nick').text('이미 사용 중인 닉네임입니다.');
 					$('#check_nick').css('color', 'red');
 					$('#join_submit').attr("disabled", true);
 				} else { // 중복 아님 
 					if(nickR.test(nick)) { // 사용 가능 
+						console.log("닉네임 사용 가능!");
 						$('#check_nick').text("");
 						$('#join_submit').attr("disabled", false);
 					} else if(nick == "") { 
+						console.log("닉네임 미입력");
 						$('#check_nick').text('닉네임을 입력해주세요.');
 						$('#check_nick').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					} else {
+						console.log("불가능한 닉네임");
 						$('#check_nick').text('닉네임은 특수문자 제외 10자리까지만 가능합니다.');
 						$('#check_nick').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
@@ -78,12 +86,13 @@ $(document).ready(function() {
 				}
 			}, error : function() {
 				console.log("닉네임 중복 체크 실패");
+				$('#join_submit').attr("disabled", true);
 			}
 		});
 	});
 	// 이메일 중복 검사
-	$('#email').blur(function() {
-		var email = $('#email').val();
+	$('#user-email').blur(function() {
+		var email = $('#user-email').val();
 		var mailR = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
 		$.ajax({
@@ -104,10 +113,12 @@ $(document).ready(function() {
 						$('#check_email').text("");
 						$('#join_submit').attr("disabled", false);
 					} else if(email == "") { 
+						console.log("이메일 미입력");
 						$('#check_email').text('이메일을 입력해주세요.');
 						$('#check_email').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					} else { 
+						console.log("불가능한 이메일");
 						$('#check_email').text('이메일을 확인해주세요.');
 						$('#check_email').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
@@ -115,18 +126,20 @@ $(document).ready(function() {
 				}
 			}, error : function() {
 				console.log("이메일 중복 체크 실패");
+				$('#join_submit').attr("disabled", true);
 			}
 		});
 	});
 	// 비밀번호 유효성 검사
-	$("#password").blur(function() {
-		var pwd = $("#password").val()
+	$("#user-pwd").blur(function() {
+		var pwd = $("#user-pwd").val()
 		var pwdR = /^[A-Za-z0-9]{8,16}$/; 
 		
-		if(pwdR.test($("#password").val())) {
+		if(pwdR.test($("#user-pwd").val())) {
 			console.log("가능한 비밀번호");
 			$("#check_pwd").text("");
 		} else if (pwd == "") {
+			console.log("비밀번호 미입력");
 			$('#check_pwd').text('비밀번호를 입력해주세요.');
 			$('#check_pwd').css('color', 'red');
 			$('#join_submit').attr("disabled", true);
@@ -142,9 +155,29 @@ $(document).ready(function() {
 			console.log("비밀번호 불일치");
 			$("#cf_pwd").text("비밀번호가 일치하지 않습니다.");
 			$("#cf_pwd").css("color", "red");
+			$('#join_submit').attr("disabled", true);
+		} else if($("#check-pwd").val() == "") {
+			console.log("비밀번호 미입력");
+			$("#cf_pwd").text("비밀번호를 한 번 더 입력해주세요.");
+			$("#cf_pwd").css("color", "red");
+			$('#join_submit').attr("disabled", true);
 		} else {
+			console.log("비밀번호 일치!");
 			$("#cf_pwd").text("");
+			$('#join_submit').attr("disabled", false);
 		}
+	});
+	$("#join_submit").click(function(){
+		if($("#user-nickname").val() != "") {
+			if($("#user-id").val() != "") {
+				if($("#user-pwd").val() != "") {
+					if($("#user-email").val() != "") {
+						alert("인증 이메일을 발송하였습니다. 인증 후 코니멀 서비스를 이용해주세요!");
+					}
+				}
+			}
+		}
+		
 	});
 });
 
@@ -178,7 +211,7 @@ $(document).ready(function() {
 				<p class="err-msg" ></p>
 			</div>
 			<div class="user-input">
-				<input id="user-email" name="email" type="text" placeholder="이메일" />
+				<input id="user-email" type="text" name="email" placeholder="이메일" />
 				<div id="check_email"></div>
 				<p class="err-msg"></p>
 			</div>

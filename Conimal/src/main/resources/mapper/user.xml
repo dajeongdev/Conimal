@@ -3,9 +3,14 @@
 <mapper namespace="user">
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="kr.com.conimal.model.dto.UserDto">
-		insert into user (user_idx, user_id, password, nickname, email, user_key, level, reg_date, update_date, last_login, del_yn) 
-		values (#{user_idx}, #{user_id}, #{password}, #{nickname}, #{email}, null, 1, #{reg_date}, #{update_date}, null, 'N')
+		insert into user (user_idx, user_id, password, nickname, email, level, reg_date, update_date, last_login, del_yn) 
+		values (#{user_idx}, #{user_id}, #{password}, #{nickname}, #{email}, 1, #{reg_date}, #{update_date}, null, 'N')
 	</insert>
+	
+	<!-- 닉네임 중복 체크 -->
+	<select id="checkNick" resultType="int">
+		select COUNT(*) from user where nickname = #{nickname}
+	</select>
 	
 	<!-- 아이디 중복 체크 -->
 	<select id="checkId" resultType="int">
@@ -18,18 +23,13 @@
 	</select>
 	
 	<!-- 회원 인증키 생성 -->
-	<update id="getUserKey" parameterType="Map">
+	<update id="getUserKey" parameterType="HashMap">
 		update user set user_key = #{user_key} where user_id = #{user_id} 
 	</update>
 	<!-- 회원 인증키 확인 -->
-	<update id="updUserKey" parameterType="Map">
-		update user set user_key = 'Y' where user_id = #{user_id} and user_key = #{user_key}
+	<update id="updUserKey" parameterType="String">
+		update user set user_key = 'Y' where user_id = #{user_id}
 	</update>
-	
-	<!-- 닉네임 중복 체크 -->
-	<select id="checkNick" resultType="int">
-		select COUNT(*) from user where nickname = #{nickname}
-	</select>
 	
 	<!-- 회원 정보 가져오기 -->
 	<select id="getUserInfo" resultType="kr.com.conimal.model.dto.UserDto">
@@ -46,9 +46,13 @@
 		select ifnull(user_id, 0) from user where email = #{email}
 	</select>
 	
+	<!-- 임시 비밀번호 -->
+	<select id="findPwd" parameterType="kr.com.conimal.model.dto.UserDto" resultType="kr.com.conimal.model.dto.UserDto">
+		select * from user where user_id = #{user_id}
+	</select>
 	<!-- 비밀번호 찾기 -->
-	<update id="findPassword" parameterType="kr.com.conimal.model.dto.UserDto">
-		update * set user where password = #{password} where email = #{email}
+	<update id="findPassword" parameterType="Map">
+		update user set password = #{param3} where user_id = #{param1} and email = #{param2}
 	</update>
 	
 	<select id="getAll" resultType="kr.com.conimal.model.dto.UserDto">
