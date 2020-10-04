@@ -1,11 +1,5 @@
 /* fonts */
 @font-face {
-  font-family: 'GyeonggiTitle';
-  src: url('/fonts/GyeonggiTitle/woff/Title_Bold.woff') format('woff');
-  font-weight: bold;
-  font-style: normal;
-}
-@font-face {
   font-family: 'GyeonggiTitleM';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff')
     format('woff');
@@ -267,7 +261,33 @@ input.navy {
   color: #002f6c;
 }
 
+/* modal */
+.modal {
+  display: none;
+}
 
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 850px;
+  height: 590px;
+  background: #fff;
+  z-index: 50;
+}
+.showing {
+  display: block;
+}
 
 /* etc */
 .text-center {

@@ -122,10 +122,19 @@
   </section>
 
   <section class="product-section">
+  
+
+  
+    <div class="modal">
+    	<div class="backdrop"></div>
+    	<div class="modal-content"></div>
+    </div>
+    
+    
     
     <div class="product-cards-container">
       <article class="product-card">
-          <div class="product-card-img"><img src="${pageContext.request.contextPath}/resources/imgs/temp.jpg" alt="item"></div>
+          <div class="product-card-img"><img src="${pageContext.request.contextPath}/resources/image/product.png" alt="item"></div>
           <div class="product-card-content">
               <div class="product-kinds">
                   <h3 class="product-kind">고양이</h3>
@@ -357,5 +366,32 @@
   </section>
   
 	<%@ include file="include/footer.jsp" %>
+	<script type="text/javascript">
+const productCards = document.querySelectorAll('.product-card');
+const backdrop = document.querySelector(".backdrop");
+const modal = document.querySelector('.modal');
+const SHOWING = 'showing';
+
+
+const modalClose = () => {
+	modal.classList.remove(SHOWING);
+}
+
+const modalOpen = () => {
+	  modal.classList.add(SHOWING);
+	};
+
+const init = () => {
+  for (let i = 0; i < productCards.length; i++) {
+    productCards[i].addEventListener('click', modalOpen);
+  }
+  backdrop.addEventListener("click",modalClose);
+};
+
+
+init();
+
+</script>
 </body>
+
 </html>
