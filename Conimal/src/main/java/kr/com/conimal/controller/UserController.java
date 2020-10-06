@@ -1,10 +1,26 @@
 package kr.com.conimal.controller;
 
+import java.io.PrintWriter;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,6 +44,16 @@ public class UserController {
 	@Autowired
 	EmailService emailService;
 	
+	@Autowired
+	BCryptPasswordEncoder pwdEncoder;
+	
+	// Google API
+	@Autowired
+	GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	OAuth2Parameters googleOAuth2Parameters;
+	
+	
 	// 메인 페이지 
 	@RequestMapping(value = "main")
 	public ModelAndView selectAll() {
@@ -35,7 +61,6 @@ public class UserController {
 		//List<UserDto> users = ud.getAll();
 		mav.setViewName("main");
 		//mav.addObject("users", users);
-		System.out.println("메인 페이지 이동");
 		return mav;
 	} 
 	
@@ -78,6 +103,10 @@ public class UserController {
 	// 회원가입
 	@RequestMapping(value = "/join/join-form", method = RequestMethod.POST)
 	public String join(UserDto userDto, HttpServletRequest request) throws Exception {
+		// 비밀번호 암호화 
+		/*String pwd = userDto.getPassword();
+		String encoding = pwdEncoder.encode(pwd);
+		userDto.setPassword(encoding);*/
 		// 회원가입 메서드
 		us.join(userDto);
 		// 인증 메일 보내기 메서드 
@@ -94,25 +123,37 @@ public class UserController {
 	
 	// 로그인 페이지로 이동 
 	@RequestMapping(value = "/join/login")
-	public String loginPage() {
-		System.out.println("로그인 페이지 이동");
+	public String loginPage(Model model) {
+		OAuth2Operations oauth = googleConnectionFactory.getOAuthOperations();
+		String url = oauth.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		System.out.println("Google: " + url);
+		model.addAttribute("google", url);
+		
 		return "/join/login";
+	}
+	
+	// Google Callback Method
+	@RequestMapping(value = "/login/googleCallback", method = {RequestMethod.GET, RequestMethod.POST})
+	public String googleCallback(Model model, @RequestParam String code) throws IOException {
+		System.out.println("Success Google Callback");
+		return "/main";
 	}
 	
 	// 로그인
 	@RequestMapping(value = "/login/login-success", method = RequestMethod.POST)
-	public String login(UserDto userDto, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		UserDto login = us.login(userDto);
-		
+	public String login(UserDto user, HttpSession session) {
+		session.getAttribute("user");
 		System.out.println("UserController login() 호출");
+		UserDto login = us.login(user);
 		
-		if(login == null) { // 로그인 실패 
-			session.setAttribute("user", null);
-			return "redirect:/join/login";
-		} else { // 로그인 성공 
+		//boolean pwdMatch = pwdEncoder.matches(user.getPassword(), login.getPassword());
+		
+		if(login != null) { // 로그인 성공 
 			session.setAttribute("user", login);
 			return "redirect:/";
+		} else { // 로그인 실패 
+			session.setAttribute("user", null);
+			return "/join/login";
 		}
 	} 
 	
@@ -124,37 +165,32 @@ public class UserController {
 	}
 	
 	// ID 찾기 페이지 이동
-	@RequestMapping(value = "/join/findId", method = RequestMethod.GET)
+	@RequestMapping(value = "/join/find-id", method = RequestMethod.GET)
 	public String findIdPage() {
-		System.out.println("UserController 아이디 찾기 페이지 이동");
-		return "/join/findId";
+		return "/join/find-id";
 	}
 	// ID 찾기
-	@RequestMapping(value = "/join/findId", method = RequestMethod.POST)
+	@RequestMapping(value = "/join/find-id", method = RequestMethod.POST)
 	@ResponseBody
 	public String findId(@RequestParam String email) {
 		return us.findId(email);
 	}
 	
 	// 비밀번호 찾기 페이지 이동
-	@RequestMapping(value = "/join/findPwd", method = RequestMethod.GET)
+	@RequestMapping(value = "/join/find-password", method = RequestMethod.GET)
 	public String findPwdPage() {
-		System.out.println("UserController 비밀번호 찾기 페이지 이동");
-		return "/join/findPwd";
+		return "/join/find-password";
 	}
 	
 	// 비밀번호 찾기 
-	@RequestMapping(value = "/join/findPwd", method = RequestMethod.POST)
+	@RequestMapping(value = "/join/find-password", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView findPwd(@RequestParam String user_id, @RequestParam String email, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
+	public String findPwd(@RequestParam String user_id, @RequestParam String email, HttpServletRequest request) {
 		emailService.sendPwd(user_id, email, request);
-		mav.setViewName("/join/login");
-		return mav;
+		return "/join/login";
 	}
 	
 	// API 로그인 
-	
 
 	
 }

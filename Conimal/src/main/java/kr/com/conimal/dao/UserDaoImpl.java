@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import kr.com.conimal.model.command.LoginCommand;
 import kr.com.conimal.model.dto.UserDto;
 
 public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
@@ -39,8 +38,8 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	}
 	
 	@Override
-	public int getUserKey(Map<String, Object> map, String user_id, String user_key) throws Exception {
-		map = new HashMap<String, Object>();
+	public int getUserKey(String user_id, String user_key) throws Exception {
+		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("user_id", user_id);
 		map.put("user_key", user_key);
 		return getSqlSession().update("user.getUserKey", map);
@@ -74,13 +73,16 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	}
 	
 	@Override
-	public UserDto findPwd(String user_id) {
-		return getSqlSession().selectOne("user.findPwd", user_id);
-	}
-	
-	@Override
-	public int findPassword(String user_id, String email, String key) {
-		return getSqlSession().update("user.findPassword");
+	public int findPassword(String user_id, String email, String password) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", user_id);
+		map.put("email", email);
+		map.put("password", password);
+		System.out.println("UserDaoImpl user_id 값 :" + user_id);
+		System.out.println("UserDaoImpl email 값 :" + email);
+		System.out.println("UserDaoImpl password 값 :" + password);
+		System.out.println("UserDaoImpl map 값 :" + map);
+		return getSqlSession().update("user.findPassword", map);
 	}
 	
 	@Override

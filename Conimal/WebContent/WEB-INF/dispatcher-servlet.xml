@@ -26,7 +26,7 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" /><!-- 465 or 25 -->
-		<property name="username" value="conimal.project@gmail.com" />
+		<property name="username" value="conimal.info@gmail.com" />
 		<property name="password" value="!conimal123" />
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="javaMailProperties">
@@ -38,7 +38,19 @@
 			</props>
 		</property>
 	</bean>
-
+	
+	<!-- Google API -->
+	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg value="258862024626-5sjusjrfaok0nvup64er11ujv8hrh73f.apps.googleusercontent.com"/>
+		<constructor-arg value="rRCRwgDMYx00fp4j5_l4-1Fp" />
+	</bean>
+	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters" >
+		<property name="scope" value="https://www.googleapis.com/auth/plus.login" />
+		<property name="redirectUri" value="http://localhost:8080/main" />
+	</bean>
+	
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">

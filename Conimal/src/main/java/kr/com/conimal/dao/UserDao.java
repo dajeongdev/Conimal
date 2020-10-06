@@ -19,7 +19,7 @@ public interface UserDao {
 	public int checkEmail(String email) throws Exception;
 	
 	// 회원 인증키 생성
-	public int getUserKey(Map<String, Object> map, String user_id, String user_key) throws Exception;
+	public int getUserKey(String user_id, String user_key) throws Exception;
 	
 	// 회원 인증키 확인 
 	public int updUserKey(String user_id);
@@ -37,7 +37,6 @@ public interface UserDao {
 	public String findId(String email);
 	
 	// 비밀번호 찾기
-	public UserDto findPwd(String user_id);
 	public int findPassword(String user_id, String email, String key);
 	
 	// API 로그인 

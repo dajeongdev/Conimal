@@ -67,7 +67,7 @@ public class EmailService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("user_id", user_id);
 		map.put("user_key", key);
-		dao.getUserKey(map, user_id, key);
+		dao.getUserKey(user_id, key);
 		
 		// 이메일 객체
 		MimeMessage message = mailSender.createMimeMessage();
@@ -108,6 +108,7 @@ public class EmailService {
 		// 비밀번호는 8자리로 보내고 DB에 저장된 비밀번호를 변경
 		String key = getKey(false, 8);
 		
+		
 		// 회원의 닉네임 가져오기
 		UserDto dto = dao.getUserInfo(user_id);
 		String nickname = dto.getNickname();
@@ -135,7 +136,16 @@ public class EmailService {
 			e.printStackTrace();
 		}
 		
-		key = PwdEncService.encrypt(key);
+		//key = PwdEncService.encrypt(key);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", user_id);
+		map.put("password", key);
+		map.put("email", email);
+		System.out.println("UserDaoImpl user_id 값 :" + user_id);
+		System.out.println("UserDaoImpl email 값 :" + email);
+		System.out.println("UserDaoImpl password 값 :" + key);
+		System.out.println("UserDaoImpl map 값 :" + map);
 		dao.findPassword(user_id, email, key);
 	}
 	

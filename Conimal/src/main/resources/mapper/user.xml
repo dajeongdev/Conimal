@@ -31,11 +31,6 @@
 		update user set user_key = 'Y' where user_id = #{user_id}
 	</update>
 	
-	<!-- 회원 정보 가져오기 -->
-	<select id="getUserInfo" resultType="kr.com.conimal.model.dto.UserDto">
-		select * from user where user_id = #{user_id} and del_yn = 'N'
-	</select>
-	
 	<!-- 로그인 -->
 	<select id="login" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user where user_id = #{user_id} and password = #{password}
@@ -46,15 +41,17 @@
 		select ifnull(user_id, 0) from user where email = #{email}
 	</select>
 	
-	<!-- 임시 비밀번호 -->
-	<select id="findPwd" parameterType="kr.com.conimal.model.dto.UserDto" resultType="kr.com.conimal.model.dto.UserDto">
-		select * from user where user_id = #{user_id}
-	</select>
 	<!-- 비밀번호 찾기 -->
-	<update id="findPassword" parameterType="Map">
-		update user set password = #{param3} where user_id = #{param1} and email = #{param2}
+	<update id="findPassword" parameterType="HashMap">
+		update user set password = #{password} where user_id = #{user_id} and email = #{email}
 	</update>
 	
+	<!-- 회원 정보 가져오기 -->
+	<select id="getUserInfo" resultType="kr.com.conimal.model.dto.UserDto">
+		select * from user where user_id = #{user_id} and del_yn = 'N'
+	</select>
+	
+	<!-- 전체 회원 보기 -->
 	<select id="getAll" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user
 	</select>

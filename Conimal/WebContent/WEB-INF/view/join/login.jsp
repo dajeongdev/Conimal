@@ -80,13 +80,13 @@ $(document).ready(function() {
 			</c:if>
 			
 			<div class="login-box login-api-box">
-				<button class="login-api" id="google-api">구글 아이디로 로그인</button>
+				<button class="login-api" id="google-api" onclick="location.href='${google}'">구글 아이디로 로그인</button>
 				<button class="login-api" id="kakao-api">카카오 아이디로 로그인</button>
 			</div>
 		</div>
 		<div class="user-find-box">
-			<a href ="/join/findId" class="text-button">아이디 찾기</a>
-			<a href ="/join/findPwd" class="text-button">비밀번호 찾기</a>
+			<a href ="/join/find-id" class="text-button">아이디 찾기</a>
+			<a href ="/join/find-password" class="text-button">비밀번호 찾기</a>
 			<a href ="/join/join-select" class="text-button">회원가입</a>
 		</div>
 	

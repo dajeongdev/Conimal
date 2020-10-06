@@ -19,44 +19,67 @@
 		select * from dictionary where user_idx = #{user_idx}
 	</select>-->
 	
-	<!-- 배지(성과) 보기 / 이미지 띄우기 -->
+	<!-- 배지(성과) 보기 / 이미지 띄우기 
 	<select id="badgeList" resultType="kr.com.conimal.model.dto.BadgeDto">
-		select * from badge inner join user_idx 
+		select * from badge join user
 		on badge.badge_idx = user.badge_idx where user_idx = #{user_idx}
-	</select>
+	</select>-->
 	
 	<!-- 작성한 커뮤니티 글 보기 / 제목, 태그, 댓글 수, 작성자, 작성일 -->
-	<select id="articleList" parameterType="HashMap" resultType="kr.com.conimal.model.dto.CommunityDto">
+	<select id="getCommunityList" parameterType="HashMap" resultType="kr.com.conimal.model.dto.CommunityDto">
 		select SQL_CALC_FOUND_ROWS * 
 		from community inner join user 
 		on community.user_idx = user.user_idx 
 		order by community.community_idx desc
 		limit #{start_idx}, #{contentPerPage}
 	</select>
+	<select id="getTotal" resultType="int">
+		select FOUND_ROWS()
+	</select>
 	
 	<!-- 북마크한 글 보기 / 제목, 태그, 댓글 수, 작성자, 작성일 -->
 	
 	
 	<!-- 작성한 댓글 보기 / 댓글 내용, 글 제목, 댓글수, 작성자, 작성일 -->
-
+	<select id="getCommentList" parameterType="int" resultType="kr.com.conimal.model.dto.CommentDto">
+		select * from comment inner join user 
+		on comment.user_idx = user.user_idx 
+		where comment.community_idx = ${community_idx}
+	</select>
+	<select id="getCommentIdx" parameterType="int" resultType="kr.com.conimal.model.dto.CommentDto">
+		select * from comment inner join user 
+		on comment.user_idx = user.user_idx 
+		where comment.community_idx = ${community_idx}
+	</select>
 	
 	<!-- 정보 변경 / 닉네임, 비밀번호, 이메일 -->
 	<!-- 닉네임 변경 -->
-		<update id="changeNick" parameterType="String">
-			update user set nickname = #{nickname}
-		</update>
+	<update id="updateNick" parameterType="HashMap">
+		update user 
+		<set>nickname = #{nickname}, update_date = #{update_date}</set>
+		<where>password = #{password}</where> 
+	</update>
 	<!-- 비밀번호 변경 -->
-		<update id="changePassword" parameterType="hashMap">
-			update user set password = #{password} where email = #{email}
-		</update>
-	<!-- 이메일 변경 -->
-		<update id="changeEmail" parameterType="String">
-			update user set email = #{email}
-		</update>
+	<update id="updatePassword" parameterType="HashMap">
+		update user <set>password = #{password}, update_date = #{update_date}</set> 
+	</update>
+	<!-- 이메일 변경 / 재인증 -->
+	<update id="updateEmail" parameterType="HashMap">
+		update user 
+		<set>email = #{email}, update_date = #{update_date}</set> 
+		<where>password = #{password}</where> 
+	</update>
+	
+	<!-- 비밀번호 체크 -->
+	<select id="checkPwd" resultType="int">
+		select COUNT(*) from user where user_id = #{user_id} and password = #{password}
+	</select>
 	
 	<!-- 회원 탈퇴 -->
-	<update id="leave" parameterType="kr.com.conimal.model.dto.UserDto">
-		update user set del_yn = 'Y' where user_idx = #{user_idx}
+	<update id="secession" parameterType="kr.com.conimal.model.dto.UserDto">
+		update user 
+		<set>del_yn = 'Y'</set>
+		<where>user_id = #{user_id}</where> 
 	</update>
 	
 	<!-- 페이징 -->

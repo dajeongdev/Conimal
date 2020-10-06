@@ -167,6 +167,7 @@ $(document).ready(function() {
 			$('#join_submit').attr("disabled", false);
 		}
 	});
+	// 회원가입 버튼 클릭 시 값이 모두 들어가있으면 등록하면서 알림
 	$("#join_submit").click(function(){
 		if($("#user-nickname").val() != "") {
 			if($("#user-id").val() != "") {

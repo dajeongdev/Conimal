@@ -18,6 +18,25 @@ repositories {
 }
 
 dependencies {
+	// Google API
+	// https://mvnrepository.com/artifact/org.springframework.social/spring-social-google
+	compile group: 'org.springframework.social', name: 'spring-social-google', version: '1.0.0.RELEASE'
+	// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
+	
+	// Naver API
+	// https://mvnrepository.com/artifact/com.github.scribejava/scribejava-core
+	compile group: 'com.github.scribejava', name: 'scribejava-core', version: '2.8.1'
+
+	// Spring Security
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+	compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.4.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.4.RELEASE'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
+	compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.3.4.RELEASE'
+	
+	
 	// Password Encryption
 	// https://mvnrepository.com/artifact/commons-codec/commons-codec
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
