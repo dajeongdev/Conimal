@@ -20,6 +20,7 @@ header {
 	text-align: center;
 	display: inline-block; 
 	line-height: 30px; 
+	color: #002F6C;
 }
 
 .category li {
@@ -46,6 +47,7 @@ header {
 	font-weight: bold;  
 	font-size: 16px; 
 	line-height: 30px; 
+	color: #002F6C;
 }
 
 

@@ -1,4 +1,46 @@
+.petdic-container {
+  width: 698px;
+  margin: 0 auto;
+}
+
+.petdic-intro {
+  margin-bottom: 60px;
+}
+.petdic-intro .title {
+  color: #002f6c;
+  text-align: center;
+  line-height: 36px;
+  margin-bottom: 20px;
+}
+.petdic-categories{
+	display:flex;
+	justify-content: center;
+	margin-bottom:40px;
+}
+
+.petdic-categories input[type='radio'] {
+  display: none;
+}
+.petdic-categories input[type='radio'] + label span {
+  padding: 4px 20px;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.petdic-categories input[type='radio'] + label:hover span {
+  cursor: pointer;
+}
+
+.petdic-categories input[type='radio']:checked + label span {
+  color: white;
+  background-color: #002f6c;
+}
+
 /* Card */
+
+.product-section{
+	margin-bottom: 130px;
+}
 .product-card {
   margin-left: 20px;
   width: 250px;
@@ -47,11 +89,21 @@
   margin-top: 10px;
 }
 .poll-bar {
+position:relative;
   width: 210px;
   height: 10px;
   background: #f0f0f0;
   margin-top: 40px;
   border-radius: 10px;
+}
+.poll-bar::before{
+	background: #EFB661;
+	width: 50%;
+	height: 10px;
+	border-radius: 10px;
+	position: absolute;
+  	left: 0;
+  	content: '';
 }
 .poll-status {
   color: #000000;
