@@ -36,6 +36,96 @@
   background-color: #002f6c;
 }
 
+/* modal-poll */
+.modal-poll{
+	display:flex;
+	
+}
+.modal-poll-img{
+	width:540px;
+	background: #F0F0F0;
+	
+}
+
+.poll-info-header{
+	margin-bottom: 40px;
+}
+.modal-poll-info{
+	width:310px;
+
+	padding: 40px;
+	display:flex;
+	flex-direction: column;
+	
+}
+
+.modal-poll-info .poll-info-content{
+	margin-bottom:20px;
+}
+.poll-info-content .content-title{
+	font-style: normal;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 19px;
+	
+}
+.votable-animals{
+	display: flex;
+}
+.votable-animal{
+	margin-right: 10px;
+	text-align: center;
+}
+.votable-animals input[type='radio'] {
+	
+  display: none;
+}
+.votable-animals input[type='radio'] + label span {
+  font-size: 12px;
+  color: #4F4F4F;
+  font-weight: 500;
+  cursor:pointer;
+
+}
+.animal-option-img{
+	display:block;
+	width:50px;
+	height:50px;
+	background: linear-gradient(0deg, rgba(0, 47, 108, 0.8), rgba(0, 47, 108, 0.8)), url(.jpg);
+border-radius: 50%;
+overflow:hidden;
+}
+.animal-option-img img{
+	width:100%;
+	height:100%;
+	
+}
+
+.votable-animals input[type='radio']:hover label {
+  cursor: pointer;
+}
+
+.votable-animals input[type='radio']:checked + label span {
+  color: white;
+  background-color: #002f6c;
+}
+.votable-animals input[type='radio']:checked + label{
+filter: grayscale(80%);
+}
+.poll-info-content .memo-msg{
+color: #C8C8C8;
+font-style: normal;
+font-weight: bold;
+font-size: 12px;
+line-height: 160%;
+padding-right:20px;
+}
+.poll-info-content .memo-area{
+	resize:none;
+}
+
+
+
 /* Card */
 
 .product-section{

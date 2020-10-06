@@ -50,7 +50,56 @@ prefix="c" %>
   
     <div class="modal">
     	<div class="backdrop"></div>
-    	<div class="modal-content"></div>
+    	<div class="modal-content modal-poll">
+    	<div class="modal-poll-img"><img /></div>
+    	<div class="modal-poll-info">
+    		<div class="poll-info-header">
+    		<div class="product-kinds ">
+                  <h3 class="product-kind">고양이</h3>
+                  
+              </div>
+              <h2 class="item-name">모데르나 로데르너 1 이동장</h2>
+    		</div>
+    		
+              <div class="poll-info-content">
+    			<h3 class="content-title">투표가능 반려동물</h3>
+    			<ul class="votable-animals">
+    				<li class="votable-animal">
+    					<input id="animal-option-1" type="radio" name="animal-kind" value="lion"/>
+    					<label for="animal-option-1" class="animal-option-img"><img src="${pageContext.request.contextPath}/resources/image/product.png"/> </label>
+    					<label for="animal-option-1"><span>사자 </span> </label>
+    				</li>
+    				<li class="votable-animal">
+    					<input id="animal-option-2" type="radio" name="animal-kind" value="tiger"/>
+    					<label for="animal-option-2"><div class="animal-option-img"><img src="${pageContext.request.contextPath}/resources/image/product.png"/></div> </label>
+    					<label for="animal-option-2"><span>호랑이 </span></label>
+    				</li>
+    			</ul>
+    		</div>
+    		<div class="poll-info-content">
+    			<h3 class="content-title">투표 선택지</h3>
+    			<ul class="poll-options">
+    			<li><input id="poll-option-1" type="radio" name="product-rating"/>
+    			<label for="poll-option-1">매우 잘 먹어요 </label></li>
+    			<li><input id="poll-option-2" type="radio" name="product-rating"/>
+    			<label for="poll-option-2">잘 먹어요 </label></li>
+    			<li><input id="poll-option-3" type="radio" name="product-rating"/>
+    			<label for="poll-option-3">안 먹어요 </label></li>
+    			
+    			</ul>
+    		</div>
+    		<div class="poll-info-content">
+    			<h3 class="content-title">메모 남기기</h3>
+    			<h3 class="memo-msg">다른 사람들에게 보여지지 않으며 마이페이지에서 확인 하실 수 있습니다.</h3>
+    			<textarea class="memo-area"/></textarea>
+    		</div>
+    		
+    		</div>	
+    		
+    		
+    	
+    	</div>
+    	</div>
     </div>
     
     

@@ -124,13 +124,6 @@
   <section class="product-section">
   
 
-  
-    <div class="modal">
-    	<div class="backdrop"></div>
-    	<div class="modal-content"></div>
-    </div>
-    
-    
     
     <div class="product-cards-container">
       <article class="product-card">
@@ -367,7 +360,6 @@
   
 	<%@ include file="include/footer.jsp" %>
 
-<script src="${pageContext.request.contextPath}/resources/js/main.js"></script> 
 </body>
 
 </html>

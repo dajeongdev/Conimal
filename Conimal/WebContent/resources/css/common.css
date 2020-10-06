@@ -282,6 +282,7 @@ input.navy {
   transform: translate(-50%, -50%);
   width: 850px;
   height: 590px;
+  border-radius:20px;
   background: #fff;
   z-index: 50;
 }
