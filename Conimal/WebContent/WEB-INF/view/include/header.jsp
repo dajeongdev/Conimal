@@ -43,33 +43,5 @@
 	</div>
 	</c:if>
 	
-	<!-- 구글 로그인 상태 및 로그아웃 -->
-	<c:if test="${google != null}">
-	<div class="logo"><span onClick="document.location.href='main'">코니멀</span></div>
-	<ul class="category">
-		<li><div onClick="document.location.href='#'">코니멀소개</div></li>
-		<li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li>
-		<li><div onClick="document.location.href='/community/community-list'">커뮤니티</div></li>
-	</ul>
 
-	<div class="header-right">
-		<div class="btn mypage-btn"><button onclick="location.href='/my-page/my-page'">${user.nickname}님의 마이페이지</button></div>
-		<div class="btn logout-btn"><button onclick="">Logout</button></div>
-	</div>
-	</c:if>
-	
-	<script>
-		$(".logout-btn").click(function(){
-			var child = window.open('https://accounts.google.com/logout', 'popup', 'z-lock=yes, width=600, height=400');
-			$.post("<c:url value=''/>", $("#google").serialize(), function(r) {
-				if(response.error) {
-					alert("응답 에러");
-					return;
-				} else {
-					child.close();
-					location.reload();
-				}
-			});
-		});
-	</script>
 </header>

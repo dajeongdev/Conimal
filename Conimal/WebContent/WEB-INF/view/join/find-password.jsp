@@ -34,11 +34,11 @@
 			if($("#user-id").val() != null) {
 				if($("#user-email").val() != null) {
 					console.log("ajax 이전");
-					console.log("id : " + $("#user_id").val());
-					console.log("email : " + $("#email").val());
+					console.log("id : " + $("#user-id").val());
+					console.log("email : " + $("#user-email").val());
 					$.ajax({
 						type : 'post',
-						url : "${pageContext.request.contextPath}/join/find-password?user_id=" + $("#user_id").val() + "&email=" + $("#email").val(),
+						url : "${pageContext.request.contextPath}/join/find-password?user_id=" + $("#user-id").val() + "&email=" + $("#user-email").val(),
 						success : function (data) {
 							console.log(data);
 							alert("해당 이메일로 임시 비밀번호를 발송하였습니다.");

@@ -9,7 +9,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 			
-	<context:component-scan base-package="kr.com.conimal.controller, kr.com.conimal.dao, kr.com.conimal.service"/>
+	<context:component-scan base-package="kr.com.conimal.*"/>
 	<context:annotation-config></context:annotation-config>
 	<context:property-placeholder location="classpath:config/db.properties" local-override="true" />
 	

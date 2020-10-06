@@ -181,7 +181,6 @@ public class UserController {
 	public String findPwdPage() {
 		return "/join/find-password";
 	}
-	
 	// 비밀번호 찾기 
 	@RequestMapping(value = "/join/find-password", method = RequestMethod.POST)
 	@ResponseBody
