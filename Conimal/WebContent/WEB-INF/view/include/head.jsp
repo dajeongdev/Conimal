@@ -8,6 +8,8 @@
 
 <!-- Title -->
 <title>코니멀</title>
+<!-- fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <!-- Favicon -->
 <%-- <link rel="icon" href="${pageContext.request.contextPath}/assets/img/core-img/favicon.ico"> --%>
