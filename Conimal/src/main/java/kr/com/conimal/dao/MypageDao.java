@@ -21,14 +21,11 @@ public interface MypageDao {
 	
 	// 작성 댓글 목록
 	
-	// 닉네임 변경
-	public int updateNick(UserDto user);
-	
-	// 비밀번호 변경
-	public int updatePassword(UserDto user);
-	
-	// 이메일 변경
+	// 정보 변경
+	public int updateUserInfo(UserDto user);
 	public int updateEmail(UserDto user);
+	public int getUserKey(String user_id, String user_key);
+	public int updUserKey(String user_id);
 	
 	// 비밀번호 확인
 	public boolean checkPwd(String user_id, String password);

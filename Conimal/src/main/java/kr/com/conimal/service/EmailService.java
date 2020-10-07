@@ -1,5 +1,7 @@
 package kr.com.conimal.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -15,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import kr.com.conimal.dao.MypageDao;
 import kr.com.conimal.dao.UserDao;
 import kr.com.conimal.model.dto.EmailDto;
 import kr.com.conimal.model.dto.UserDto;
@@ -26,7 +29,10 @@ public class EmailService {
 	JavaMailSender mailSender;
 
 	@Autowired
-	UserDao dao;
+	UserDao user;
+	
+	@Autowired
+	MypageDao mypage;
 	
 	// 이메일 난수 만들기
 	private String init() {
@@ -67,7 +73,7 @@ public class EmailService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("user_id", user_id);
 		map.put("user_key", key);
-		dao.getUserKey(user_id, key);
+		user.getUserKey(user_id, key);
 		
 		// 이메일 객체
 		MimeMessage message = mailSender.createMimeMessage();
@@ -99,7 +105,7 @@ public class EmailService {
 	
 	// 인증 확인 
 	public int updUserKey(String user_id) {
-		int result = dao.updUserKey(user_id);
+		int result = user.updUserKey(user_id);
 		return result;
 	}
 	
@@ -110,7 +116,7 @@ public class EmailService {
 		
 		
 		// 회원의 닉네임 가져오기
-		UserDto dto = dao.getUserInfo(user_id);
+		UserDto dto = user.getUserInfo(user_id);
 		String nickname = dto.getNickname();
 		
 		MimeMessage message = mailSender.createMimeMessage();
@@ -142,11 +148,51 @@ public class EmailService {
 		map.put("user_id", user_id);
 		map.put("password", key);
 		map.put("email", email);
-		System.out.println("UserDaoImpl user_id 값 :" + user_id);
-		System.out.println("UserDaoImpl email 값 :" + email);
-		System.out.println("UserDaoImpl password 값 :" + key);
-		System.out.println("UserDaoImpl map 값 :" + map);
-		dao.findPassword(user_id, email, key);
+		user.findPassword(user_id, email, key);
+	}
+	
+	// 이메일 변경용 인증
+	public void updateEmail(String email, String user_id, HttpServletRequest request) {
+
+		String key = getKey(false, 20);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("user_id",user_id);
+		mypage.getUserKey(user_id, key);
+		
+		// 이메일 객체
+		MimeMessage message = mailSender.createMimeMessage();
+		
+		// 이메일 내용 
+		String content = "<h1>안녕하세요 코니멀입니다!</h1><br><br>" +
+				"<h2>이메일 변경을 위한 인증을 위한 메일입니다.</h2>" + "<h3>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " +
+				"<a href='http://localhost:8080" + request.getContextPath() + "/updateUserKey?user_id=" + user_id + "&email=" + email + "'>인증하기</a></h3>" +
+				"<h3>감사합니다!</h3>";
+		
+		try {
+			// 이메일 제목 (인코딩 필수)
+			message.setSubject("[Conimal] 코니멀 :: 이메일 변경을 위한 인증 메일입니다..", "UTF-8");
+						
+			// 이메일 내용 (인코딩 필수) - HTML 컨텐츠 
+			message.setText(content, "UTF-8", "html");
+						
+			// 이메일 발신자
+			message.setRecipient(RecipientType.TO, new InternetAddress(email));
+						
+			// 이메일 보내기
+			mailSender.send(message);	
+		} catch(MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// 변경 이메일 인증 확인 
+	public int updateUserKey(String user_id, String email, UserDto user) {
+		int result = mypage.updUserKey(user_id);
+		user.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		result = mypage.updateEmail(user);
+		return result;
 	}
 	
 }

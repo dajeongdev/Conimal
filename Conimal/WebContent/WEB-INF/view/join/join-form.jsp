@@ -11,10 +11,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
+	var idR = /^[a-z0-9]{4,10}$/;
+	var nickR = /^[가-힣a-zA-Z0-9]{2,10}$/
+	var emailR = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var pwdR = /^[A-Za-z0-9]{8,16}$/; 
+	
 	// 아이디 유효성 검사 (4자리 이상 10자리 이하, 소문자와 숫자 조합)
 	$('#user-id').blur(function() {
 		var user_id = $('#user-id').val();
-		var idR = /^[a-z0-9]{4,10}$/;
 
 		$.ajax({
 			url : '${pageContext.request.contextPath}/join-form/checkId?user_id='+user_id,
@@ -39,7 +43,7 @@ $(document).ready(function() {
 						$('#join_submit').attr("disabled", true);
 					} else {
 						console.log("불가능한 아이디");
-						$('#check_id').text('아이디는 소문자와 숫자 4~10자리만 가능합니다.');
+						$('#check_id').text('아이디는 영문과 숫자 4~10자리만 가능합니다.');
 						$('#check_id').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					}
@@ -53,8 +57,7 @@ $(document).ready(function() {
 	// 닉네임 유효성 검사 (2자리 이상 10자 이내, 특수문자 제외)
 	$('#user-nickname').blur(function() {
 		var nick = $('#user-nickname').val();
-		var nickR = /^[a-z0-9]{2,10}$/;
-
+		
 		$.ajax({
 			url : '${pageContext.request.contextPath}/join-form/checkNick?nickname='+nick,
 			type : 'get',
@@ -79,7 +82,7 @@ $(document).ready(function() {
 						$('#join_submit').attr("disabled", true);
 					} else {
 						console.log("불가능한 닉네임");
-						$('#check_nick').text('닉네임은 특수문자 제외 10자리까지만 가능합니다.');
+						$('#check_nick').text('닉네임은 특수문자 제외 2~10자리까지만 가능합니다.');
 						$('#check_nick').css('color', 'red');
 						$('#join_submit').attr("disabled", true);
 					}
@@ -93,8 +96,7 @@ $(document).ready(function() {
 	// 이메일 중복 검사
 	$('#user-email').blur(function() {
 		var email = $('#user-email').val();
-		var mailR = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
+	
 		$.ajax({
 			url : '${pageContext.request.contextPath}/join-form/checkEmail?email='+email,
 			type : 'get',
@@ -108,8 +110,8 @@ $(document).ready(function() {
 					$('#check_email').css('color', 'red');
 					$('#join_submit').attr("disabled", true);
 				} else { // 중복 아님 
-					if(mailR.test(email)) { // 사용 가능 
-						console.log(mailR.test(email));
+					if(emailR.test(email)) { // 사용 가능 
+						console.log(emailR.test(email));
 						$('#check_email').text("");
 						$('#join_submit').attr("disabled", false);
 					} else if(email == "") { 
@@ -133,7 +135,6 @@ $(document).ready(function() {
 	// 비밀번호 유효성 검사
 	$("#user-pwd").blur(function() {
 		var pwd = $("#user-pwd").val()
-		var pwdR = /^[A-Za-z0-9]{8,16}$/; 
 		
 		if(pwdR.test($("#user-pwd").val())) {
 			console.log("가능한 비밀번호");
@@ -145,7 +146,7 @@ $(document).ready(function() {
 			$('#join_submit').attr("disabled", true);
 		} else {
 			console.log("불가능한 비밀번호");
-			$("#check_pwd").text("영문자와 숫자 조합 8~16자리를 입력해주세요.");
+			$("#check_pwd").text("비밀번호는 영문과 숫자 8~16자리만 가능합니다.");
 			$("#check_pwd").css("color", "red");
 		}
 	});

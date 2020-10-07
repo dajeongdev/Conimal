@@ -54,20 +54,32 @@
 	
 	<!-- 정보 변경 / 닉네임, 비밀번호, 이메일 -->
 	<!-- 닉네임 변경 -->
-	<update id="updateNick" parameterType="HashMap">
+	<update id="updateUserInfo" parameterType="kr.com.conimal.model.dto.UserDto">
 		update user 
-		<set>nickname = #{nickname}, update_date = #{update_date}</set>
-		<where>password = #{password}</where> 
+		<set>
+			<if test="nickname != null">nickname = #{nickname},</if> 
+			<if test="password != null">password = #{password},</if>
+				update_date = #{update_date}
+		</set>
+		<where>user_idx = #{user_idx}</where> 
 	</update>
-	<!-- 비밀번호 변경 -->
-	<update id="updatePassword" parameterType="HashMap">
-		update user <set>password = #{password}, update_date = #{update_date}</set> 
-	</update>
+	
 	<!-- 이메일 변경 / 재인증 -->
-	<update id="updateEmail" parameterType="HashMap">
+	<update id="updateEmail" parameterType="kr.com.conimal.model.dto.UserDto">
 		update user 
-		<set>email = #{email}, update_date = #{update_date}</set> 
-		<where>password = #{password}</where> 
+		<set>
+			<if test="email != null">email = #{email},</if>
+				update_date = #{update_date}
+		</set> 
+		<where>user_id = #{user_id}</where>
+	</update>
+	<!-- 회원 인증키 생성 -->
+	<update id="getUserKey" parameterType="HashMap">
+		update user set user_key = #{user_key} where user_id = #{user_id} 
+	</update>
+	<!-- 회원 인증키 확인 -->
+	<update id="updUserKey" parameterType="String">
+		update user set user_key = 'Y' where user_id = #{user_id}
 	</update>
 	
 	<!-- 비밀번호 체크 -->
@@ -79,7 +91,7 @@
 	<update id="secession" parameterType="kr.com.conimal.model.dto.UserDto">
 		update user 
 		<set>del_yn = 'Y'</set>
-		<where>user_id = #{user_id}</where> 
+		<where>password = #{password}</where> 
 	</update>
 	
 	<!-- 페이징 -->

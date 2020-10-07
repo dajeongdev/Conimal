@@ -54,6 +54,7 @@ $(document).ready(function() {
 					$('#login-btn').attr("disabled", false);
 				}
 			}, error : function() {
+				//alert("아이디나 비밀번호가 일치하지 않습니다.");
 				console.log("로그인 실패");
 			}
 		});

@@ -24,24 +24,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int updateNick(UserDto user) {
-		System.out.println("MypageServiceImpl updateNick() 호출");
+	public int updateUserInfo(UserDto user) {
 		user.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-		return dao.updateNick(user);
-	}
-
-	@Override
-	public int updatePassword(UserDto user) {
-		System.out.println("MypageServiceImpl updatePassword() 호출");
-		user.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-		return dao.updatePassword(user);
-	}
-
-	@Override
-	public int updateEmail(UserDto user) {
-		System.out.println("MypageServiceImpl updateEmail() 호출");
-		user.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-		return dao.updateEmail(user);
+		return dao.updateUserInfo(user);
 	}
 
 	@Override

@@ -124,10 +124,10 @@ public class UserController {
 	// 로그인 페이지로 이동 
 	@RequestMapping(value = "/join/login")
 	public String loginPage(Model model) {
-		OAuth2Operations oauth = googleConnectionFactory.getOAuthOperations();
-		String url = oauth.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		System.out.println("Google: " + url);
-		model.addAttribute("google", url);
+		//OAuth2Operations oauth = googleConnectionFactory.getOAuthOperations();
+		//String url = oauth.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		//System.out.println("Google: " + url);
+		//model.addAttribute("google", url);
 		
 		return "/join/login";
 	}
@@ -143,7 +143,6 @@ public class UserController {
 	@RequestMapping(value = "/login/login-success", method = RequestMethod.POST)
 	public String login(UserDto user, HttpSession session) {
 		session.getAttribute("user");
-		System.out.println("UserController login() 호출");
 		UserDto login = us.login(user);
 		
 		//boolean pwdMatch = pwdEncoder.matches(user.getPassword(), login.getPassword());
@@ -161,7 +160,7 @@ public class UserController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logut(HttpSession session) {
 		session.invalidate();
-		return "redirect:/main";
+		return "redirect:/";
 	}
 	
 	// ID 찾기 페이지 이동

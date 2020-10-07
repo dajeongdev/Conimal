@@ -41,7 +41,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDto login(UserDto userDto) {
-		System.out.println("UserService login() 호출");
 		return dao.login(userDto);
 	}
 	

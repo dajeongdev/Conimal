@@ -16,34 +16,26 @@ public class MypageDaoImpl extends SqlSessionDaoSupport implements MypageDao {
 	}
 
 	@Override
-	public int updateNick(UserDto user) {
-		Map<String, String> map = new HashMap<>();
-		map.put("nickname", user.getNickname());
-		map.put("update_date", user.getUpdate_date());
-		map.put("password", user.getPassword());
-		System.out.println("MypageDaoImpl updateNick() : " + user.getNickname());
-		System.out.println("MypageDaoImpl updateNick() : " + user.getPassword());
-		return getSqlSession().update("mypage.updateNick", map);
-	}
-
-	@Override
-	public int updatePassword(UserDto user) {
-		Map<String, String> map = new HashMap<>();
-		map.put("password", user.getPassword());
-		map.put("update_date", user.getUpdate_date());
-		System.out.println("MypageDaoImpl updatePassword() : " + user.getPassword());
-		return getSqlSession().update("mypage.updatePassword", map);
+	public int updateUserInfo(UserDto user) {
+		return getSqlSession().update("mypage.updateUserInfo", user);
 	}
 
 	@Override
 	public int updateEmail(UserDto user) {
+		return getSqlSession().update("mypage.updateEmail", user);
+	}
+	
+	@Override
+	public int getUserKey(String user_id, String user_key) {
 		Map<String, String> map = new HashMap<>();
-		map.put("nickname", user.getEmail());
-		map.put("update_date", user.getUpdate_date());
-		map.put("password", user.getPassword());
-		System.out.println("MypageDaoImpl updateEmail() : " + user.getEmail());
-		System.out.println("MypageDaoImpl updateEmail() : " + user.getPassword());
-		return getSqlSession().update("mypage.updateEmail", map);
+		map.put("user_id", user_id);
+		map.put("user_key", user_key);
+		return getSqlSession().update("mypage.getUserKey", map);
+	}
+
+	@Override
+	public int updUserKey(String user_id) {
+		return getSqlSession().update("mypage.updUserKey", user_id);
 	}
 
 	@Override

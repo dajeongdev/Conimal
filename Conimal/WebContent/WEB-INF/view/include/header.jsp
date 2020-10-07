@@ -11,7 +11,7 @@
 	
 	<!-- 비로그인 상태 -->
 	<c:if test="${user == null}">
-	<div class="logo"><span onClick="document.location.href='main'">코니멀</span></div>
+	<div class="logo"><span onClick="document.location.href='/'">코니멀</span></div>
 	<ul class="category">
 		<li><div onClick="document.location.href='#'">코니멀소개</div></li>
 		<li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li>
@@ -30,7 +30,7 @@
 	
 	<!-- 로그인 상태 -->
 	<c:if test="${user != null}">
-	<div class="logo"><span onClick="document.location.href='main'">코니멀</span></div>
+	<div class="logo"><span onClick="document.location.href='/'">코니멀</span></div>
 	<ul class="category">
 		<li><div onClick="document.location.href='#'">코니멀소개</div></li>
 		<li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li>
@@ -38,7 +38,7 @@
 	</ul>
 
 	<div class="header-right">
-		<div class="btn mypage-btn"><button onclick="location.href='/my-page/my-page'">${user.nickname}님의 마이페이지</button></div>
+		<div class="btn mypage-btn"><button onclick="location.href='/my-page/my-page'">마이페이지</button></div>
 		<div class="btn logout-btn"><button onclick="location.href='/logout'">Logout</button></div>
 	</div>
 	</c:if>
