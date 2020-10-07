@@ -2,10 +2,6 @@ package kr.com.conimal.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,33 +20,27 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int join(UserDto userDto) throws Exception {
-		userDto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-		userDto.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-		System.out.println("UserServiceImpl join() 호출");
+		userDto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 		return dao.join(userDto);
 	}
 
 	@Override
 	public int checkId(String user_id) throws Exception {
-		System.out.println("UserServiceImpl checkId() 호출");
 		return dao.checkId(user_id);
 	}
 
 	@Override
 	public int checkEmail(String email) throws Exception {
-		System.out.println("UserServiceImpl checkEmail() 호출");
 		return dao.checkEmail(email);
 	}
 
 	@Override
 	public int checkNick(String nickname) throws Exception {
-		System.out.println("UserServiceImpl checkNick() 호출");
 		return dao.checkNick(nickname);
 	}
 
 	@Override
 	public UserDto login(UserDto userDto) {
-		System.out.println("UserService login() 호출");
 		return dao.login(userDto);
 	}
 	

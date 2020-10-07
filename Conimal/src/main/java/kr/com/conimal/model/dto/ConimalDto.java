@@ -11,8 +11,8 @@ public class ConimalDto {
 	private String image_path; // 이미지 경로 
 	private int image_isze; // 이미지 사이즈 
 	private int weight; // 몸무게 
-	private Date reg_date;
-	private Date update_date;
+	private String reg_date;
+	private String update_date;
 	
 	public int getConimal_idx() {
 		return conimal_idx;
@@ -62,16 +62,16 @@ public class ConimalDto {
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public Date getUpdate_date() {
+	public String getUpdate_date() {
 		return update_date;
 	}
-	public void setUpdate_date(Date update_date) {
+	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
 	}
 	
