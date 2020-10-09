@@ -71,7 +71,7 @@ prefix="c" %>
     				</li>
     				<li class="votable-animal">
     					<input id="animal-option-2" type="radio" name="animal-kind" value="tiger"/>
-    					<label for="animal-option-2"><div class="animal-option-img"><img src="${pageContext.request.contextPath}/resources/image/product.png"/></div> </label>
+    					<label for="animal-option-2" class="animal-option-img"><img src="${pageContext.request.contextPath}/resources/image/product.png"/> </label>
     					<label for="animal-option-2"><span>호랑이 </span></label>
     				</li>
     			</ul>
