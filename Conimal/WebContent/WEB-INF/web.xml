@@ -26,7 +26,9 @@
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
- 
+	
+ 	<absolute-ordering />
+ 	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

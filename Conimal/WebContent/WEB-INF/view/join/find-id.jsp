@@ -36,14 +36,13 @@
 		$("#find-btn").click(function(){
 			$.ajax({
 				type : 'post',
-				url : "${pageContext.request.contextPath}/join/findId?email=" + $("#email").val(),
+				url : "${pageContext.request.contextPath}/join/find-id?email=" + $("#email").val(),
 				success : function (data) {
 					console.log(data);
 					if(data == 0) {
 						$("#id_value").text("이메일을 확인해주세요.");
 					} else {
 						$("#id_value").text(data);
-						id = data;
 					}
 				}
 			});
@@ -52,7 +51,7 @@
 </script>
 
 <body>
-	<%@ include file="idConfirmModal.jsp" %>
+	<%@ include file="id-confirm-modal.jsp" %>
 	<%@ include file="../include/header.jsp" %>
 	<div class="page-container">
 		<div class="find">
