@@ -54,6 +54,12 @@ public class UserController {
 		return mav;
 	} 
 	
+	// 로그인 페이지로 이동 
+	@RequestMapping(value = "/join/login")
+	public String loginPage() {
+		return "/join/login";
+	}
+	
 	// 회원가입 선택 페이지로 이동 
 	@RequestMapping(value = "/join/join-select")
 	public String joinPage() {
@@ -109,17 +115,6 @@ public class UserController {
 	public String updUserKey(@RequestParam("user_id") String user_id) throws Exception {
 		emailService.updUserKey(user_id);
 		return "/join/join-success";
-	}
-	
-	// 로그인 페이지로 이동 
-	@RequestMapping(value = "/join/login")
-	public String loginPage(Model model) {
-		//OAuth2Operations oauth = googleConnectionFactory.getOAuthOperations();
-		//String url = oauth.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		//System.out.println("Google: " + url);
-		//model.addAttribute("google", url);
-		
-		return "/join/login";
 	}
 	
 	// Google Callback Method

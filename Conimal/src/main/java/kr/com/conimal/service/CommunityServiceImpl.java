@@ -1,6 +1,7 @@
 package kr.com.conimal.service;
 
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,7 @@ import kr.com.conimal.model.dto.CommunityDto;
 import kr.com.conimal.model.dto.CommunityFileDto;
 import kr.com.conimal.model.dto.TagDto;
 
-@Service("CommunityService")
+@Service
 public class CommunityServiceImpl implements CommunityService {
 
 	@Autowired

@@ -17,18 +17,18 @@
 	$(function() {
 		$("#tag").on("keypress", function(e) {
 			if(e.key === "Enter" || e.keyCode == 32) {
-				var input_text = $("#tag").val();
+				var input_text = $("#tag").val(); // 입력한 태그 값
 
 				// input_text를 tagNames[]로 for문 돌려서 비교하여 같으면 중복
 				for(var i = 0; i < tagNames.length; i++) {
 					if(tagNames[i] == input_text) {
 						console.log(tagNames[i] + "==" + input_text);
 						$("#tag").val("");
-						alert("중복입니다.");
+						alert("이미 입력한 태그입니다.");
 						return;
 					}
 				}
-				// 태그 중복 확인
+				// 태그 확인
 				tagCheck(input_text);
 				e.preventDefault();
 			}
@@ -36,52 +36,43 @@
 		})
 	})
 	var tagCheck = function(tag) {
-		var url = $(location).attr('pathname') + "/checkTag";
 		$.ajax({
 			type : 'get',
-			url : url + "?tag_name=" + tag,
+			url : "${pageContext.request.contextPath}/community-write-form/checkTag?tag_name=" + tag,
 			dataType : 'json'
 		}).done(function(data) {
-			console.log(data);
+			console.log("입력한 태그 : "+ data);
 
-			// 배열에 tag_idx 입력
-			var idx = data.tag_idx;
-			var name = data.tag_name;
-			var html = "<span class='hashTag' data-idx=" + idx + ">" + "#" + name + "<a href='javascript:;'>X</a>" + "</span>";
+			//서버에 보낼 배열에 넣기
+			tags.push(idx);
+			// input enter 눌렸을때 input에 있는 value text 와 배열에 있는 text를 비교해서 있으면 중복 알림! 없으면 ajax!
+			tagNames.push(name);
+			// hidden input 에 넣어주기
+			$("#rdTag").val(tags);
 
 			// 서버에 보낼 배열 넣기
 			tags.push(idx);
 			// input enter 눌렀을 때 input에 있는 value의 text와
 			// 배열에 있는 text를 비교해서 있으면 중복 알림, 없으면 ajax
 			tagNames.push(name);
-			// hidden input에 넣기 
-			$("#rdTag").val(tags);
 
-			// 태그 붙이기 
-			$("#tag-list").append(html);
-			// input 비우기 
-			$("#tag").val("");
 		}).fail(function() {
-			alert("실패입니다.");
-		});
-		$("#tag-list").on("click", ".hashTag", function() {
-			var idx = $(this).attr("idx");
-			tags[idx] = "";
-			$(this).parent().remove();
+			alert("태그 확인에 실패하였습니다.");
 		});
 	}
 </script>
 <script>
 	var stored_files = [];
 	var select_divs = "";
+	
 	$(function() {
 		select_divs = $("#selectFiles");
 
-		$("#files").on("change", preview);
+		$("#files").on("click", preview);
 
 		$("#img").on("click", removeFile);
 
-		form = $("form[name=writeCom]")[0];
+		form = $("form[name=writeCommunity]")[0];
 		form.onsubmit = function(e) {
 			e.preventDefault();
 			var formData = new FormData(form);
@@ -139,7 +130,7 @@
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<div class = "page-container">
-		<form method="post" enctype="multipart/form-data" name="writeCom">
+		<form method="post" enctype="multipart/form-data" name=writeCommunity>
 		<div class="community-container">
 		
 			<div class="community-intro">
@@ -153,7 +144,6 @@
 				
 				<input type="hidden" value="" id="rdTag">
 				<input class="community-tags marB_20" type="text" id="tag" name="tag" placeholder="태그를 입력하세요"/>
-				<div id="tag-list"></div>
 				
 				<div class="marB_60">
 					<input type="file" class="form-control community-files marR_10" id="files" name="file" multiple/>

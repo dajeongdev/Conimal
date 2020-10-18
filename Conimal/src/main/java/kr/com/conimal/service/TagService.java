@@ -13,34 +13,35 @@ public class TagService {
 	@Autowired
 	TagDao dao;
 	
-	public TagDto checkTag(String tag_name, int user_idx) {
+	public TagDto checkTag(String tag_name) {
 		TagDto tag = dao.getTag(tag_name);
 		
 		if(tag == null) {
 			tag = new TagDto();
 			tag.setTag_name(tag_name);
-			tag.setUser_idx(user_idx);
 			
 			dao.writeTag(tag);
 		}
 		return tag;
 	}
 	
-	public TagDto writeTag(String tag_name, int user_idx) {
+	public TagDto writeTag(String tag_name) {
 		TagDto tag = new TagDto();
 		tag.setTag_name(tag_name);
-		tag.setUser_idx(user_idx);
+		System.out.println("TagService writeTag() tag_name : " + tag_name);
 		dao.writeTag(tag);
 		return tag;
 	}
 	
 	public int writeTagType(BoardUsedTagDto but) {
 		int result = dao.writeTagType(but);
+		System.out.println("TagService writeTagType() but : " + but);
 		return result;
 	}
 	
-	public int writeUsedTag(String board_type, int board_idx, int[] tag_idx) {
+	public int writeUsedTag(int user_idx, String board_type, int board_idx, int[] tag_idx) {
 		BoardUsedTagDto but = new BoardUsedTagDto();
+		but.setUser_idx(user_idx);
 		but.setBoard_idx(board_idx);
 		but.setBoard_type(board_type);
 		
@@ -51,9 +52,10 @@ public class TagService {
 			result += writeTagType(but);
 		}
 		return result;
-	}
+	}	
 	
 	public TagDto readTag(String tag_name) {
 		return dao.getTag(tag_name);
 	}
+
 }

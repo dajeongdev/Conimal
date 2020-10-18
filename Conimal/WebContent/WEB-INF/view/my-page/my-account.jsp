@@ -1,5 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -13,7 +13,7 @@ $(document).ready(function(){
 	var nickR = /^[가-힣a-zA-Z0-9]{2,10}$/
 	var pwdR = /^[A-Za-z0-9]{8,16}$/; 
 	var emailR = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	
+
 	// 닉네임 유효성 검사
 	$("#user-nick").blur(function(){
 		var nick = $("#user-nick").val();
@@ -131,6 +131,7 @@ $(document).ready(function(){
 				if($("#check-pwd").val() != "") {
 					if($("#user-email").val() != "") {
 						alert("수정이 완료되었습니다.");
+						location.href = "/main";
 					}
 				} 
 			} 
@@ -145,7 +146,7 @@ $(document).ready(function(){
 	
 
 	<div class="sub-container">
-		<form id="update">
+		<form method="post">
 		<h3 class="marB_30">계정정보</h3>
 		<input type="hidden" name="user_idx" id="user-idx" value="${user.user_idx}">
 		<div class="user-input" >
@@ -180,3 +181,4 @@ $(document).ready(function(){
 	<%@ include file="../include/footer.jsp" %>
 </body>
 </html>
+
