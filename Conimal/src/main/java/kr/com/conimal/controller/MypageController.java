@@ -90,8 +90,7 @@ public class MypageController {
 			emailService.updateEmail(email, user_id, request);
 		} 
 		
-		session.invalidate();
-		return "redirect:/";
+		return "/main";
 	}
 	
 	// 이메일 인증 

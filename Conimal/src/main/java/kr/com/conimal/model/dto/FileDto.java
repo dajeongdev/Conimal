@@ -8,8 +8,8 @@ public class FileDto {
 	private String file_name; // 파일 이름 
 	private String file_path; // 파일 경로 
 	private String file_size; // 파일 사이즈 
-	private Date reg_date;
-	private Date update_date;
+	private String reg_date;
+	private String update_date;
 	
 	public int getFile_idx() {
 		return file_idx;
@@ -41,16 +41,16 @@ public class FileDto {
 	public void setFile_size(String file_size) {
 		this.file_size = file_size;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public Date getUpdate_date() {
+	public String getUpdate_date() {
 		return update_date;
 	}
-	public void setUpdate_date(Date update_date) {
+	public void setUpdate_date(String update_date) {
 		this.update_date = update_date;
 	}
 	

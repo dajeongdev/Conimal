@@ -10,7 +10,7 @@
 
 <body>
 	<%@ include file="../include/header.jsp" %>
-	<c:if test="${info.user_idx eq session.userDto.user_idx}">
+	<c:if test="${user.user_idx eq session.user.user_idx}">
 		<c:set var="isOwnPet" value="Y" />
 	</c:if>
 	<div class = "page-container">

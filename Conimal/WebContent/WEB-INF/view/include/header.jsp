@@ -19,7 +19,7 @@
 	</ul>
 	 
 
-	<a class="header-right" href='/join/login'">로그인 및 회원가입</a>
+	<a class="header-right" href='/join/login'>로그인 및 회원가입</a>
 
 	 
 	
