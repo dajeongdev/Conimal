@@ -131,7 +131,6 @@ $(document).ready(function(){
 				if($("#check-pwd").val() != "") {
 					if($("#user-email").val() != "") {
 						alert("수정이 완료되었습니다.");
-						location.href = "/main";
 					}
 				} 
 			} 

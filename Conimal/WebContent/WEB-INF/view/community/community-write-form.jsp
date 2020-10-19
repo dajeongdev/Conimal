@@ -10,13 +10,14 @@
 </head>
 <style>
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	var tags = [];
 	var tagNames = [];
 	$(function() {
 		$("#tag").on("keypress", function(e) {
-			if(e.key === "Enter" || e.keyCode == 32) {
+			if(e.key === "Enter" || e.keyCode === 44) {
 				var input_text = $("#tag").val(); // 입력한 태그 값
 
 				// input_text를 tagNames[]로 for문 돌려서 비교하여 같으면 중복
@@ -28,21 +29,25 @@
 						return;
 					}
 				}
-				// 태그 확인
+				// 태그 중복 확인
 				tagCheck(input_text);
 				e.preventDefault();
 			}
-			console.log("Enter");
+			console.log("입력 시작");
 		})
 	})
 	var tagCheck = function(tag) {
 		$.ajax({
 			type : 'get',
-			url : "${pageContext.request.contextPath}/community-write-form/checkTag?tag_name=" + tag,
+			url : '${pageContext.request.contextPath}/community-write-form/checkTag?tag_name=' + tag,
 			dataType : 'json'
-		}).done(function(data) {
-			console.log("입력한 태그 : "+ data);
-
+		}).done(function(tag) {
+			
+			var idx = tag.tag_idx;
+			console.log("입력한 태그 번호 : " + idx);	
+			var name = tag.tag_name;
+			console.log("입력한 태그 이름 : " + name);
+			
 			//서버에 보낼 배열에 넣기
 			tags.push(idx);
 			// input enter 눌렸을때 input에 있는 value text 와 배열에 있는 text를 비교해서 있으면 중복 알림! 없으면 ajax!
@@ -50,25 +55,19 @@
 			// hidden input 에 넣어주기
 			$("#rdTag").val(tags);
 
-			// 서버에 보낼 배열 넣기
-			tags.push(idx);
-			// input enter 눌렀을 때 input에 있는 value의 text와
-			// 배열에 있는 text를 비교해서 있으면 중복 알림, 없으면 ajax
-			tagNames.push(name);
 
 		}).fail(function() {
 			alert("태그 확인에 실패하였습니다.");
 		});
 	}
-</script>
-<script>
+
 	var stored_files = [];
-	var select_divs = "";
+	var selected = "";
 	
 	$(function() {
-		select_divs = $("#selectFiles");
+		selected = $("#selectFiles");
 
-		$("#files").on("click", preview);
+		$("#files").on("change", preview);
 
 		$("#img").on("click", removeFile);
 
@@ -79,7 +78,7 @@
 			for (var i = 0; i < stored_files.length; i++) {
 				formData.append("files", stored_files[i]);
 			}
-			formData.append("#rdTag", tags);
+			formData.append("rdTag", tags);
 			$.ajax({
 				url : "community-write-form",
 				type : "post",
@@ -102,14 +101,16 @@
 			if(!f.type.match("image.*")) {
 				return;
 			}
+			console.log(f);
 			stored_files.push(f);
 
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				var html = "<span class='preview'>";
-				html += "<img src=\'" + e.target.result + "\' width='100' height='70' id='img'";
+				html += "<img src=\'" + e.target.result + "\' width='100' height='70' id='img'>";
 				html += "</span>";
-				select_divs.append(html);
+				selected.append(html);
+				
 			}
 			console.log("preview success!");
 			reader.readAsDataURL(f);
@@ -130,7 +131,7 @@
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<div class = "page-container">
-		<form method="post" enctype="multipart/form-data" name=writeCommunity>
+		<form method="post" enctype="multipart/form-data" name="writeCommunity">
 		<div class="community-container">
 		
 			<div class="community-intro">
@@ -142,7 +143,7 @@
 				
 				<textarea class="community-contents marB_20" id="cm-contents" name="content" placeholder="내용을 입력하세요"></textarea>
 				
-				<input type="hidden" value="" id="rdTag">
+				<input type="hidden" value="" name="tag_name" id="rdTag">
 				<input class="community-tags marB_20" type="text" id="tag" name="tag" placeholder="태그를 입력하세요"/>
 				
 				<div class="marB_60">

@@ -16,39 +16,36 @@ public class TagService {
 	public TagDto checkTag(String tag_name) {
 		TagDto tag = dao.getTag(tag_name);
 		
+		// 태그 중복 확인 결과 태그가 없는 경우 
 		if(tag == null) {
 			tag = new TagDto();
 			tag.setTag_name(tag_name);
-			
 			dao.writeTag(tag);
 		}
 		return tag;
 	}
 	
-	public TagDto writeTag(String tag_name) {
+	public TagDto writeTag(int tag_idx, String tag_name) {
 		TagDto tag = new TagDto();
 		tag.setTag_name(tag_name);
-		System.out.println("TagService writeTag() tag_name : " + tag_name);
 		dao.writeTag(tag);
 		return tag;
 	}
 	
 	public int writeTagType(BoardUsedTagDto but) {
 		int result = dao.writeTagType(but);
-		System.out.println("TagService writeTagType() but : " + but);
 		return result;
 	}
 	
-	public int writeUsedTag(int user_idx, String board_type, int board_idx, int[] tag_idx) {
+	public int writeUsedTag(int user_idx, String board_type, int board_idx, int[] tags) {
 		BoardUsedTagDto but = new BoardUsedTagDto();
 		but.setUser_idx(user_idx);
 		but.setBoard_idx(board_idx);
 		but.setBoard_type(board_type);
-		
+
 		int result = 0;
-		for(int i = 0; i < tag_idx.length; i++) {
-			but.setTag_idx(tag_idx[i]);
-			System.out.println("tag_idx[] = " + tag_idx[i]);
+		for(int i = 0; i < tags.length; i++) {
+			but.setTag_idx(tags[i]);
 			result += writeTagType(but);
 		}
 		return result;

@@ -1,5 +1,7 @@
 package kr.com.conimal.service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
@@ -52,7 +54,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int writeCommunity(CommunityDto community, MultipartHttpServletRequest request) {
-		community.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		community.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 		int i = dao.writeCommunity(community);
 		int d = community.getCommunity_idx();
 		if(d > 0) {
@@ -73,22 +75,23 @@ public class CommunityServiceImpl implements CommunityService {
 		}
 		dto.setContent(request.getParameter("content"));
 		dto.setTitle(request.getParameter("title"));
-		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 		return dto;
 	}
 	
 	@Override
 	public void writeCommunityFile(int community_idx, MultipartHttpServletRequest request) {
-		List<FileUploadCommand> files = fileService.upload(request, "/img/community");
+		List<FileUploadCommand> files = fileService.upload(request, "/img/community/");
 		
 		for(FileUploadCommand file : files) {
-			CommunityFileDto dto = new CommunityFileDto();
-			dto.setCommunity_idx(community_idx);
-			dto.setFile_name(file.getFile_name());
-			dto.setFile_path(file.getFile_path());
-			dto.setFile_size(file.getFile_size());
+			CommunityFileDto filedto = new CommunityFileDto();
+			filedto.setCommunity_idx(community_idx);
+			filedto.setFile_name(file.getFile_name());
+			filedto.setFile_path(file.getFile_path());
+			filedto.setFile_size(file.getFile_size());
+			filedto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
 			
-			dao.writeCommunityFile(dto);
+			dao.writeCommunityFile(filedto);
 		}
 	}
 

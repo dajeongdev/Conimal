@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 
 import kr.com.conimal.dao.TagDao;
 import kr.com.conimal.model.command.SessionCommand;
+import kr.com.conimal.model.dto.BoardUsedTagDto;
 import kr.com.conimal.model.dto.CommunityDto;
 import kr.com.conimal.model.dto.CommunityFileDto;
 import kr.com.conimal.model.dto.TagDto;
@@ -58,45 +59,43 @@ public class CommunityController {
 		//SessionCommand session = (SessionCommand) request.getSession().getAttribute("session");
 		//UserDto info = session.getUserDto();
 		//mav.addObject("info", info);
-		System.out.println("UserController writePage() 이동");
+		System.out.println("CommunityController writePage() 이동");
 		return mav;
 	}
 	@RequestMapping(value = "/community/community-write-form", method = RequestMethod.POST)
-	public String writeCommunity(CommunityDto community, CommunityFileDto file, int[] tags, MultipartHttpServletRequest request) {
+	public String writeCommunity(CommunityDto community, CommunityFileDto file, int[] rdTag, MultipartHttpServletRequest request) throws Exception {
 		SessionCommand session = (SessionCommand) request.getSession().getAttribute("session");
-		community.setUser_idx(session.getUserDto().getUser_idx());
-		System.out.println("UserController writeCommunity() 이동");
+		//community.setUser_idx(session.getUserDto().getUser_idx());
 		
 		int i = cs.writeCommunity(community, request);
 		int community_idx = community.getCommunity_idx();
-		ts.writeUsedTag(community.getUser_idx(), "c", community_idx, tags);
+		ts.writeUsedTag(community.getUser_idx(), "c", community_idx, rdTag);
 		
 		return "/community/community-list";
 	}
-	
 	// 태그
 	@RequestMapping(value = "/community-write-form/checkTag", method = RequestMethod.GET, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	public String checkTag(HttpServletRequest request, @RequestParam String tag_name) {
 		SessionCommand session = (SessionCommand) request.getSession().getAttribute("session");
 		//int user_idx = session.getUserDto().getUser_idx();
+		System.out.println("CommunityController checkTag start");
+		TagDto tag = ts.checkTag(tag_name);
 		
-		CommunityDto com = new CommunityDto();
-		
-		int user_idx = com.getUser_idx();
-		
-		TagDto tag = tagDao.getTag(tag_name);
-		
-		//tag = ts.checkTag(tag_name);
-		
-		if(tag == null) {
+		/*if((tag = tagDao.getTag(tag_name)) == null) {
 			tag = new TagDto();
 			tag.setTag_name(tag_name);
 			ts.writeTag(tag_name);
+		} else {
+			return tag.getTag_name();
+		}*/
+		if(tag != null) {
+			System.out.println("CommunityController checkTag tag_idx : " + tag.getTag_idx());
+			System.out.println("CommunityController checkTag tag_name : " + tag.getTag_name());
 		}
 		
 		Gson json = new Gson();
-		System.out.println("UserController checkTag() 호출");
+		System.out.println("CommunityController checkTag() 호출");
 		return json.toJson(tag);
 	}
 

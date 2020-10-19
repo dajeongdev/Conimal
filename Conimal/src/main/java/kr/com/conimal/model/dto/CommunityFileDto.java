@@ -8,8 +8,7 @@ public class CommunityFileDto {
 	private String file_name; // 파일 이름 
 	private String file_path; // 파일 경로 
 	private Long file_size; // 파일 사이즈 
-	private Date reg_date;
-	private Date update_date;
+	private String reg_date;
 	
 	public int getCommunity_file_idx() {
 		return community_file_idx;
@@ -41,17 +40,11 @@ public class CommunityFileDto {
 	public void setFile_size(Long file_size) {
 		this.file_size = file_size;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
-	}
-	public Date getUpdate_date() {
-		return update_date;
-	}
-	public void setUpdate_date(Date update_date) {
-		this.update_date = update_date;
 	}
 	
 }
