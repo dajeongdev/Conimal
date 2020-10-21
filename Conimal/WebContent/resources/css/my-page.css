@@ -1,25 +1,119 @@
 /* conimal */
 
+.sub-container.conimal {
+	padding: 0; 
+}
+
+.my-conimals {
+	padding: 40px 40px 45; 
+}
+
+.conimal {
+	display:inline-block;
+/* 	width: 100px;  */
+	height: auto; 
+	margin-right: 50px; 
+	margin-left: -4px;
+}
+
+.conimal .profile {
+	width: 100px; 
+	height: 100px;
+	background: #f0f0f0;	
+	border-radius : 100%; 
+	display:inline-block; 
+	margin-bottom: 12px;
+	overflow: hidden; 
+}
+
+.conimal .profile img {
+	width: 100%; 
+}
+
+.conimal .name {
+	text-align:center ; 
+	font-size:14px; 
+}
+
+
 .conimal-detail {
 	width: 100%; 
 	background: #F0F0F0;
 	padding: 40px; 
 }
 
-.conimal-top {
+.conimal-header {
 	display:flex; 
-	justify-contents : space-between;
+	justify-content: space-between; 
+	align-items : flex-end ; 
+	position:relative;
+	margin-bottom:20px;
+}
+
+
+.conimal-header .title h3 ,
+.conimal-header .title span {
+	display:inline-block; 
+	margin-right: 10px; 
 }
 
 .conimal-info {
 	font-weight: bold; 
-	line-height: 40px; 
+	margin-bottom: 40px;  
 }
+
+.info-item {
+	margin-bottom: 15px;
+}
+
+.info-item h6{
+	display:inline-block;
+	margin-right: 10px; 
+	line-height: 24px; 
+}
+
 
 .conimal-intended {
 	
 }
 
+.used-product {
+	width: 220px;
+	height: 420px; 
+	background: white;  
+	font-size:12px;
+}
+
+.used-product .detail {
+	padding: 20px; 
+	line-height: 22px; 
+}
+
+.used-product .detail .kind {
+	color:#4F4F4F; 
+	margin-bottom: 10px;  
+}
+
+.used-product .product-name {
+	font-size:14px; 
+	margin-bottom: 25px; 
+	font-weight: bold; 
+	
+}
+
+.used-product .detail img {
+	width : 15px; 
+	margin-right: 8px; 
+}
+
+.used-product .date {
+	color: #C8C8C8;	
+}
+
+.used-product .poll-bar {
+	margin-top: 10px; 
+	width: 100%; 
+}
 
 
 
@@ -29,7 +123,7 @@
 
 .my-badge {
 	display:inline-block;
-	width: 100px; 
+/* 	width: 100px;  */
 	height: auto; 
 	margin-right: 20px; 
 	margin-left: -4px;

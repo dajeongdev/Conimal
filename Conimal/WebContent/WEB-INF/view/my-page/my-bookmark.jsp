@@ -11,7 +11,7 @@
 	<%@ include file="../include/header.jsp" %>
 	
 	
-	<div class = "page-container">
+	<div class = "page-container my-page clr">
 	
 	
 	
