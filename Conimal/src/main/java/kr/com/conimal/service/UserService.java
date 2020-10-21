@@ -32,9 +32,6 @@ public interface UserService {
 	// 아이디 찾기
 	public String findId(String email);
 	
-	/* 비밀번호 찾기
-	public String findPassword(UserDto userDto);*/
-	
 	// API 로그인 
 	public void authentication(UserDto userDto);
 	

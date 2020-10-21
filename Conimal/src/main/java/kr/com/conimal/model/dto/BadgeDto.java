@@ -7,7 +7,7 @@ public class BadgeDto {
 	private String badge_name; // 배지 이름 
 	private String badge_path; // 배지 경로 
 	private int badge_size; // 배지 사이즈 
-	private Date reg_date;
+	private String reg_date;
 	
 	public int getBadge_idx() {
 		return badge_idx;
@@ -33,10 +33,10 @@ public class BadgeDto {
 	public void setBadge_size(int badge_size) {
 		this.badge_size = badge_size;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 	

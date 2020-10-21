@@ -1,7 +1,5 @@
 package kr.com.conimal.model.dto;
 
-import java.util.Date;
-
 public class CommentDto {
 	private int comment_idx;
 	private int community_idx; // 커뮤니티 글번호

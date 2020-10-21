@@ -7,7 +7,7 @@ public class BookmarkDto {
 	private int user_idx; // 회원 번호 
 	private int board_idx; // 글 번호 
 	private String board_type; // 게시판 타입 
-	private Date reg_date;
+	private String reg_date;
 	
 	public int getBookmark_idx() {
 		return bookmark_idx;
@@ -33,10 +33,10 @@ public class BookmarkDto {
 	public void setBoard_type(String board_type) {
 		this.board_type = board_type;
 	}
-	public Date getReg_date() {
+	public String getReg_date() {
 		return reg_date;
 	}
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
 	

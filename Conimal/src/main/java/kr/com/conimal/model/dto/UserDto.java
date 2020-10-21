@@ -1,5 +1,6 @@
 package kr.com.conimal.model.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class UserDto {
