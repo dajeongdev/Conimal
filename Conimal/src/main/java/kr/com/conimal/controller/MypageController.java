@@ -81,6 +81,7 @@ public class MypageController {
 	@RequestMapping(value = "/my-page/my-account", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateUserInfo(@RequestParam String email, @RequestParam String user_id, HttpServletRequest request, UserDto user, HttpSession session) throws Exception {
+		session.getAttribute("user");
 		ms.updateUserInfo(user);
 		System.out.println("MypageController updateUserInfo");
 		int result = us.checkEmail(email);
@@ -88,9 +89,9 @@ public class MypageController {
 		if(result == 0) { // 중복 아님 
 			System.out.println("MypageController updateEmail");
 			emailService.updateEmail(email, user_id, request);
+			return "redirect:/";
 		} 
-		
-		return "/main";
+		return "/my-page/my-account";
 	}
 	
 	// 이메일 인증 

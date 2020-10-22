@@ -2,15 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="community">
 	<!-- 인기 태그 리스트 -->
-	<select id="getHitTag">
-		
+	<select id="getHitTagList" parameterType="kr.com.conimal.model.dto.TagDto" resultType="kr.com.conimal.model.dto.TagDto">
+		select * from tag order by hit desc limit 20
 	</select>
 	
-	
+	<select id="list" parameterType="int" resultType="kr.com.conimal.model.dto.CommunityDto">
+		select SQL_CALC_FOUND_ROWS * 
+		from community inner join user 
+		on community.user_idx = user.user_idx 
+		order by community.community_idx desc
+	</select>
 	<!-- 전체 글 목록 / 제목, 태그, 댓글 수, 작성자, 작성일 -->
 	<select id="getCommunityList" parameterType="HashMap" resultType="kr.com.conimal.model.dto.CommunityDto">
 		select SQL_CALC_FOUND_ROWS * 
-		from community inner user 
+		from community inner join user 
 		on community.user_idx = user.user_idx 
 		order by community.community_idx desc
 	</select>
@@ -21,6 +26,12 @@
 		select * from community inner join community_file 
 		where community.community_idx = community_file.community_idx 
 		order by community.community_idx desc
+	</select>
+	<select id="tagList" parameterType="int" resultType="kr.com.conimal.model.dto.TagDto">
+		select * from tag inner join board_used_tag 
+		on tag.tag_idx = board_used_tag.tag_idx 
+		where board_used_tag.board_idx = #{board_idx}
+		order by tag.tag_name desc
 	</select>
 	
 
@@ -52,8 +63,14 @@
 	<select id="readFile" resultType="kr.com.conimal.model.dto.CommunityFileDto">
 		select * from community inner join community_file 
 		on community.community_idx = community_file.community_idx 
-		where community.del_yn = 'N' and community_file.community_idx = #{community_idx}
+		where community.del_yn = 'N' and community.community_idx = #{community_idx}
 	</select>
+	<select id="getTags" parameterType="kr.com.conimal.model.dto.CommunityDto" resultType="kr.com.conimal.model.dto.TagDto">
+		select * from tag inner join board_used_tag 
+		on tag.tag_idx = board_used_tag.tag_idx 
+		where board_idx = #{board_idx} and board_type = 'c'
+	</select>
+	
 	
 	<!-- 댓글 보기 / 작성자, 작성일, 내용 (+답글) -->
 	<select id="readComment" parameterType="int" resultType="kr.com.conimal.model.dto.CommentDto">
@@ -71,7 +88,6 @@
 	<update id="hitCount" parameterType="kr.com.conimal.model.dto.CommunityDto">
 		update community set hit = hit + 1 where community_idx = #{community_idx}
 	</update>
-	
 	
 	<!-- 글 수정 -->
 	<update id="editCommunity" parameterType="kr.com.conimal.model.dto.CommunityDto">

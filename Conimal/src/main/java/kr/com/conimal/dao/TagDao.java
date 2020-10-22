@@ -22,4 +22,9 @@ public class TagDao extends SqlSessionDaoSupport {
 	public int writeTagType(BoardUsedTagDto btdto) {
 		return getSqlSession().insert("tag.writeTagType", btdto);
 	}
+	
+	// 태그 사용 수 증가
+	public int tagCount(int tag_idx) {
+		return getSqlSession().update("tag.tagCount", tag_idx);
+	}
 }

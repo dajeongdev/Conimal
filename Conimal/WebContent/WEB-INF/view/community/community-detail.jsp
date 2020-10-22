@@ -1,38 +1,42 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<meta charset="UTF-8">
+	<title>Conimal</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
-
+<% String fullName = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort() + "/careMe/"; %>
+<c:set var="full_name" value="<%=fullName%>"/>
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<div class = "page-container">
 		<div class="community-container">
 		
-		
 			<div class="community-intro">
 				<h3 class="title">커뮤니티</h3>
 			</div>
 			
-		
-			
 			<div> 
 				<h6 class="detail-header">
-					<span id="cm-title">게시판 리스트:콘텐츠 제목</span>
+					<span id="cm-title"><c:out value="${community.title}"/></span>
 					<img src="#" id="">
-					<span id="cm-viewCnt">0</span>					
+					<span id="cm-viewCnt">${community.hit}</span>					
 				</h6>
 				<div class="detail-header justify">
-					<span id="cm-writer">작성자</span>
-					<span id="cm-date">2020.02.02</span>
+					<span id="cm-writer"><c:out value=""/>닉네임</span>
+					<input type="hidden" name="user_idx" id="user_idx" value="${community.user_idx}">
+					<span id="cm-date"><c:out value="${community.reg_date}"/></span>
 				</div>
 				<div class ="detail-header justify">
 					<ul class="tags">
-						<li class="tag-name"><span>#고양이</span></li>
-						<li class="tag-name"><span>#강아지</span></li>
+						<li class="tag-name">
+							<span>
+								<c:forEach var="tag" items="${tags}">
+									<span class="hasgtag" data-idx="${tag.tag_idx}">#<c:out value="${tag.tag_name}"/></span>
+								</c:forEach>
+							</span>
+						</li>
 					</ul>
 					<div class="light-gray">
 						<span>북마크</span>
@@ -43,16 +47,14 @@
 			</div>
 			
 			<div class="detail-contents">
-				본문 영역입니다
-
+				<c:out value="${community.content}"/>
 				<div class="img-area">
-					<img>
+					<img width="100" height="70" src="${full_name}${file[0].file_path}">
 				</div>							
 			</div>
 
 
 			<!-- 덧글  -->
-			
 			<input type="text" class="marB_30" id="comment" placeholder="덧글을 입력하세요"/>
 			
 			<div class="comment-box marB_30">

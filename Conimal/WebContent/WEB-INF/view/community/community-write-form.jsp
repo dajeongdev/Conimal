@@ -5,13 +5,13 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Home</title>
+	<title>Conimal</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
 <style>
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	var tags = [];
 	var tagNames = [];
@@ -33,13 +33,13 @@
 				tagCheck(input_text);
 				e.preventDefault();
 			}
-			console.log("입력 시작");
+			console.log("입력 성공");
 		})
 	})
 	var tagCheck = function(tag) {
 		$.ajax({
-			type : 'get',
 			url : '${pageContext.request.contextPath}/community-write-form/checkTag?tag_name=' + tag,
+			type : 'GET',
 			dataType : 'json'
 		}).done(function(tag) {
 			
@@ -65,31 +65,31 @@
 	var selected = "";
 	
 	$(function() {
-		selected = $("#selectFiles");
+		selected = $("#selectedFiles");
 
 		$("#files").on("change", preview);
-
-		$("#img").on("click", removeFile);
+		
+		$("img").on("click", removeFile);
 
 		form = $("form[name=writeCommunity]")[0];
-		form.onsubmit = function(e) {
-			e.preventDefault();
+		form.onsubmit = function (e) {
+			//e.preventDefault();
 			var formData = new FormData(form);
 			for (var i = 0; i < stored_files.length; i++) {
 				formData.append("files", stored_files[i]);
 			}
 			formData.append("rdTag", tags);
-			$.ajax({
-				url : "community-write-form",
-				type : "post",
-				enctype : "multipart/form-data",
-				contentType : false,
-				processData : false,
-				data : formData,
-				success : function() {
-					location.href = "/community/community-list";
-				}
-			})
+			
+			 $.ajax({
+		         url: "community-write-form", 
+		         type : "POST", 
+		         enctype: "multipart/form-data", 
+		         contentType: false, 
+		         processData: false, 
+		         data : formData
+	       	 }).done(function(data) {
+	       		location.href="/community/community-list";
+		     })
 		}
 	})
 
@@ -116,6 +116,7 @@
 			reader.readAsDataURL(f);
 		});
 	}
+	
 	function removeFile(e) {
 		console.log("e : " + e);
 		var file = $(this).data("file");
@@ -131,19 +132,19 @@
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<div class = "page-container">
-		<form method="post" enctype="multipart/form-data" name="writeCommunity">
 		<div class="community-container">
+			<input type="hidden" id="user_idx" name="user_idx" value="1" readonly />
+			<form method="POST" enctype="multipart/form-data" name="writeCommunity">
 		
 			<div class="community-intro">
 				<h3 class="title">커뮤니티</h3>
 			</div>
 			
-				<input type="hidden" name="user_idx" value="1" readonly />
 				<input type="text" class="marB_20" id="cm-title" name="title" placeholder="제목을 입력하세요"/>
 				
 				<textarea class="community-contents marB_20" id="cm-contents" name="content" placeholder="내용을 입력하세요"></textarea>
 				
-				<input type="hidden" value="" name="tag_name" id="rdTag">
+				<input type="hidden" value="" id="rdTag">
 				<input class="community-tags marB_20" type="text" id="tag" name="tag" placeholder="태그를 입력하세요"/>
 				
 				<div class="marB_60">
@@ -154,9 +155,9 @@
 				<div class="txt-center">
 					<button type="submit" class="btn" id="upload-btn">업로드</button>
 				</div>
-			
+			</form>
 		</div>
-		</form>
+		
 		
 	</div>
 	<%@ include file="../include/footer.jsp" %>

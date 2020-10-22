@@ -3,6 +3,7 @@ package kr.com.conimal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.com.conimal.dao.CommunityDao;
 import kr.com.conimal.dao.TagDao;
 import kr.com.conimal.model.dto.BoardUsedTagDto;
 import kr.com.conimal.model.dto.TagDto;
@@ -47,6 +48,7 @@ public class TagService {
 		for(int i = 0; i < tags.length; i++) {
 			but.setTag_idx(tags[i]);
 			result += writeTagType(but);
+			dao.tagCount(but.getTag_idx());
 		}
 		return result;
 	}	

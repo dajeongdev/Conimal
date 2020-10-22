@@ -1,7 +1,5 @@
 package kr.com.conimal.service;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
@@ -31,6 +29,21 @@ public class CommunityServiceImpl implements CommunityService {
 	
 	@Autowired
 	FileUploadService fileService;
+	
+	@Override
+	public List<TagDto> getHitTagList() {
+		return dao.getHitTagList();
+	}
+	
+	@Override
+	public List<CommunityDto> list() {
+		return dao.list();
+	}
+	
+	@Override
+	public List<TagDto> tagList() {
+		return dao.tagList();
+	}
 
 	@Override
 	public List<CommunityDto> getListing(PagingCommand paging) {
@@ -54,7 +67,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int writeCommunity(CommunityDto community, MultipartHttpServletRequest request) {
-		community.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		community.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")));
 		int i = dao.writeCommunity(community);
 		int d = community.getCommunity_idx();
 		if(d > 0) {
@@ -75,7 +88,7 @@ public class CommunityServiceImpl implements CommunityService {
 		}
 		dto.setContent(request.getParameter("content"));
 		dto.setTitle(request.getParameter("title"));
-		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")));
 		return dto;
 	}
 	
@@ -89,7 +102,7 @@ public class CommunityServiceImpl implements CommunityService {
 			filedto.setFile_name(file.getFile_name());
 			filedto.setFile_path(file.getFile_path());
 			filedto.setFile_size(file.getFile_size());
-			filedto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+			filedto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")));
 			
 			dao.writeCommunityFile(filedto);
 		}
@@ -97,7 +110,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int writeComment(CommentDto comment) {
-		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
 		return dao.writeComment(comment);
 	}
 
@@ -112,8 +125,8 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public List<TagDto> readTag(int community_idx) {
-		return dao.readTag(community_idx);
+	public List<TagDto> getTags(int community_idx) {
+		return dao.getTags(community_idx);
 	}
 	
 	@Override
@@ -149,7 +162,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public int editComment(CommentDto comment) {
-		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
 		return dao.editComment(comment);
 	}
 

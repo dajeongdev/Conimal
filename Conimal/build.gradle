@@ -18,6 +18,10 @@ repositories {
 }
 
 dependencies {
+	// MariaDB
+	// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+	compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.2'
+
 	// Google API
 	// https://mvnrepository.com/artifact/org.springframework.social/spring-social-google
 	compile group: 'org.springframework.social', name: 'spring-social-google', version: '1.0.0.RELEASE'

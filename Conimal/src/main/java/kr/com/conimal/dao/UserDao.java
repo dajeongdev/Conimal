@@ -17,10 +17,8 @@ public interface UserDao {
 	
 	// 이메일 중복 체크
 	public int checkEmail(String email) throws Exception;
-	
 	// 회원 인증키 생성
 	public int getUserKey(String user_id, String user_key) throws Exception;
-	
 	// 회원 인증키 확인 
 	public int updUserKey(String user_id);
 	
@@ -30,21 +28,19 @@ public interface UserDao {
 	// 로그인 
 	public UserDto login(UserDto userDto);
 	
-	// 회원 정보 가져오기
-	public UserDto selectUser(String user_id);
-	
 	// 아아디 찾기
 	public String findId(String email);
 	
 	// 비밀번호 찾기
 	public int findPassword(String user_id, String email, String key);
 	
-	// API 로그인 
-	public void authentication(UserDto userDto);
-	
 	// 전체 회원 정보 가져오기 
 	public List<UserDto> getAll();
 	
 	// 회원 정보 가져오기 
 	public UserDto getUserInfo(String user_id);
+	
+	// API 로그인 
+	public void authentication(UserDto userDto);
+	
 }

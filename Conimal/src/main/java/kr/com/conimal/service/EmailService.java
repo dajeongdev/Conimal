@@ -191,7 +191,7 @@ public class EmailService {
 	// 변경 이메일 인증 확인 
 	public int updateUserKey(String user_id, String email, UserDto user) {
 		int result = mypage.updUserKey(user_id);
-		user.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		user.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")));
 		result = mypage.updateEmail(user);
 		return result;
 	}

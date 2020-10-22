@@ -13,7 +13,10 @@ import kr.com.conimal.model.dto.TagDto;
 
 public interface CommunityDao {
 	// 인기 태그 리스트
+	public List<TagDto> getHitTagList();
 	
+	public List<CommunityDto> list();
+	public List<TagDto> tagList();
 	// 전체 글 목록 
 	public List<CommunityDto> getListing(PagingCommand paging);
 	public List<CommunityDto> getPaging(Map<String, Integer> map);
@@ -30,7 +33,7 @@ public interface CommunityDao {
 	// 글 보기 
 	public CommunityDto readCommunity(int community_idx);
 	public List<CommunityFileDto> readCommunityFile(int community_idx);
-	public List<TagDto> readTag(int board_idx);
+	public List<TagDto> getTags(int board_idx);
 	
 	// 댓글 보기 
 	public List<CommentDto> readComment(int community_idx);
