@@ -15,26 +15,4 @@
 }
 
 
-/* title date and tag */
-.title h1{
-    font-size: 30px;
-}
-
-.date-and-tag{
-    margin-top: 20px;
-    display: flex;
-}
-
-.date{
-    height:24px;
-}
-
-.date span{
-    font-weight: bold;
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 18px;
-    line-height: 24px;
-}
-
 
