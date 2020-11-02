@@ -1,90 +1,143 @@
 /* Main pt1 Header */
-.main-pt1-header{
-    background-color:#002E6D;
-    height: 800px;
-    width: 100%;
-    border-bottom: solid 30px #EFB661;
-  }
-  
-  .main-header-content{
-    padding-top: 273px;
-    color:#fff;
-    text-align:center;
-  }
-  
-  .main-header-content h1{
-    color:#fff;
-  }
-  
-  .main-header-content h2{
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 150%;
-    margin-top: 40px;
-  }
+.main-pt1-header {
+  background-color: #002e6d;
+  height: 800px;
+  width: 100%;
+  border-bottom: solid 30px #efb661;
+}
 
-  /* info card */
-  .main-info{
-    position: relative;
-    top: -100px;
-  }
+.main-header-content {
+  padding-top: 273px;
+  color: #fff;
+  text-align: center;
+}
 
-  /* Main pt2 */
+.main-header-content h1 {
+  font-family: 'GyeonggiTitleM', sans-serif;
+  font-weight: 500;
+  color: #fff;
+}
 
-.main-pt2-header{
-    margin-top:400px;
-    background-color:#002E6D;
-    height: 500px;
-    width: 100%;
-    display:flex;
-  }
-  
-  .main-pt2-img{
-    width:50%;
-    background-color:#002E6D;
-  }
-  
-  .main-pt2-content{
-    width:50%;
-    background-color:#EFB661;
-    padding-left:40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .main-pt2-content h1{
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 150%;
-  }
-  .main-pt2-content h2{
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 150%;
-    margin-top: 20px;
-  }
-  .main-pt2-content h2 span{
-    line-height: 250%;
-  }
-  
-  .index-lists{
-    list-style: none;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 160%;
-    margin-top: 22.5px;
-  }
+.main-header-content h2 {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  margin-top: 40px;
+}
 
-  .look-around{
-    width: 172px;
-  }
+/* info card */
+.main-info {
+  position: relative;
+  top: -100px;
+}
 
-  /*Product section*/
+/* Info Card */
+.info-card-container {
+  display: flex;
+  justify-content: center;
+}
+.info-card *{
+	margin-top:14px;
+}
+
+.info-card {
+  width: 340px;
+  height: 308px;
+  background: #fff;
+  border: 2px solid #f0f0f0;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+  justify-content: center;
+  border-radius: 5px;
+}
 
 
-  .product-cards-container{
-    margin-top: 80px;
-    display: flex;
-    justify-content: center;
-  }
+.info-card h1 {
+	font-family: 'GyeonggiTitleM', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 150%;
+}
+.info-card h2 {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 160%;
+  color: #4f4f4f;
+}
+.info-card-footer span {
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 150%;
+  /*   text-decoration:underline; */
+  color: #4f4f4f;
+}
 
+/* info-card hover */
+.info-card:hover {
+  cursor: pointer;
+  border-color: #002f6c;
+
+}
+
+/* Main pt2 */
+
+.main-pt2-header {
+  margin-top: 400px;
+  background-color: #002e6d;
+  height: 500px;
+  width: 100%;
+  display: flex;
+}
+
+.main-pt2-img {
+  width: 50%;
+  background-color: #002e6d;
+}
+
+.main-pt2-content {
+  width: 50%;
+  background-color: #efb661;
+  padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.main-pt2-content h1 {
+	font-family: 'GyeonggiTitleM', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 150%;
+}
+.main-pt2-content h2 {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 150%;
+  margin-top: 20px;
+}
+.main-pt2-content h2 span {
+  line-height: 250%;
+}
+
+.index-lists {
+  list-style: none;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 160%;
+  margin-top: 22.5px;
+}
+
+.look-around {
+  width: 172px;
+  font-size: 14px;
+}
+
+/*Product section*/
+
+.product-cards-container {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+}

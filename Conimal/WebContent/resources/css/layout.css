@@ -7,6 +7,7 @@ header {
   padding: 30px; 
   z-index : 1000;
   margin: 0 auto;
+  
  
 }
 
@@ -14,19 +15,22 @@ header {
 	font-size: 30px;
 	display:inline-block;
 	margin-right: 50px; 
+	cursor:pointer;
 }
 
 .category {
 	text-align: center;
 	display: inline-block; 
 	line-height: 30px; 
+	color: #002F6C;
 }
 
 .category li {
 	float: left; 
 	padding: 0 15px; 
 	font-weight: bold;  
-	font-size: 16px; 
+	font-size: 16px;
+	cursor:pointer; 
 }
 
 .category li:first-of-type {
@@ -46,6 +50,7 @@ header {
 	font-weight: bold;  
 	font-size: 16px; 
 	line-height: 30px; 
+	color: #002F6C;
 }
 
 

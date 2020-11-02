@@ -8,6 +8,8 @@
 
 <!-- Title -->
 <title>코니멀</title>
+<!-- fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 
 <!-- Favicon -->
 <%-- <link rel="icon" href="${pageContext.request.contextPath}/assets/img/core-img/favicon.ico"> --%>
@@ -16,7 +18,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/common.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/layout.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/content.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/FAQ_list.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/petdic.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/list.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/my-page.css">
