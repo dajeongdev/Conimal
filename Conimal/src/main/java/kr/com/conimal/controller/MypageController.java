@@ -42,31 +42,36 @@ public class MypageController {
 	
 	// 마이페이지 뱃지 페이지로 이동
 	@RequestMapping(value = "/my-page/my-badge", method = RequestMethod.GET)
-	public String mybadgePage() {
+	public String mybadgePage(HttpSession session) {
+		session.getAttribute("user");
 		return "/my-page/my-badge";
 	}
 	
-	/* 마이페이지 뱃지 페이지로 이동
+	/* 마이페이지 코니멀 페이지로 이동
 	@RequestMapping(value = "/my-page/my-conimal")
-	public String myconimalPage() {
+	public String myconimalPage(HttpSession session) {
+		session.getAttribute("user");
 		return "/my-page/my-conimal";
 	} */
 	
 	// 마이페이지 작성글 페이지로 이동
 	@RequestMapping(value = "/my-page/my-post", method = RequestMethod.GET)
-	public String mypostPage() {
+	public String mypostPage(HttpSession session) {
+		session.getAttribute("user");
 		return "/my-page/my-post";
 	}
 	
 	// 마이페이지 댓글 페이지로 이동
 	@RequestMapping(value = "/my-page/my-comment", method = RequestMethod.GET)
-	public String mycommentPage() {
+	public String mycommentPage(HttpSession session) {
+		session.getAttribute("user");
 		return "/my-page/my-comment";
 	}
 	
 	// 마이페이지 북마크 페이지로 이동
 	@RequestMapping(value = "/my-page/my-bookmark", method = RequestMethod.GET)
-	public String mybookmarkPage() {
+	public String mybookmarkPage(HttpSession session) {
+		session.getAttribute("user");
 		return "/my-page/my-bookmark";
 	}
 	
@@ -89,9 +94,11 @@ public class MypageController {
 		if(result == 0) { // 중복 아님 
 			System.out.println("MypageController updateEmail");
 			emailService.updateEmail(email, user_id, request);
+			session.invalidate();
 			return "redirect:/";
 		} 
-		return "/my-page/my-account";
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 	// 이메일 인증 
@@ -104,14 +111,14 @@ public class MypageController {
 	// 비밀번호 확인
 	@RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean checkPwd(UserDto user) {
+	public boolean checkPwd(UserDto user) throws Exception {
 		UserDto login = us.login(user);
 		boolean chkPwd = pwdEncoder.matches(user.getPassword(), login.getPassword());
 		return chkPwd;
 	}
 	
 	@RequestMapping(value = "/secession", method = RequestMethod.POST)
-	public String secession(UserDto user, HttpSession session) {
+	public String secession(UserDto user, HttpSession session) throws Exception {
 		boolean result = checkPwd(user);
 		if(result) {
 			ms.secession(user);

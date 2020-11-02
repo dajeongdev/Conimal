@@ -1,12 +1,10 @@
 package kr.com.conimal.model.dto;
 
-import java.util.Date;
-
 public class BadgeDto {
 	private int badge_idx; // 배지 번호 
 	private String badge_name; // 배지 이름 
 	private String badge_path; // 배지 경로 
-	private int badge_size; // 배지 사이즈 
+	private Long badge_size; // 배지 사이즈 
 	private String reg_date;
 	
 	public int getBadge_idx() {
@@ -27,10 +25,10 @@ public class BadgeDto {
 	public void setBadge_path(String badge_path) {
 		this.badge_path = badge_path;
 	}
-	public int getBadge_size() {
+	public Long getBadge_size() {
 		return badge_size;
 	}
-	public void setBadge_size(int badge_size) {
+	public void setBadge_size(Long badge_size) {
 		this.badge_size = badge_size;
 	}
 	public String getReg_date() {

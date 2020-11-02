@@ -2,6 +2,8 @@ package kr.com.conimal.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,14 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserDao dao;
-
+	
 	// 회원가입
 	@Override
-	public int join(UserDto userDto) throws Exception {
-		userDto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")));
-		return dao.join(userDto);
+	public int join(UserDto user) throws Exception {
+		String user_idx = UUID.randomUUID().toString().replace("-", "");
+		user.setUser_idx(user_idx);
+		user.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
+		return dao.join(user);
 	}
 
 	// 닉네임 중복 체크
@@ -41,26 +45,26 @@ public class UserServiceImpl implements UserService {
 
 	// 로그인
 	@Override
-	public UserDto login(UserDto userDto) {
-		userDto.setLast_login(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")));
-		return dao.login(userDto);
+	public UserDto login(UserDto user) throws Exception {
+		user.setLast_login(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
+		return dao.login(user);
 	}
 	
 	// 아이디 찾기
 	@Override
-	public String findId(String email) {
+	public String findId(String email) throws Exception {
 		return dao.findId(email);
 	}
 	
 	// 회원 정보 가져오기
 	@Override
-	public UserDto getUserInfo(String user_id) {
+	public UserDto getUserInfo(String user_id) throws Exception {
 		return dao.getUserInfo(user_id);
 	}
 	
 	@Override
-	public void authentication(UserDto userDto) {
-		dao.authentication(userDto);
+	public void authentication(UserDto user) {
+		dao.authentication(user);
 	}
 	
 }

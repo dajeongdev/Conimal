@@ -11,8 +11,8 @@ import kr.com.conimal.model.dto.UserDto;
 public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	// 회원가입
 	@Override
-	public int join(UserDto userDto) throws Exception {
-		return getSqlSession().insert("user.join", userDto);
+	public int join(UserDto user) throws Exception {
+		return getSqlSession().insert("user.join", user);
 	}
 	
 	// 닉네임 중복 체크
@@ -43,25 +43,25 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 		return getSqlSession().update("user.getUserKey", map);
 	}
 	@Override
-	public int updUserKey(String user_id) {
+	public int updUserKey(String user_id) throws Exception {
 		return getSqlSession().update("user.updUserKey", user_id);
 	}
 
 	// 로그인
 	@Override
-	public UserDto login(UserDto userDto) {
-		return getSqlSession().selectOne("user.login", userDto);
+	public UserDto login(UserDto user) throws Exception {
+		return getSqlSession().selectOne("user.login", user);
 	}
 	
 	// 아이디 찾기
 	@Override
-	public String findId(String email) {
+	public String findId(String email) throws Exception {
 		return getSqlSession().selectOne("user.findId", email);
 	}
 	
 	// 비밀번호 찾기
 	@Override
-	public int findPassword(String user_id, String email, String password) {
+	public int findPassword(String user_id, String email, String password) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("user_id", user_id);
 		map.put("email", email);
@@ -71,21 +71,21 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao  {
 	
 	// 전체 회원 정보
 	@Override
-	public List<UserDto> getAll() {
+	public List<UserDto> getAll() throws Exception {
 		System.out.println("UserDaoImpl selectAll() 호출");
 		return getSqlSession().selectList("user.getAll");
 	}
 	
 	// 회원 정보 가져오기
 	@Override
-	public UserDto getUserInfo(String user_id) {
+	public UserDto getUserInfo(String user_id) throws Exception {
 		return getSqlSession().selectOne("user.getUserInfo", user_id);
 	}
 	
 	@Override
-	public void authentication(UserDto userDto) {
+	public void authentication(UserDto user) {
 		System.out.println("UserDaoImpl authentication() 호출");
-		getSqlSession().insert("user.authentication", userDto);
+		getSqlSession().insert("user.authentication", user);
 	}
 
 }

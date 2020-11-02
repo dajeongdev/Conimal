@@ -7,7 +7,7 @@
 </head>
 <script type = "text/javascript" src = "https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript">
-	var naver-api = new naver-api("DphfmDygX4WFkf8nghMJ", "http://localhost:8090/hansub_project/login_result");    // Client ID, CallBack URL 삽입
+	/*var naver-api = new naver-api("DphfmDygX4WFkf8nghMJ", "http://localhost:8090/hansub_project/login_result");    // Client ID, CallBack URL 삽입
 	// 단 'localhost'가 포함된 CallBack URL
 	var state = naver-api.getUniqState();
 	
@@ -15,7 +15,7 @@
 	naver-api.setDomain("http://localhost:8080/join/login"); // URL
 	naver-api.setState(state);
 	naver-api.setPopup();
-	naver-api.init_naver_id_login();
+	naver-api.init_naver_id_login();*/
 </script>
 <body>
 <%@ include file="../include/header.jsp" %>

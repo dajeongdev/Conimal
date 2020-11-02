@@ -19,8 +19,8 @@ public class TagDao extends SqlSessionDaoSupport {
 	}
 	
 	// 태그 이름 유무에 상관없이 글 작성 시 태그가 있으면 DB에 입력
-	public int writeTagType(BoardUsedTagDto btdto) {
-		return getSqlSession().insert("tag.writeTagType", btdto);
+	public int writeTagType(BoardUsedTagDto boardUsedTag) {
+		return getSqlSession().insert("tag.writeTagType", boardUsedTag);
 	}
 	
 	// 태그 사용 수 증가

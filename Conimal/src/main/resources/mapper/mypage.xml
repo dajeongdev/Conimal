@@ -3,10 +3,10 @@
 <mapper namespace="mypage">
 	<!-- 코니멀 등록* -->
 	<insert id="registerConimal" parameterType="kr.com.conimal.model.dto.ConimalDto">
-		insert into user (conimal_idx, user_idx, name, conimal_type, 
-			conimal_image, image_path, image_size, weight, reg_date, update_date) 
-			values (#{conimal_idx}, #{user_idx}, #{name}, #{conimal_type}, 
-			#{conimal_image}, #{image_path}, #{image_size}, #{weight}, #{reg_date}, null)
+		insert into user (conimal_idx, user_idx, name, birth, type, sex, 
+			conimal_image, image_path, image_size, reg_date, update_date) 
+			values (#{conimal_idx}, #{user_idx}, #{name}, #{birth}, #{type}, #{sex}, 
+			#{conimal_image}, #{image_path}, #{image_size}, #{reg_date}, null)
 	</insert>
 	
 	<!-- 코니멀 보기 / 이미지, 이름, 생년월일, 입-->
@@ -73,7 +73,7 @@
 		</set> 
 		<where>user_id = #{user_id}</where>
 	</update>
-	<!-- 회원 인증키 생성 -->
+	<!-- 회원 난수 생성 -->
 	<update id="getUserKey" parameterType="HashMap">
 		update user set user_key = #{user_key} where user_id = #{user_id} 
 	</update>
@@ -81,11 +81,6 @@
 	<update id="updUserKey" parameterType="String">
 		update user set user_key = 'Y' where user_id = #{user_id}
 	</update>
-	
-	<!-- 비밀번호 체크 -->
-	<select id="checkPwd" resultType="int">
-		select COUNT(*) from user where user_id = #{user_id} and password = #{password}
-	</select>
 	
 	<!-- 회원 탈퇴 -->
 	<update id="secession" parameterType="kr.com.conimal.model.dto.UserDto">

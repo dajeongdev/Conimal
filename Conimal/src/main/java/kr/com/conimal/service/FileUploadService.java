@@ -3,8 +3,8 @@ package kr.com.conimal.service;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +44,9 @@ public class FileUploadService {
 				try {
 					writeFile(file, save_file_name, save_file_path);
 					fileCom.setFile_name(origin_name);
-					fileCom.setFile_path(resource_path + path + save_file_path);
+					System.out.println(origin_name);
+					fileCom.setFile_path(save_file_path);
+					System.out.println(save_file_path);
 					fileCom.setFile_size(size);
 					files.add(fileCom);
 				} catch (Exception e) {
@@ -59,6 +61,7 @@ public class FileUploadService {
 	private void writeFile(MultipartFile multFile, String save_file_name, String path) throws IOException {
 		File dest = new File(path + save_file_name);
 		File folder = new File(path);
+		
 		if(!folder.exists()) {
 			folder.mkdirs();
 			System.out.println("폴더 생성");

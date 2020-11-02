@@ -7,14 +7,12 @@
 	<title>Home</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
-
+<script>
+</script>
 <body>
 	<%@ include file="../include/header.jsp" %>
-	<c:if test="${user.user_idx eq session.user_idx}">
-		<c:set var="isOwnPet" value="Y" />
-	</c:if>
 	<div class = "page-container">
-	<input type="hidden" name="user_idx" id="user_idx" value="1" readonly />
+	<input type="hidden" name="user_idx" id="user_idx" value="${user.user_idx}" readonly />
 		<div class="community-container">
 		
 			<div class="community-intro">
@@ -24,51 +22,23 @@
 					<div class="search-box">
 						<button class="btn small-btn">검색</button>
 						<input class="search-input" type ="text" placeholder ="검색어를 입력하세요"/>
-						<button class="btn small-btn">10개</button>	
+						<button class="btn small-btn" id="cntPerPage">10개</button>	
 					</div>
 					<button class="btn small-btn" onclick="document.location.href='/community/community-write-form'">글쓰기</button>
 				</div>
 				
 				<div class="tags">
-					<c:forEach var="taglist" items="${hitTagList}">
+					<c:forEach var="hitTagList" items="${hitTagList}">
 					<div class="tag-name">
-						<span>#<c:out value="${taglist.tag_name}"/></span>
+						<span>#<c:out value="${hitTagList.tag_name}"/></span>
 					</div>
 					</c:forEach>
 				</div>
 			</div>
 
 			<div class="board-list" id="noticeTable">
-				<div class="board-item">
-					<div class="board-first-raw">
-						<div>
-							<span class="title bold"><a href="/community/community-detail">게시판 리스트: 콘텐츠 제목1</a></span>
-							<span class="chat-icon"></span>
-							<span class="view-cnt">1</span>
-							<span class="new">new</span>
-						</div>
-						<span class="user bold">사용자</span>
-					</div>
-					<div class="board-second-raw">				
-						<div class="tags">
-							<div class="tag-name">
-								<span>#</span>
-								<span>asdf</span>
-							</div>
-							<div class="tag-name">
-								<span>#</span>
-								<span>asdf</span>
-							</div>
-							<div class="tag-name">
-								<span>#</span>
-								<span>asdf</span>
-							</div>
-						</div>
-						<span class="date bold">2020.06.25</span>
-					</div>
-				</div>
 				
-				<c:forEach var="community" items="${community}">
+				<c:forEach var="community" items="${list}">
 				<div class="board-item">
 					
 					<div class="board-first-raw">
@@ -78,16 +48,14 @@
 							<span class="view-cnt">${community.hit}</span>
 							<span class="new">new</span>
 						</div>
-						<span class="user bold">${community.user_idx}</span>
+						<span class="user bold">${community.user.nickname}</span>
 					</div>
 					<div class="board-second-raw">				
 						<div class="tags">
-							<c:forEach var="tag" items="${tags}">
-								
+							<c:forEach items="${tags}" var="tags">
 									<div class="tag-name">
-										<span>#<c:out value="${tag.tag_name}"/></span>
+										<span>#<c:out value="${tags.tag.tag_name}"/></span>
 									</div>
-								
 							</c:forEach>
 						</div>
 						<span class="date bold">${community.reg_date}</span>
@@ -97,13 +65,15 @@
 				</c:forEach>
 			
 				<ul class="pagination clr">
-					<li class="paging-item">r</li>
-					<li class="paging-item">1</li>
-					<li class="paging-item">2</li>
-					<li class="paging-item">3</li>
-					<li class="paging-item">4</li>
-					<li class="paging-item">5</li>
-					<li class="paging-item">r</li>
+					<c:if test="${pageMaker.prev}">
+						<li class="paging-item" onclick="document.location.href='/community/community-list${pageMaker.makeQueryPage(pageMaker.startPage-1)}'">r</li>
+					</c:if>
+					<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+						<li class="paging-item" onclick="document.location.href='/community/community-list${pageMaker.makeQueryPage(pageNum)}'">${pageNum}
+					</c:forEach>
+					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+						<li class="paging-item" onclick="document.location.href='/community/community-list?page=${pageMaker.makeQueryPage(pageMaker.endPage+1)}'">r</li>
+					</c:if>
 				</ul>
 	
 			</div>

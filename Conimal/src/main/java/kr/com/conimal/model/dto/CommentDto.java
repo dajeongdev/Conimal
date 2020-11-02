@@ -3,12 +3,13 @@ package kr.com.conimal.model.dto;
 public class CommentDto {
 	private int comment_idx;
 	private int community_idx; // 커뮤니티 글번호
-	private int user_idx; // 회원 번호 
+	private String user_idx; // 회원 번호 
 	private String content; // 내용 
 	private int parent_comment_idx; // 상위 댓글 번호 
 	private int depth; // 답글 단계 
 	private String reg_date;
-	private char del_yn; // default 'N'
+	
+	private UserDto user;
 	
 	public int getComment_idx() {
 		return comment_idx;
@@ -22,10 +23,10 @@ public class CommentDto {
 	public void setCommunity_idx(int community_idx) {
 		this.community_idx = community_idx;
 	}
-	public int getUser_idx() {
+	public String getUser_idx() {
 		return user_idx;
 	}
-	public void setUser_idx(int user_idx) {
+	public void setUser_idx(String user_idx) {
 		this.user_idx = user_idx;
 	}
 	public String getContent() {
@@ -52,11 +53,11 @@ public class CommentDto {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public char getDel_yn() {
-		return del_yn;
+	public UserDto getUser() {
+		return user;
 	}
-	public void setDel_yn(char del_yn) {
-		this.del_yn = del_yn;
+	public void setUser(UserDto user) {
+		this.user = user;
 	}
 	
 }

@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function(){
 	var nickR = /^[가-힣a-zA-Z0-9]{2,10}$/
-	var pwdR = /^[A-Za-z0-9]{8,16}$/; 
+	var pwdR = /^[A-Za-z0-9]{6,16}$/; 
 	var emailR = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
 	// 닉네임 유효성 검사

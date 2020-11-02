@@ -15,7 +15,7 @@ $(document).ready(function() {
 		var id = $("#user-id").val();
 		var idR = /^[a-z0-9]{4,10}$/;
 		var pwd = $("#user-pwd").val();
-		var pwdR = /^[A-Za-z0-9]{8,16}$/; 
+		var pwdR = /^[A-Za-z0-9]{6,16}$/; 
 
 		$.ajax({
 			url : '${pageContext.request.contextPath}/login/login-success',
@@ -55,6 +55,7 @@ $(document).ready(function() {
 				}
 			}, error : function() {
 				console.log("로그인 실패");
+				alert("아이디나 비밀번호를 확인해주세요.");
 			}
 		});
 	});

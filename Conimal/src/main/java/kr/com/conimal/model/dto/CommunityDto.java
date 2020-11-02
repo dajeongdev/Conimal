@@ -1,17 +1,16 @@
 package kr.com.conimal.model.dto;
 
-import java.util.Date;
-
 public class CommunityDto {
 	private int community_idx;
-	private int user_idx; // 회원 번호 
+	private String user_idx; // 회원 번호 
 	private String title; // 제목 
 	private String content; // 내용 
 	private int hit; // 조회수 
-	private String reg_date;
-	private String update_date;
+	private String reg_date; // 등록일
+	private String update_date; // 수정일
 	private char show_yn; // default 'Y'
 	private char del_yn; // default 'N'
+	private UserDto user;
 	
 	public int getCommunity_idx() {
 		return community_idx;
@@ -19,10 +18,10 @@ public class CommunityDto {
 	public void setCommunity_idx(int community_idx) {
 		this.community_idx = community_idx;
 	}
-	public int getUser_idx() {
+	public String getUser_idx() {
 		return user_idx;
 	}
-	public void setUser_idx(int user_idx) {
+	public void setUser_idx(String user_idx) {
 		this.user_idx = user_idx;
 	}
 	public String getTitle() {
@@ -66,6 +65,12 @@ public class CommunityDto {
 	}
 	public void setDel_yn(char del_yn) {
 		this.del_yn = del_yn;
+	}
+	public UserDto getUser() {
+		return user;
+	}
+	public void setUser(UserDto user) {
+		this.user = user;
 	}
 	
 }

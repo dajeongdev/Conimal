@@ -1,34 +1,41 @@
 package kr.com.conimal.model.command;
 
 public class PagingCommand {
-	private String searchType;
-	private String keyword;
-	private int start_idx;
-	private int contentPerPage;
 	
-	public String getSearchType() {
-		return searchType;
-	}
-	public void setSearchType(String searchType) {
-		this.searchType = searchType;
-	}
-	public String getKeyword() {
-		return keyword;
-	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-	public int getStart_idx() {
-		return start_idx;
-	}
-	public void setStart_idx(int start_idx) {
-		this.start_idx = start_idx;
-	}
-	public int getContentPerPage() {
-		return contentPerPage;
-	}
-	public void setContentPerPage(int contentPerPage) {
-		this.contentPerPage = contentPerPage;
+	private int page; // 현재 페이지 번호
+	private int perPageNum; // 한 페이지당 보여줄 게시글의 개수
+	
+	public int getPageStart() { // 특정 페이지의 게시글 시작 번호, 게시글 시작 행번호
+		return (this.page - 1) * perPageNum;
 	}
 	
+	public PagingCommand() {
+		this.page = 1;
+		this.perPageNum = 10;
+	}
+	
+	public int getPage() {
+		return page;
+	}
+	
+	public void setPage(int page) {
+		if(page <= 0) {
+			this.page = 1;
+		} else {
+			this.page = page;
+		}
+	}
+	
+	public int getPerPageNum() {
+		return perPageNum;
+	}
+	
+	public void setPerPageNum(int pageCount) {
+		int count = this.perPageNum;
+		if(pageCount != count) {
+			this.perPageNum = count;
+		} else {
+			this.perPageNum = pageCount;
+		}
+	}
 }
