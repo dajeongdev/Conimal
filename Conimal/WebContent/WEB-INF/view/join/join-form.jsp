@@ -14,7 +14,7 @@ $(document).ready(function() {
 	var idR = /^[a-z0-9]{4,10}$/;
 	var nickR = /^[가-힣a-zA-Z0-9]{2,10}$/;
 	var mailR = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-	var pwdR = /^[A-Za-z0-9]{8,16}$/; 
+	var pwdR = /^[A-Za-z0-9]{6,16}$/; 
 	
 	// 아이디 유효성 검사 (4자리 이상 10자리 이하, 소문자와 숫자 조합)
 	$('#user-id').blur(function() {
@@ -146,7 +146,7 @@ $(document).ready(function() {
 			$('#join_submit').attr("disabled", true);
 		} else {
 			console.log("불가능한 비밀번호");
-			$("#check_pwd").text("영문자와 숫자 조합 8~16자리를 입력해주세요.");
+			$("#check_pwd").text("영문자와 숫자 조합 6~16자리를 입력해주세요.");
 			$("#check_pwd").css("color", "red");
 		}
 	});

@@ -1,13 +1,11 @@
 package kr.com.conimal.model.dto;
 
-import java.util.Date;
-
 public class BookmarkDto {
 	private int bookmark_idx;
-	private int user_idx; // 회원 번호 
+	private String user_idx; // 회원 번호 
 	private int board_idx; // 글 번호 
 	private String board_type; // 게시판 타입 
-	private String reg_date;
+	private String reg_date; // 등록일자
 	
 	public int getBookmark_idx() {
 		return bookmark_idx;
@@ -15,10 +13,10 @@ public class BookmarkDto {
 	public void setBookmark_idx(int bookmark_idx) {
 		this.bookmark_idx = bookmark_idx;
 	}
-	public int getUser_idx() {
+	public String getUser_idx() {
 		return user_idx;
 	}
-	public void setUser_idx(int user_idx) {
+	public void setUser_idx(String user_idx) {
 		this.user_idx = user_idx;
 	}
 	public int getBoard_idx() {

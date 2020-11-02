@@ -1,32 +1,22 @@
 package kr.com.conimal.model.dto;
 
-import java.sql.Timestamp;
-import java.util.Date;
-
 public class UserDto {
-	private int user_idx;
-	private String user_id;
+	private String user_idx; // 회원 번호 
+	private String user_id;  
 	private String password;
 	private String nickname;
 	private String email; 
-	private String user_key;
-	private int level; // 0: 관리자, 1: 일반회원, 2: API회원  
-	//private int badge_idx; // 기본 뱃지 필요
-	private String reg_date;
-	private String update_date;
-	private String last_login; 
+	private String user_key; // 이메일 인증키
+	private String level; // A: 관리자, D: 일반(default), B: 블랙리스트
+	private String reg_date; // 등록일
+	private String update_date; // 수정일
+	private String last_login; // 마지막 로그인 일자
 	private char del_yn; // default 'N'
 	
-	public String getUser_key() {
-		return user_key;
-	}
-	public void setUser_key(String user_key) {
-		this.user_key = user_key;
-	}
-	public int getUser_idx() {
+	public String getUser_idx() {
 		return user_idx;
 	}
-	public void setUser_idx(int user_idx) {
+	public void setUser_idx(String user_idx) {
 		this.user_idx = user_idx;
 	}
 	public String getUser_id() {
@@ -53,10 +43,16 @@ public class UserDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getLevel() {
+	public String getUser_key() {
+		return user_key;
+	}
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
+	public String getLevel() {
 		return level;
 	}
-	public void setLevel(int level) {
+	public void setLevel(String level) {
 		this.level = level;
 	}
 	public String getReg_date() {
@@ -83,5 +79,5 @@ public class UserDto {
 	public void setDel_yn(char del_yn) {
 		this.del_yn = del_yn;
 	}
-	
+
 }

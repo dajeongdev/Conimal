@@ -10,7 +10,8 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 			
 	<context:component-scan base-package="kr.com.conimal.*"/>
-	<context:annotation-config></context:annotation-config>
+	<mvc:annotation-driven />
+	<context:annotation-config/>
 	<context:property-placeholder location="classpath:config/db.properties" local-override="true" />
 	
 	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
@@ -28,6 +29,14 @@
 		<property name="contentType" value="text/html; charset=UTF-8"/>
 		<property name="order" value="3" />
 	</bean>
+	
+	<!-- DataSource log4jdbc-log4j2 설정 
+	<bean id="dataSource" class="org.springframework.jdbc.dataSource.DrivcerManagerDataSource">
+		<property name="drivceClassName" value="net.sf.log4jdbc.sql.jdbcapi.DrivceSpy"/>
+		<property name="url" value="jdbc:log4jdbc:mysql://conimal-db.cyvqho0vl7xg.ap-northeast-2.rds.amazonaws.com:3306/conimal?userSSL=false"/>
+		<property name="username" value="admin"/>
+		<property name="password" value="!conimal123"/>
+	</bean>-->
 		
 	<!-- connectionPool 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
@@ -47,9 +56,8 @@
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	<mvc:annotation-driven />
 	
-		<mvc:annotation-driven>
+	<mvc:annotation-driven>
 		<mvc:message-converters>
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<property name="supportedMediaTypes">

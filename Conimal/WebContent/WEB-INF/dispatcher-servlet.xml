@@ -21,7 +21,7 @@
 	<bean id="tagDao" class="kr.com.conimal.dao.TagDao">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
-	
+
 	<!-- 회원가입 메일 인증 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
@@ -41,12 +41,12 @@
 	
 	<!-- Google API -->
 	<bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
-		<constructor-arg value="258862024626-5sjusjrfaok0nvup64er11ujv8hrh73f.apps.googleusercontent.com"/>
-		<constructor-arg value="rRCRwgDMYx00fp4j5_l4-1Fp" />
+		<constructor-arg value="66532777318-mohmk81fqflms7dedngpbjlvvof0e0f9.apps.googleusercontent.com"/>
+		<constructor-arg value="pmpb-tBortYfpwbRwkfZpA7I" />
 	</bean>
 	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters" >
 		<property name="scope" value="https://www.googleapis.com/auth/plus.login" />
-		<property name="redirectUri" value="http://localhost:8080/main" />
+		<property name="redirectUri" value="http://localhost:8080/login/google" />
 	</bean>
 	
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />

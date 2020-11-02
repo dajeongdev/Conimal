@@ -16,10 +16,15 @@
 	
 	<!-- 태그 이름 유무에 상관없이 글 작성 시 태그가 있으면 DB에 입력 -->
 	<insert id="writeTagType" parameterType="kr.com.conimal.model.dto.BoardUsedTagDto">
-		insert into board_used_tag (board_used_tag_idx, board_idx, user_idx, tag_idx, board_type) 
-		values (#{board_used_tag_idx}, #{board_idx}, #{user_idx}, #{tag_idx}, #{board_type})
+		insert into board_used_tag (board_used_tag_idx, user_idx, board_idx, tag_idx, board_type) 
+		values (#{board_used_tag_idx}, #{user_idx}, #{board_idx}, #{tag_idx}, #{board_type})
 		<selectKey keyProperty="board_used_tag_idx" resultType="int">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert>
+	
+	<!-- 태그 사용 횟수 증가 -->
+	<update id="tagCount" parameterType="kr.com.conimal.model.dto.TagDto">
+		update tag set hit = hit + 1 where tag_idx = #{tag_idx}
+	</update>
 </mapper>

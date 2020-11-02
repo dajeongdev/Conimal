@@ -2,15 +2,25 @@ package kr.com.conimal.controller;
 
 import java.io.IOException;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
 import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,7 +42,7 @@ public class UserController {
 	UserDao ud;
 	
 	@Autowired
-	EmailService emailService;
+	EmailService es;
 	
 	@Autowired
 	BCryptPasswordEncoder pwdEncoder;
@@ -43,10 +53,10 @@ public class UserController {
 	@Autowired
 	OAuth2Parameters googleOAuth2Parameters;
 	
-	
 	// 메인 페이지 
 	@RequestMapping(value = "main")
-	public ModelAndView selectAll() {
+	public ModelAndView main(HttpSession session) {
+		session.getAttribute("user");
 		ModelAndView mav = new ModelAndView();
 		//List<UserDto> users = ud.getAll();
 		mav.setViewName("main");
@@ -106,29 +116,78 @@ public class UserController {
 		// 회원가입 메서드
 		us.join(userDto);
 		// 인증 메일 보내기 메서드 
-		emailService.sendEmail(userDto.getEmail(), userDto.getUser_id(), request);
+		es.sendEmail(userDto.getEmail(), userDto.getUser_id(), request);
 		return "redirect:/";
 	}
 	
 	// 이메일 인증 
 	@RequestMapping(value = "/updUserKey", method = RequestMethod.GET)
-	public String updUserKey(@RequestParam("user_id") String user_id) throws Exception {
-		emailService.updUserKey(user_id);
+	public String updUserKey(@RequestParam("nickname") String nickname) throws Exception {
+		es.updUserKey(nickname);
 		return "/join/join-success";
 	}
 	
-	// Google Callback Method
-	@RequestMapping(value = "/login/googleCallback", method = {RequestMethod.GET, RequestMethod.POST})
-	public String googleCallback(Model model, @RequestParam String code) throws IOException {
-		System.out.println("Success Google Callback");
-		return "/main";
+	// Google API
+	@RequestMapping(value = "/login/google", method = RequestMethod.POST)
+	public void googleCallback(HttpServletResponse response) {
+		OAuth2Operations operations = googleConnectionFactory.getOAuthOperations();
+		String url = operations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.write(url);
+			out.flush();
+			out.close();
+		} catch(IOException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
+	}	
+	@RequestMapping(value = "/login/googleCallback")
+	public String doSessionAssignActionPage(HttpServletRequest request){
+		System.out.println("/member/googleSignInCallback");
+		String code = request.getParameter("code");
+		
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code , googleOAuth2Parameters.getRedirectUri(),
+				null);
+		
+		String accessToken = accessGrant.getAccessToken();
+		Long expireTime = accessGrant.getExpireTime();
+		if (expireTime != null && expireTime < System.currentTimeMillis()) {
+			accessToken = accessGrant.getRefreshToken();
+			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+		}
+		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+		
+		PlusOperations plusOperations = google.plusOperations();
+		Person person = plusOperations.getGoogleProfile();
+		
+		//UserDto user = new UserDto();
+		//user.setNickname(person.getDisplayName());
+
+		HttpSession session = request.getSession();
+		//session.setAttribute("google", user);
+		
+		System.out.println(person.getDisplayName());
+		
+		return "redirect:/";
+		/*System.out.println(person.getAccountEmail());
+		System.out.println(person.getAboutMe());
+		System.out.println(person.getDisplayName());
+		System.out.println(person.getEtag());
+		System.out.println(person.getFamilyName());
+		System.out.println(person.getGender());
+		*/
+		
 	}
 	
 	// 로그인
 	@RequestMapping(value = "/login/login-success", method = RequestMethod.POST)
-	public String login(UserDto user, HttpSession session) {
-		session.getAttribute("user");
+	public String login(UserDto user, HttpServletRequest request) throws Exception {
 		UserDto login = us.login(user);
+		HttpSession session = request.getSession();
 		
 		//boolean pwdMatch = pwdEncoder.matches(user.getPassword(), login.getPassword());
 		
@@ -143,7 +202,7 @@ public class UserController {
 	
 	// 로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logut(HttpSession session) {
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";
 	}
@@ -156,7 +215,7 @@ public class UserController {
 	// ID 찾기
 	@RequestMapping(value = "/join/find-id", method = RequestMethod.POST)
 	@ResponseBody
-	public String findId(@RequestParam String email) {
+	public String findId(@RequestParam String email) throws Exception {
 		return us.findId(email);
 	}
 	
@@ -168,8 +227,8 @@ public class UserController {
 	// 비밀번호 찾기 
 	@RequestMapping(value = "/join/find-password", method = RequestMethod.POST)
 	@ResponseBody
-	public String findPwd(@RequestParam String user_id, @RequestParam String email, HttpServletRequest request) {
-		emailService.sendPwd(user_id, email, request);
+	public String findPwd(@RequestParam String user_id, @RequestParam String email, HttpServletRequest request) throws Exception {
+		es.sendPwd(user_id, email, request);
 		return "/join/login";
 	}
 	

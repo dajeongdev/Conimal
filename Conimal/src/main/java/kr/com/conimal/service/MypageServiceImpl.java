@@ -1,6 +1,5 @@
 package kr.com.conimal.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -19,14 +18,14 @@ public class MypageServiceImpl implements MypageService {
 	
 	@Override
 	public int registerConimal(ConimalDto conimal) {
-		conimal.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		conimal.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
 		System.out.println("MypageServiceImpl registerConimal() 호출");
 		return dao.registerConimal(conimal);
 	}
 
 	@Override
 	public int updateUserInfo(UserDto user) {
-		user.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+		user.setUpdate_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
 		System.out.println("MypageServiceImpl updateUserInfo() 호출");
 		return dao.updateUserInfo(user);
 	}
