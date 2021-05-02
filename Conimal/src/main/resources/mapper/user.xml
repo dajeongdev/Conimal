@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
+
 	<!-- 회원가입 -->
 	<insert id="join" parameterType="kr.com.conimal.model.dto.UserDto">
-		insert into user (user_idx, user_id, password, nickname, email, level, reg_date, update_date, last_login, del_yn) 
-		values (#{user_idx}, #{user_id}, #{password}, #{nickname}, #{email}, 'D', #{reg_date}, null, null, 'N')
+		insert into user (user_id, id, password, nickname, email, user_key, grade, create_date, update_date, last_login) 
+		values (#{user_id}, #{id}, #{password}, #{nickname}, #{email}, null, 'D', #{create_date}, #{update_date}, #{last_login})
 	</insert>
 	
 	<!-- 닉네임 중복 체크 -->
@@ -24,47 +25,40 @@
 	
 	<!-- 회원 난수 인증키 생성 -->
 	<update id="getUserKey" parameterType="HashMap">
-		update user set user_key = #{user_key} where user_id = #{user_id} 
+		update user set user_key = #{user_key} where id = #{id} 
 	</update>
+	
 	<!-- 회원 인증키 확인 -->
 	<update id="updUserKey" parameterType="String">
-		update user set user_key = 'Y' where user_id = #{user_id}
+		update user set user_key = 'Y' where id = #{id}
 	</update>
 	
 	<!-- 로그인 -->
 	<select id="login" resultType="kr.com.conimal.model.dto.UserDto">
-		select * from user where user_id = #{user_id} and password = #{password}
+		select * from user where id = #{id} and password = #{password}
 	</select>
 	<update id="lastLogin" parameterType="kr.com.conimal.model.dto.UserDto">
-		update user set last_login = #{last_login}
+		update user set last_login = now() where id = #{id}
 	</update>
 	
 	<!-- ID 찾기 -->
 	<select id="findId" resultType="String">
-		select ifnull(user_id, 0) from user where email = #{email}
+		select ifnull(id, 0) from user where email = #{email}
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
 	<update id="findPassword" parameterType="HashMap">
-		update user set password = #{password} where user_id = #{user_id} and email = #{email}
+		update user set password = #{password} where id = #{id} and email = #{email}
 	</update>
 	
 	<!-- 회원 정보 가져오기 -->
 	<select id="getUserInfo" resultType="kr.com.conimal.model.dto.UserDto">
-		select * from user where user_id = #{user_id} and del_yn = 'N'
+		select * from user where id = #{id}
 	</select>
 	
 	<!-- 전체 회원 보기 -->
 	<select id="getAll" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user
 	</select>
-	
-	<!-- API로 로그인 -->
-	<insert id="authentication" parameterType="kr.com.conimal.model.dto.UserDto">
-		insert into user (user_idx, user_id, password, nickname, email, 
-		user_key, level, reg_date, update_date, last_login, del_yn) 
-		values (#{user_idx}, #{user_id}, 0, #{nickname}, #{email}, 
-		'Y', 2, #{reg_date}, #{update_date}, null, 'N')
-	</insert>
 	
 </mapper>

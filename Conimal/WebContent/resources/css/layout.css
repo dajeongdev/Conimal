@@ -192,6 +192,7 @@ aside {
 
 .sub-container {
 	width: 790px;
+	margin: 0 auto;
 	height: auth;
 	border: 2px solid #F0F0F0;
 	box-sizing: border-box;

@@ -1,6 +1,7 @@
 package kr.com.conimal.model.command;
 
 import java.util.List;
+
 import kr.com.conimal.model.dto.CommunityDto;
 import kr.com.conimal.model.dto.CommunityFileDto;
 

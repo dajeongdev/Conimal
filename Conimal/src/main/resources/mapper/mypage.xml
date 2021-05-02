@@ -1,58 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="mypage">
-	<!-- 코니멀 등록* -->
-	<insert id="registerConimal" parameterType="kr.com.conimal.model.dto.ConimalDto">
-		insert into user (conimal_idx, user_idx, name, birth, type, sex, 
-			conimal_image, image_path, image_size, reg_date, update_date) 
-			values (#{conimal_idx}, #{user_idx}, #{name}, #{birth}, #{type}, #{sex}, 
-			#{conimal_image}, #{image_path}, #{image_size}, #{reg_date}, null)
-	</insert>
-	
-	<!-- 코니멀 보기 / 이미지, 이름, 생년월일, 입-->
-	<select id="conimalList" resultType="kr.com.conimal.model.dto.ConimalDto">
-		select * from conimal where user_idx = #{user_idx}
-	</select>
-	
-	<!-- 참여한 펫과사전 보기 / 코니멀 타입, 제목, 평가..? 
-	<select id="dictionaryList" resultType="kr.com.conimal.model.command.DictionaryCommand">
-		select * from dictionary where user_idx = #{user_idx}
-	</select>-->
-	
-	<!-- 배지(성과) 보기 / 이미지 띄우기 
-	<select id="badgeList" resultType="kr.com.conimal.model.dto.BadgeDto">
-		select * from badge join user
-		on badge.badge_idx = user.badge_idx where user_idx = #{user_idx}
-	</select>-->
-	
-	<!-- 작성한 커뮤니티 글 보기 / 제목, 태그, 댓글 수, 작성자, 작성일 -->
-	<select id="getCommunityList" parameterType="HashMap" resultType="kr.com.conimal.model.dto.CommunityDto">
-		select SQL_CALC_FOUND_ROWS * 
-		from community inner join user 
-		on community.user_idx = user.user_idx 
-		order by community.community_idx desc
-		limit #{start_idx}, #{contentPerPage}
-	</select>
-	<select id="getTotal" resultType="int">
-		select FOUND_ROWS()
-	</select>
-	
-	<!-- 북마크한 글 보기 / 제목, 태그, 댓글 수, 작성자, 작성일 -->
-	
-	
-	<!-- 작성한 댓글 보기 / 댓글 내용, 글 제목, 댓글수, 작성자, 작성일 -->
-	<select id="getCommentList" parameterType="int" resultType="kr.com.conimal.model.dto.CommentDto">
-		select * from comment inner join user 
-		on comment.user_idx = user.user_idx 
-		where comment.community_idx = ${community_idx}
-	</select>
-	<select id="getCommentIdx" parameterType="int" resultType="kr.com.conimal.model.dto.CommentDto">
-		select * from comment inner join user 
-		on comment.user_idx = user.user_idx 
-		where comment.community_idx = ${community_idx}
-	</select>
-	
-	<!-- 정보 변경 / 닉네임, 비밀번호, 이메일 -->
+
 	<!-- 닉네임 변경 -->
 	<update id="updateUserInfo" parameterType="kr.com.conimal.model.dto.UserDto">
 		update user 
@@ -61,7 +10,7 @@
 			<if test="password != null">password = #{password},</if>
 				update_date = #{update_date}
 		</set>
-		<where>user_idx = #{user_idx}</where> 
+		<where>user_id = #{user_id}</where> 
 	</update>
 	
 	<!-- 이메일 변경 / 재인증 -->
@@ -71,25 +20,20 @@
 			<if test="email != null">email = #{email},</if>
 				update_date = #{update_date}
 		</set> 
-		<where>user_id = #{user_id}</where>
+		<where>id = #{id}</where>
 	</update>
 	<!-- 회원 난수 생성 -->
 	<update id="getUserKey" parameterType="HashMap">
-		update user set user_key = #{user_key} where user_id = #{user_id} 
+		update user set user_key = #{user_key} where id = #{id} 
 	</update>
 	<!-- 회원 인증키 확인 -->
 	<update id="updUserKey" parameterType="String">
-		update user set user_key = 'Y' where user_id = #{user_id}
+		update user set user_key = 'Y' where id = #{id}
 	</update>
 	
 	<!-- 회원 탈퇴 -->
-	<update id="secession" parameterType="kr.com.conimal.model.dto.UserDto">
-		update user 
-		<set>del_yn = 'Y'</set>
-		<where>password = #{password}</where> 
-	</update>
-	
-	<!-- 페이징 -->
-	
+	<delete id="secession" parameterType="kr.com.conimal.model.dto.UserDto">
+		delete from user where id = #{id}
+	</delete>
 	
 </mapper>

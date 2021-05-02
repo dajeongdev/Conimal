@@ -28,9 +28,6 @@ public class MypageController {
 	UserService us;
 	
 	@Autowired
-	BCryptPasswordEncoder pwdEncoder;
-	
-	@Autowired
 	EmailService emailService;
 
 	// 마이페이지 메인 페이지로 이동
@@ -38,41 +35,6 @@ public class MypageController {
 	public String mypagePage(HttpSession session) {
 		session.getAttribute("user");
 		return "/my-page/my-page";
-	}
-	
-	// 마이페이지 뱃지 페이지로 이동
-	@RequestMapping(value = "/my-page/my-badge", method = RequestMethod.GET)
-	public String mybadgePage(HttpSession session) {
-		session.getAttribute("user");
-		return "/my-page/my-badge";
-	}
-	
-	/* 마이페이지 코니멀 페이지로 이동
-	@RequestMapping(value = "/my-page/my-conimal")
-	public String myconimalPage(HttpSession session) {
-		session.getAttribute("user");
-		return "/my-page/my-conimal";
-	} */
-	
-	// 마이페이지 작성글 페이지로 이동
-	@RequestMapping(value = "/my-page/my-post", method = RequestMethod.GET)
-	public String mypostPage(HttpSession session) {
-		session.getAttribute("user");
-		return "/my-page/my-post";
-	}
-	
-	// 마이페이지 댓글 페이지로 이동
-	@RequestMapping(value = "/my-page/my-comment", method = RequestMethod.GET)
-	public String mycommentPage(HttpSession session) {
-		session.getAttribute("user");
-		return "/my-page/my-comment";
-	}
-	
-	// 마이페이지 북마크 페이지로 이동
-	@RequestMapping(value = "/my-page/my-bookmark", method = RequestMethod.GET)
-	public String mybookmarkPage(HttpSession session) {
-		session.getAttribute("user");
-		return "/my-page/my-bookmark";
 	}
 	
 	// 마이페이지 계정 정보 페이지로 이동
@@ -108,19 +70,19 @@ public class MypageController {
 		return "/join/login";
 	}
 	
-	// 비밀번호 확인
-	@RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
-	@ResponseBody
-	public boolean checkPwd(UserDto user) throws Exception {
-		UserDto login = us.login(user);
-		boolean chkPwd = pwdEncoder.matches(user.getPassword(), login.getPassword());
-		return chkPwd;
-	}
+//	// 비밀번호 확인
+//	@RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
+//	@ResponseBody
+//	public boolean checkPwd(UserDto user) throws Exception {
+//		UserDto login = us.login(user);
+//		boolean chkPwd = pwdEncoder.matches(user.getPassword(), login.getPassword());
+//		return chkPwd;
+//	}
 	
 	@RequestMapping(value = "/secession", method = RequestMethod.POST)
 	public String secession(UserDto user, HttpSession session) throws Exception {
-		boolean result = checkPwd(user);
-		if(result) {
+		session.getAttribute("user");
+		if(user.getPassword() != null) {
 			ms.secession(user);
 			session.invalidate();
 			return "redirect:/";

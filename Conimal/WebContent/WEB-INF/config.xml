@@ -29,14 +29,6 @@
 		<property name="contentType" value="text/html; charset=UTF-8"/>
 		<property name="order" value="3" />
 	</bean>
-	
-	<!-- DataSource log4jdbc-log4j2 설정 
-	<bean id="dataSource" class="org.springframework.jdbc.dataSource.DrivcerManagerDataSource">
-		<property name="drivceClassName" value="net.sf.log4jdbc.sql.jdbcapi.DrivceSpy"/>
-		<property name="url" value="jdbc:log4jdbc:mysql://conimal-db.cyvqho0vl7xg.ap-northeast-2.rds.amazonaws.com:3306/conimal?userSSL=false"/>
-		<property name="username" value="admin"/>
-		<property name="password" value="!conimal123"/>
-	</bean>-->
 		
 	<!-- connectionPool 설정 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
@@ -53,8 +45,6 @@
 		<property name="configLocation" value="classpath:config/config.xml" />
 	</bean>
 	
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-	
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
 	<mvc:annotation-driven>
@@ -68,6 +58,5 @@
 			</bean>
 		</mvc:message-converters>
 	</mvc:annotation-driven>
-
 
 </beans>

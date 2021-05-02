@@ -141,15 +141,15 @@ $(document).ready(function(){
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<div class = "page-container">
-	<%@ include file="../include/side-menu.jsp" %>
+	<!-- <%@ include file="../include/side-menu.jsp" %> -->
 	
 
 	<div class="sub-container">
 		<form method="post">
 		<h3 class="marB_30">계정정보</h3>
-		<input type="hidden" name="user_idx" id="user-idx" value="${user.user_idx}">
+		<input type="hidden" name="user_idx" id="user-idx" value="${user.user_id}">
 		<div class="user-input" >
-			<input class="navy" name="user_id" id="user-id" readonly type="text" value="${user.user_id}" />
+			<input class="navy" name="user_id" id="user-id" readonly type="text" value="${user.id}" />
 		</div>
 		<div class="user-input">
 			<input id="user-nick" name="nickname" type="text" placeholder="닉네임" value="${user.nickname}" />

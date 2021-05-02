@@ -1,7 +1,6 @@
 package kr.com.conimal.service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.com.conimal.dao.UserDao;
 import kr.com.conimal.model.dto.UserDto;
 
-@Service
+@Service("UserService")
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -19,9 +18,9 @@ public class UserServiceImpl implements UserService {
 	// 회원가입
 	@Override
 	public int join(UserDto user) throws Exception {
-		String user_idx = UUID.randomUUID().toString().replace("-", "");
-		user.setUser_idx(user_idx);
-		user.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
+		user.setCreate_date(LocalDate.now());
+		user.setUpdate_date(LocalDate.now());
+		user.setLast_login(LocalDate.now());
 		return dao.join(user);
 	}
 
@@ -33,8 +32,8 @@ public class UserServiceImpl implements UserService {
 	
 	// 아이디 중복 체크
 	@Override
-	public int checkId(String user_id) throws Exception {
-		return dao.checkId(user_id);
+	public int checkId(String id) throws Exception {
+		return dao.checkId(id);
 	}
 
 	// 이메일 중복 체크
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService {
 	// 로그인
 	@Override
 	public UserDto login(UserDto user) throws Exception {
-		user.setLast_login(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
+		dao.lastLogin(user.getId());
 		return dao.login(user);
 	}
 	
@@ -58,13 +57,8 @@ public class UserServiceImpl implements UserService {
 	
 	// 회원 정보 가져오기
 	@Override
-	public UserDto getUserInfo(String user_id) throws Exception {
-		return dao.getUserInfo(user_id);
-	}
-	
-	@Override
-	public void authentication(UserDto user) {
-		dao.authentication(user);
+	public UserDto getUserInfo(String id) throws Exception {
+		return dao.getUserInfo(id);
 	}
 	
 }

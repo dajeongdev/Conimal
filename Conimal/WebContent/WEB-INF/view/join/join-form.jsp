@@ -198,17 +198,17 @@ $(document).ready(function() {
 				<p class="err-msg" ></p>
 			</div>
 			<div class="user-input">
-				<input id="user-id" type="text" name="user_id" placeholder="아이디"/>
+				<input id="user-id" type="text" name="id" placeholder="아이디"/>
 				<div id="check_id"></div>
 				<p class="err-msg" ></p>
 			</div>
 			<div class="user-input">
-				<input id="user-pwd" type="text" name="password" placeholder="비밀번호" />
+				<input id="user-pwd" type="password" name="password" placeholder="비밀번호" />
 				<div id="check_pwd"></div>
 				<p class="err-msg"></p>
 			</div>
 			<div class="user-input">
-				<input id="check-pwd"type="text" placeholder="비밀번호 재입력" />
+				<input id="check-pwd"type="password" placeholder="비밀번호 재입력" />
 				<div id="cf_pwd"></div>
 				<p class="err-msg" ></p>
 			</div>

@@ -32,13 +32,13 @@
 	<c:if test="${not empty user}">
 	<div class="logo"><span onClick="document.location.href='/'">코니멀</span></div>
 	<ul class="category">
-		<li><div onClick="document.location.href='#'">코니멀소개</div></li>
-		<li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li>
-		<li><div onClick="document.location.href='/community/community-list'">커뮤니티</div></li>
+		<!-- <li><div onClick="document.location.href='#'">코니멀소개</div></li> -->
+		<!-- <li><div onClick="document.location.href='/pet_dictionary/pet_dictionary'">펫과사전</div></li> -->
+		<li><div onClick="document.location.href='/community/community-list'">게시판</div></li>
 	</ul>
 
 	<div class="header-right">
-		<div class="btn mypage-btn"><button onclick="location.href='/my-page/my-page'">마이페이지</button></div>
+		<div class="btn mypage-btn"><button onclick="location.href='/my-page/my-account'">정보수정</button></div>
 		<div class="btn logout-btn"><button onclick="location.href='/logout'">Logout</button></div>
 	</div>
 	</c:if>

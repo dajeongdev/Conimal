@@ -1,29 +1,31 @@
 package kr.com.conimal.model.dto;
 
+import java.time.LocalDate;
+
 public class UserDto {
-	private String user_idx; // 회원 번호 
-	private String user_id;  
+	
+	private Long user_id; // 회원 번호 
+	private String id;  
 	private String password;
 	private String nickname;
 	private String email; 
 	private String user_key; // 이메일 인증키
-	private String level; // A: 관리자, D: 일반(default), B: 블랙리스트
-	private String reg_date; // 등록일
-	private String update_date; // 수정일
-	private String last_login; // 마지막 로그인 일자
-	private char del_yn; // default 'N'
+	private String grade; // A: 관리자, D: 일반(default), B: 블랙리스트
+	private LocalDate create_date; // 등록일
+	private LocalDate update_date; // 수정일
+	private LocalDate last_login; // 마지막 로그인 일자
 	
-	public String getUser_idx() {
-		return user_idx;
-	}
-	public void setUser_idx(String user_idx) {
-		this.user_idx = user_idx;
-	}
-	public String getUser_id() {
+	public Long getUser_id() {
 		return user_id;
 	}
-	public void setUser_id(String user_id) {
+	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getPassword() {
 		return password;
@@ -49,35 +51,28 @@ public class UserDto {
 	public void setUser_key(String user_key) {
 		this.user_key = user_key;
 	}
-	public String getLevel() {
-		return level;
+	public String getGrade() {
+		return grade;
 	}
-	public void setLevel(String level) {
-		this.level = level;
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
-	public String getReg_date() {
-		return reg_date;
+	public LocalDate getCreate_date() {
+		return create_date;
 	}
-	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+	public void setCreate_date(LocalDate create_date) {
+		this.create_date = create_date;
 	}
-	public String getUpdate_date() {
+	public LocalDate getUpdate_date() {
 		return update_date;
 	}
-	public void setUpdate_date(String update_date) {
+	public void setUpdate_date(LocalDate update_date) {
 		this.update_date = update_date;
 	}
-	public String getLast_login() {
+	public LocalDate getLast_login() {
 		return last_login;
 	}
-	public void setLast_login(String last_login) {
+	public void setLast_login(LocalDate last_login) {
 		this.last_login = last_login;
 	}
-	public char getDel_yn() {
-		return del_yn;
-	}
-	public void setDel_yn(char del_yn) {
-		this.del_yn = del_yn;
-	}
-
 }
