@@ -15,7 +15,7 @@
 	
 	<!-- 아이디 중복 체크 -->
 	<select id="checkId" resultType="int">
-		select COUNT(*) from user where user_id = #{user_id}
+		select COUNT(*) from user where id = #{id}
 	</select>
 	
 	<!-- 이메일 중복 체크 -->
@@ -25,12 +25,12 @@
 	
 	<!-- 회원 난수 인증키 생성 -->
 	<update id="getUserKey" parameterType="HashMap">
-		update user set user_key = #{user_key} where id = #{id} 
+		update user set user_key = #{user_key} where user_id = #{user_id} 
 	</update>
 	
 	<!-- 회원 인증키 확인 -->
-	<update id="updUserKey" parameterType="String">
-		update user set user_key = 'Y' where id = #{id}
+	<update id="updUserKey" parameterType="Long">
+		update user set user_key = 'Y' where user_id = #{user_id}
 	</update>
 	
 	<!-- 로그인 -->
@@ -38,8 +38,11 @@
 		select * from user where id = #{id} and password = #{password}
 	</select>
 	<update id="lastLogin" parameterType="kr.com.conimal.model.dto.UserDto">
-		update user set last_login = now() where id = #{id}
+		update user set last_login = now() where user_id = #{user_id}
 	</update>
+	<select id="loginCheck" resultType="kr.com.conimal.model.dto.UserDto">
+		select * from user where id = #{id} and password = #{password}
+	</select>
 	
 	<!-- ID 찾기 -->
 	<select id="findId" resultType="String">
@@ -52,12 +55,15 @@
 	</update>
 	
 	<!-- 회원 정보 가져오기 -->
-	<select id="getUserInfo" resultType="kr.com.conimal.model.dto.UserDto">
-		select * from user where id = #{id}
+	<select id="findByUserId" resultType="kr.com.conimal.model.dto.UserDto">
+		select user_id, id, nickname, password, email from user where user_id = #{user_id}
+	</select>
+	<select id="findById" resultType="kr.com.conimal.model.dto.UserDto">
+		select user_id, id, nickname, password, email from user where id = #{id}
 	</select>
 	
 	<!-- 전체 회원 보기 -->
-	<select id="getAll" resultType="kr.com.conimal.model.dto.UserDto">
+	<select id="findAll" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user
 	</select>
 	

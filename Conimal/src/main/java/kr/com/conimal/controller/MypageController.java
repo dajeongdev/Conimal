@@ -1,18 +1,16 @@
 package kr.com.conimal.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.com.conimal.dao.MypageDao;
 import kr.com.conimal.model.dto.UserDto;
 import kr.com.conimal.service.EmailService;
 import kr.com.conimal.service.MypageService;
@@ -29,56 +27,45 @@ public class MypageController {
 	
 	@Autowired
 	EmailService emailService;
-
-	// 마이페이지 메인 페이지로 이동
-	@RequestMapping(value = "/my-page/my-page", method = RequestMethod.GET)
-	public String mypagePage(HttpSession session) {
-		session.getAttribute("user");
-		return "/my-page/my-page";
-	}
 	
 	// 마이페이지 계정 정보 페이지로 이동
 	@RequestMapping(value = "/my-page/my-account", method = RequestMethod.GET)
-	public String myaccountPage(HttpSession session) {
-		session.getAttribute("user");
-		return "/my-page/my-account";
-	}
+	public ModelAndView myaccountPage(HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView("/my-page/my-account");
+		
+		Long user_id = (Long) session.getAttribute("user_id");
+		UserDto user = us.findByUserId(user_id);
+		mav.addObject("user", user);
+		return mav;
+	} 
 	
 	// 정보 수정
 	@RequestMapping(value = "/my-page/my-account", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateUserInfo(@RequestParam String email, @RequestParam String user_id, HttpServletRequest request, UserDto user, HttpSession session) throws Exception {
-		session.getAttribute("user");
-		ms.updateUserInfo(user);
-		System.out.println("MypageController updateUserInfo");
-		int result = us.checkEmail(email);
-		// 이메일 변경 시 인증 이메일 보내기
-		if(result == 0) { // 중복 아님 
-			System.out.println("MypageController updateEmail");
-			emailService.updateEmail(email, user_id, request);
-			session.invalidate();
-			return "redirect:/";
+	public ModelAndView updateUserInfo(@ModelAttribute UserDto dto, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		UserDto user = us.findByUserId(dto.getUser_id());
+		
+		if (user.getPassword() != dto.getPassword() || user.getNickname() != dto.getNickname()) {
+			ms.updateUserInfo(dto);
+			System.out.println("정보 수정 성공");
+		} else if (user.getEmail() != dto.getEmail()) {
+			emailService.updateEmail(dto.getEmail(), dto.getUser_id());
+			System.out.println("이메일 수정 성공");
 		} 
 		session.invalidate();
-		return "redirect:/";
+		mav.setViewName("redirect:/");
+		return mav;
 	}
 	
 	// 이메일 인증 
 	@RequestMapping(value = "/updateUserKey", method = RequestMethod.GET)
-	public String updateUserKey(@RequestParam String user_id, @RequestParam String email, UserDto user) throws Exception {
+	public String updateUserKey(@RequestParam Long user_id, @RequestParam String email, UserDto user) throws Exception {
 		emailService.updateUserKey(user_id, email, user);
-		return "/join/login";
+		return "redirect:/join/login";
 	}
 	
-//	// 비밀번호 확인
-//	@RequestMapping(value = "/checkPwd", method = RequestMethod.POST)
-//	@ResponseBody
-//	public boolean checkPwd(UserDto user) throws Exception {
-//		UserDto login = us.login(user);
-//		boolean chkPwd = pwdEncoder.matches(user.getPassword(), login.getPassword());
-//		return chkPwd;
-//	}
-	
+	// 회원 탈퇴
 	@RequestMapping(value = "/secession", method = RequestMethod.POST)
 	public String secession(UserDto user, HttpSession session) throws Exception {
 		session.getAttribute("user");

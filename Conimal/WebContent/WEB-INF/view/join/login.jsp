@@ -18,7 +18,7 @@ $(document).ready(function() {
 		var pwdR = /^[A-Za-z0-9]{6,16}$/; 
 
 		$.ajax({
-			url : '${pageContext.request.contextPath}/login/login-success',
+			url : '${pageContext.request.contextPath}/login',
 			type : 'post',
 			data : { id : id, pwd : pwd },
 			dataType : 'json',
@@ -53,7 +53,7 @@ $(document).ready(function() {
 					$('#check_pwd').text("");
 					$('#login-btn').attr("disabled", false);
 				}
-			}, error : function() {
+			}, fail : function() {
 				console.log("로그인 실패");
 				alert("아이디나 비밀번호를 확인해주세요.");
 			}
@@ -71,7 +71,7 @@ $(document).ready(function() {
 			<c:if test="${user == null}">
 			
 			<div class="login-box">
-				<form action="/login/login-success" method="post">		
+				<form action="/login" method="post">		
 					<div class="user-input"><input type="text" id="user-id" name="id" placeholder="아이디"/><div id="check_id"></div></div>
 					<div class="user-input marB_30"><input type="password" id="user-pwd" name="password" placeholder="비밀번호"/><div id="check_pwd"></div></div>
 					<button class="btn login-btn mar0_auto" id="login-btn">로그인</button>

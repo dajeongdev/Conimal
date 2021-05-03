@@ -22,11 +22,12 @@ $(document).ready(function(){
 			type : 'get',
 			data : { id : nick },
 			success : function(data) {
-				if(data == 1) { // 닉네임 중복
-					console.log("중복인 닉네임");
-					$("#check_nick").html("이미 사용 중인 닉네임입니다.");
-					$("#check_nick").css("display", "red");
-				} else {
+				console.log("1 = 동일한 데이터, 0 = 새로운 데이터 : " + data);
+				
+				if(data == 1) { // 같은 닉네임
+					$('#check_email').text("");
+					$('#save-btn').attr("disabled", false);
+				} else { // 새로운 닉네임
 					if((nickR.test(nick))) {
 						console.log("사용 가능한 닉네임");
 						$("#check_nick").html("");
@@ -58,11 +59,12 @@ $(document).ready(function(){
 			dataType : 'json',
 			type : 'get',
 			success : function(data) {
-				console.log("1 = 중복, 0 = 사용 가능 : " + data);
+				console.log("1 = 동일한 데이터, 0 = 새로운 데이터 : " + data);
 
-				if(data == 1) { 
+				if(data == 1) { // 같은 이메일
 					$('#check_email').text("");
-				} else { // 중복 아님 
+					$('#save-btn').attr("disabled", false);
+				} else { // 새로운 이메일
 					if(emailR.test(email)) { // 사용 가능 
 						console.log(emailR.test(email));
 						$('#check_email').text("");
@@ -123,19 +125,6 @@ $(document).ready(function(){
 			$('#save-btn').attr("disabled", false);
 		}
 	});	
-	
-	// 수정 버튼 클릭
-	$("#save-btn").click(function(){
-		if($("#user-nickname").val() != "") {
-			if($("#user-pwd").val() != "") {
-				if($("#check-pwd").val() != "") {
-					if($("#user-email").val() != "") {
-						alert("수정이 완료되었습니다.");
-					}
-				} 
-			} 
-		} 
-	});
 })
 </script>
 <body>
@@ -147,9 +136,10 @@ $(document).ready(function(){
 	<div class="sub-container">
 		<form method="post">
 		<h3 class="marB_30">계정정보</h3>
-		<input type="hidden" name="user_idx" id="user-idx" value="${user.user_id}">
+		<c:if test="${not empty user}">
+		<input type="hidden" name="user_id" id="user-id" value="${user.user_id}">
 		<div class="user-input" >
-			<input class="navy" name="user_id" id="user-id" readonly type="text" value="${user.id}" />
+			<input class="navy" name="id" id="user-id" readonly type="text" value="${user.id}" />
 		</div>
 		<div class="user-input">
 			<input id="user-nick" name="nickname" type="text" placeholder="닉네임" value="${user.nickname}" />
@@ -167,12 +157,12 @@ $(document).ready(function(){
 			<input class="user-email" name="email" id="user-email" type="text" value="${user.email}" placeholder="이메일" />
 			<p id="check_email"></p>
 		</div>
-
+		
 		<div class="text-center">
 			<button class="btn marT_20 marB_30" type="submit" id="save-btn" disabled>이 정보로 저장</button>
 			<p><a href="/my-page/secession" class="text-button" id="secession-btn">회원탈퇴</a></p>
-			
 		</div>
+		</c:if>
 		</form>
 
 	</div>

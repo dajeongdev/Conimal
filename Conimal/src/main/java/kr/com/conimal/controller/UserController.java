@@ -80,34 +80,41 @@ public class UserController {
 	
 	// 회원가입
 	@RequestMapping(value = "/join/join-form", method = RequestMethod.POST)
-	public String join(UserDto userDto, HttpServletRequest request) throws Exception {
-		// 회원가입 메서드
+	public String join(UserDto userDto) throws Exception {
+		// 회원가입
 		us.join(userDto);
-		// 인증 메일 보내기 메서드 
-		es.sendEmail(userDto.getEmail(), userDto.getId(), request);
+		
+		UserDto user = us.findByUserId(userDto.getUser_id());
+		// 인증 메일 보내기
+		es.sendEmail(user.getEmail(), user.getUser_id());
 		return "redirect:/";
 	}
 	
 	// 이메일 인증 
 	@RequestMapping(value = "/updUserKey", method = RequestMethod.GET)
-	public String updUserKey(@RequestParam("id") String id) throws Exception {
-		es.updUserKey(id);
+	public String updUserKey(@RequestParam("user_id") Long user_id) throws Exception {
+		es.updUserKey(user_id);
 		return "/join/login";
 	}
 	
 	// 로그인
-	@RequestMapping(value = "/login/login-success", method = RequestMethod.POST)
-	public String login(UserDto user, HttpServletRequest request) throws Exception {
-		UserDto login = us.login(user);
-		HttpSession session = request.getSession();
-		
-		if(login != null) { // 로그인 성공 
-			session.setAttribute("user", login);
-			return "redirect:/";
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView login(UserDto userDto, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		UserDto result = us.login(userDto);
+		System.out.println("UserController " + result);
+		UserDto user = us.findById(userDto.getId());
+		if(result != null) { // 로그인 성공 
+			session.setAttribute("user", user);
+			System.out.println("로그인 성공");
+			mav.setViewName("redirect:/");
 		} else { // 로그인 실패 
 			session.setAttribute("user", null);
-			return "/join/login";
+			System.out.println("로그인 실패");
+			mav.setViewName("redirect:/join/login");
 		}
+		return mav;
 	} 
 	
 	// 로그아웃
@@ -137,8 +144,8 @@ public class UserController {
 	// 비밀번호 찾기 
 	@RequestMapping(value = "/join/find-password", method = RequestMethod.POST)
 	@ResponseBody
-	public String findPwd(@RequestParam String id, @RequestParam String email, HttpServletRequest request) throws Exception {
-		es.sendPwd(id, email, request);
+	public String findPwd(@RequestParam Long user_id, @RequestParam String email) throws Exception {
+		es.sendPwd(user_id, email);
 		return "/join/login";
 	}
 	

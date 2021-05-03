@@ -1,5 +1,7 @@
 package kr.com.conimal.service;
 
+import javax.servlet.http.HttpSession;
+
 import kr.com.conimal.model.dto.UserDto;
 
 public interface UserService {
@@ -18,11 +20,13 @@ public interface UserService {
 	
 	// 로그인 
 	public UserDto login(UserDto userDto) throws Exception;
+	// 로그인 체크
+	public boolean loginCheck(UserDto userDto, HttpSession session) throws Exception;
 	
 	// 아이디 찾기
 	public String findId(String email) throws Exception;
 	
 	// 회원정보 가져오기
-	public UserDto getUserInfo(String id) throws Exception;
-	
+	public UserDto findByUserId(Long user_id) throws Exception;
+	public UserDto findById(String id) throws Exception;
 }

@@ -63,12 +63,12 @@ public class EmailService {
 	}
 	
 	// 회원가입 발송 이메일 (인증키 발송)
-	public void sendEmail(String email, String id, HttpServletRequest request) throws Exception {
+	public void sendEmail(String email, Long user_id) throws Exception {
 		
 		String key = getKey(false, 8);
 		
 		// 회원의 닉네임 가져오기
-		UserDto dto = user.getUserInfo(id);
+		UserDto dto = user.findByUserId(user_id);
 		String nickname = dto.getNickname();
 	
 		// 이메일 객체
@@ -79,7 +79,7 @@ public class EmailService {
 						"<div style='padding:70px 20px; font: 700 16pt sans-serif; line-height: 140%;'>" +
 						"안녕하세요 " + nickname + " 님!<br>" + "아래의 버튼을 누르시면 인증이 완료됩니다.</div>" +
 						"<div style=\'background-color: #8c9eff; width: 50px; border: 3px solid #231815; margin:0 auto; margin-bottom: 30px; padding:10px 100px; font: 700 10pt sans-serif;\'>" + 
-						"<a href='http://localhost:8080/updUserKey?id=" + id + "&user_key=" + key + "'>로그인</a></div></div>";
+						"<a href='http://localhost:8080/updUserKey?user_id=" + user_id + "&user_key=" + key + "'>로그인</a></div></div>";
 
 		try {
 			// 이메일 제목 (인코딩 필수)
@@ -99,26 +99,25 @@ public class EmailService {
 		}
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
+		map.put("user_id", user_id);
 		map.put("user_key", key);
-		user.getUserKey(id, key);
-		
+		user.getUserKey(user_id, key);
 	}
 	
 	// 인증 확인 
-	public int updUserKey(String id) throws Exception {
-		int result = user.updUserKey(id);
+	public int updUserKey(Long user_id) throws Exception {
+		int result = user.updUserKey(user_id);
 		return result;
 	}
 	
 	// 비밀번호 찾기 이메일 발송 
-	public void sendPwd(String id, String email, HttpServletRequest request) throws Exception {
+	public void sendPwd(Long user_id, String email) throws Exception {
 		
 		// 비밀번호는 8자리로 보내고 DB에 저장된 비밀번호를 변경
 		String key = getKey(false, 8);
 		
 		// 회원의 닉네임 가져오기
-		UserDto dto = user.getUserInfo(id);
+		UserDto dto = user.findByUserId(user_id);
 		String nickname = dto.getNickname();
 		
 		MimeMessage message = mailSender.createMimeMessage();
@@ -126,7 +125,7 @@ public class EmailService {
 				"<h2>" + nickname + "님</h2>" + "<h3>임시 비밀번호를 발급해드렸습니다." +
 				"임시로 발급해드린 비밀번호는 </h3><h3 style='color: blue;'>" + key + "</h3><h3>입니다.</h3>" +
 				"<h3>로그인 후 마이페이지에서 비밀번호를 변경해주세요.</h3>" +
-				"<a href='http://localhost:8080" + request.getContextPath() + "/join/login'>코니멀 바로가기</a></h3>" +
+				"<a href='http://localhost:8080/join/login'>코니멀 바로가기</a></h3>" +
 				"<h3>감사합니다!</h3>";
 		try {
 			// 이메일 제목 (인코딩 필수)
@@ -144,24 +143,17 @@ public class EmailService {
 			e.printStackTrace();
 		}
 		
-		//key = PwdEncService.encrypt(key);
-		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
+		map.put("id", dto.getId());
 		map.put("password", key);
 		map.put("email", email);
-		user.findPassword(id, email, key);
+		user.findPassword(dto.getId(), email, key);
 	}
 	
 	// 이메일 변경용 인증
-	public void updateEmail(String email, String id, HttpServletRequest request) {
+	public void updateEmail(String email, Long user_id) {
 
 		String key = getKey(false, 20);
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("email", email);
-		map.put("id",id);
-		mypage.getUserKey(id, key);
 		
 		// 이메일 객체
 		MimeMessage message = mailSender.createMimeMessage();
@@ -169,7 +161,7 @@ public class EmailService {
 		// 이메일 내용 
 		String content = "<h1>안녕하세요 코니멀입니다!</h1><br><br>" +
 				"<h2>이메일 변경을 위한 인증을 위한 메일입니다.</h2>" + "<h3>인증하기 버튼을 누르시면 로그인을 하실 수 있습니다 : " +
-				"<a href='http://localhost:8080" + request.getContextPath() + "/updateUserKey?id=" + id + "&email=" + email + "'>인증하기</a></h3>" +
+				"<a href='http://localhost:8080/updateUserKey?user_id=" + user_id + "&email=" + email + "'>인증하기</a></h3>" +
 				"<h3>감사합니다!</h3>";
 		
 		try {
@@ -187,11 +179,16 @@ public class EmailService {
 		} catch(MessagingException e) {
 			e.printStackTrace();
 		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		map.put("user_id", user_id);
+		mypage.getUserKey(user_id, key);
 	}
 	
 	// 변경 이메일 인증 확인 
-	public int updateUserKey(String id, String email, UserDto user) {
-		int result = mypage.updUserKey(id);
+	public int updateUserKey(Long user_id, String email, UserDto user) {
+		int result = mypage.updUserKey(user_id);
 		user.setUpdate_date(LocalDate.now());
 		result = mypage.updateEmail(user);
 		return result;

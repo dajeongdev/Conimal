@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import kr.com.conimal.model.dto.UserDto;
@@ -35,15 +37,15 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 	}
 
 	@Override
-	public int getUserKey(String id, String user_key) throws Exception {
+	public int getUserKey(Long user_id, String user_key) throws Exception {
 		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("id", id);
+		map.put("user_id", user_id);
 		map.put("user_key", user_key);
 		return getSqlSession().update("user.getUserKey", map);
 	}
 	@Override
-	public int updUserKey(String id) throws Exception {
-		return getSqlSession().update("user.updUserKey", id);
+	public int updUserKey(Long user_id) throws Exception {
+		return getSqlSession().update("user.updUserKey", user_id);
 	}
 
 	// 로그인
@@ -52,8 +54,13 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 		return getSqlSession().selectOne("user.login", user);
 	}
 	@Override
-	public int lastLogin(String id) throws Exception {
-		return getSqlSession().update("user.lastLogin", id);
+	public int lastLogin(Long user_id) throws Exception {
+		return getSqlSession().update("user.lastLogin", user_id);
+	}
+	@Override
+	public boolean loginCheck(UserDto userDto) throws Exception {
+		String result = getSqlSession().selectOne("user.loginCheck", userDto);
+		return result == null ? false : true;
 	}
 	
 	// 아이디 찾기
@@ -74,14 +81,18 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 	
 	// 전체 회원 정보
 	@Override
-	public List<UserDto> getAll() throws Exception {
-		return getSqlSession().selectList("user.getAll");
+	public List<UserDto> findAll() throws Exception {
+		return getSqlSession().selectList("user.findAll");
 	}
 	
 	// 회원 정보 가져오기
 	@Override
-	public UserDto getUserInfo(String id) throws Exception {
-		return getSqlSession().selectOne("user.getUserInfo", id);
+	public UserDto findByUserId(Long user_id) throws Exception {
+		return getSqlSession().selectOne("user.findByUserId", user_id);
+	}
+	@Override
+	public UserDto findById(String id) throws Exception {
+		return getSqlSession().selectOne("user.findById", id);
 	}
 
 }

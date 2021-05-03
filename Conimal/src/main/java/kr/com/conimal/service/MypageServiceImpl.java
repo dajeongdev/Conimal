@@ -16,6 +16,7 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public int updateUserInfo(UserDto user) {
+		System.out.println("MypageService user : " + user);
 		user.setUpdate_date(LocalDate.now());
 		return dao.updateUserInfo(user);
 	}

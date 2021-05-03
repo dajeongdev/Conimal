@@ -3,6 +3,8 @@ package kr.com.conimal.service;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +47,14 @@ public class UserServiceImpl implements UserService {
 	// 로그인
 	@Override
 	public UserDto login(UserDto user) throws Exception {
-		dao.lastLogin(user.getId());
+		dao.lastLogin(user.getUser_id());
 		return dao.login(user);
+	}
+	
+	// 로그인 체크
+	public boolean loginCheck(UserDto userDto, HttpSession session) throws Exception {
+		boolean result = dao.loginCheck(userDto);
+		return result;
 	}
 	
 	// 아이디 찾기
@@ -57,8 +65,11 @@ public class UserServiceImpl implements UserService {
 	
 	// 회원 정보 가져오기
 	@Override
-	public UserDto getUserInfo(String id) throws Exception {
-		return dao.getUserInfo(id);
+	public UserDto findByUserId(Long user_id) throws Exception {
+		return dao.findByUserId(user_id);
 	}
-	
+	@Override
+	public UserDto findById(String id) throws Exception {
+		return dao.findById(id);
+	}
 }
