@@ -1,10 +1,8 @@
 package kr.com.conimal.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +11,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import kr.com.conimal.dao.CommunityDao;
 import kr.com.conimal.model.command.FileUploadCommand;
 import kr.com.conimal.model.command.PagingCommand;
+import kr.com.conimal.model.dto.BoardDto;
 import kr.com.conimal.model.dto.CommentDto;
-import kr.com.conimal.model.dto.CommunityDto;
-import kr.com.conimal.model.dto.CommunityFileDto;
-import kr.com.conimal.model.dto.TagDto;
+import kr.com.conimal.model.dto.FileDto;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
@@ -24,128 +21,114 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	CommunityDao dao;
 	
-	CommunityDto dto;
+	BoardDto dto;
 	
 	@Autowired
 	FileUploadService fileService;
 	
-	// 인기 태그 목록
-	@Override
-	public List<TagDto> getHitTagList() {
-		return dao.getHitTagList();
-	}
-	
 	// 글 목록
 	@Override
-	public List<Map<String, Object>> list(PagingCommand page) {
-		return dao.list(page);
+	public List<BoardDto> findBoardAll(PagingCommand page) {
+		return dao.findBoardAll(page);
 	}
 	@Override
-	public int getCount() {
-		return dao.getCount();
-	}
-	@Override
-	public List<TagDto> tagList(int community_idx) {
-		return dao.tagList(community_idx);
+	public int findBoardCount() throws Exception {
+		return dao.findBoardCount();
 	}
 
 	
 	// 글 작성
 	@Override
-	public int writeCommunity(CommunityDto community) throws Exception {
-		community.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
-		int result = dao.writeCommunity(community);
-		return result;
+	public Long saveBoard(BoardDto dto) throws Exception {
+		BoardDto board = new BoardDto();
+		board.setCreate_date(LocalDate.now());
+		board.setUpdate_date(LocalDate.now());
+		dao.saveBoard(board);
+		return board.getBoard_id();
 	}
 	
-	public CommunityDto requesting(MultipartHttpServletRequest request) {
-		dto = new CommunityDto();
+	public BoardDto requesting(MultipartHttpServletRequest request) {
+		BoardDto dto = new BoardDto();
 		
-		if(request.getParameter("community_idx") != null && request.getParameter("community_idx") == "") {
-			dto.setCommunity_idx(Integer.parseInt(request.getParameter("community_idx")));
+		if(request.getParameter("board_id") != null && request.getParameter("board_id") == "") {
+			dto.setBoard_id(Long.parseLong(request.getParameter("board_id")));
 		}
-		Integer community_idx = (Integer) request.getSession().getAttribute("community_idx");
-		if(community_idx != null) {
-			dto.setCommunity_idx(community_idx);
+		Long board_id = (Long) request.getSession().getAttribute("board_id");
+		if(board_id != null) {
+			dto.setBoard_id(board_id);
 		}
-		dto.setContent(request.getParameter("content"));
+		dto.setContents(request.getParameter("contents"));
 		dto.setTitle(request.getParameter("title"));
-		dto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
+		dto.setCreate_date(LocalDate.now());
+		dto.setUpdate_date(LocalDate.now());
 		return dto;
 	}
-	
 	@Override
-	public void writeCommunityFile(int community_idx, MultipartHttpServletRequest request) throws Exception {
-		List<FileUploadCommand> files = fileService.upload(request, "/img/community/");
+	public void saveFile(Long board_id, MultipartHttpServletRequest request) throws Exception {
+		List<FileUploadCommand> files = fileService.upload(request, "/img/board/");
 		
 		for(FileUploadCommand file : files) {
-			CommunityFileDto filedto = new CommunityFileDto();
-			filedto.setCommunity_idx(community_idx);
+			FileDto filedto = new FileDto();
+			filedto.setBoard_id(board_id);
 			filedto.setFile_name(file.getFile_name());
 			filedto.setFile_path(file.getFile_path());
-			filedto.setFile_size(file.getFile_size());
-			filedto.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss")));
+			filedto.setCreate_date(LocalDate.now());
 			
-			dao.writeCommunityFile(filedto);
+			dao.saveFile(filedto);
 		}
 	}
-
-	// 글 상세 보기
+	
+	// 글 보기
 	@Override
-	public CommunityDto readCommunity(int community_idx) throws Exception {
-		return dao.readCommunity(community_idx);
+	public BoardDto findBoard(Long board_id) throws Exception {
+		return dao.findBoard(board_id);
 	}
 	@Override
-	public List<CommunityFileDto> readCommunityFile(int community_idx) throws Exception {
-		return dao.readCommunityFile(community_idx);
+	public List<FileDto> findFile(Long board_id) throws Exception {
+		return dao.findFile(board_id);
 	}
+	// 조회수 증가 
 	@Override
-	public List<TagDto> getTags(int community_idx) throws Exception {
-		return dao.getTags(community_idx);
+	public int hitCount(Long board_id) throws Exception {
+		return dao.hitCount(board_id);
 	}
-	// 조회수 증가
+	// 댓글 목록 보기
 	@Override
-	public int hitCount(int community_idx) throws Exception {
-		return dao.hitCount(community_idx);
+	public List<CommentDto> findCommentAll(Long board_id) throws Exception {
+		return dao.findCommentAll(board_id);
 	}
 	
 	// 글 수정
 	@Override
-	public int editCommunity(CommunityDto community) throws Exception {
-		return 0;
+	public int updateBoard(BoardDto board) throws Exception {
+		return dao.updateBoard(board);
 	}
 	
 	// 글 삭제
 	@Override
-	public int deleteCommunity(int community_idx) throws Exception {
-		return dao.deleteCommunity(community_idx);
+	public int deleteBoard(Long board_id) throws Exception {
+		return dao.deleteBoard(board_id);
 	}
-
+	// 파일 삭제
+	@Override
+	public int deleteFile(Long board_id) throws Exception {
+		return dao.deleteFile(board_id);
+	}
 	
 	// 댓글 작성
 	@Override
-	public int writeComment(CommentDto comment) throws Exception {
-		comment.setReg_date(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd")));
-		return dao.writeComment(comment);
-	}
-	// 댓글 읽기
-	@Override
-	public List<CommentDto> readComment(int community_idx) throws Exception {
-		return dao.readComment(community_idx);
+	public int saveComment(CommentDto comment) throws Exception {
+		return dao.saveComment(comment);
 	}
 	// 댓글 수정
 	@Override
-	public int editComment(CommentDto comment) throws Exception {
-		return dao.editComment(comment);
+	public int updateComment(CommentDto comment) throws Exception {
+		return dao.updateComment(comment);
 	}
 	// 댓글 삭제
 	@Override
-	public int deleteComment(int comment_idx) throws Exception {
-		return dao.deleteComment(comment_idx);
+	public int deleteComment(Long comment_id) throws Exception {
+		return dao.deleteComment(comment_id);
 	}
-	// 선택 댓글 보기
-	public CommentDto getComment(int comment_idx) throws Exception {
-		return dao.getComment(comment_idx);
-	}
-	
+
 }

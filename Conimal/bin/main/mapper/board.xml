@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<!-- 글 목록 -->
+	<select id="findBoardAll" resultType="kr.com.conimal.model.dto.BoardDto">
+		select * 
+		from board 
+		limit #{startList}, #{listSize}
+	</select>
+	<select id="findBoardCount" resultType="int">
+		select COUNT(*) as listCount from board
+	</select>
+
+	<!-- 글 작성 / 제목, 내용 -->
+	<insert id="saveBoard" parameterType="kr.com.conimal.model.dto.BoardDto">
+		insert into board (user_id, title, contents, hit, create_date, update_date, show_yn) 
+		values (#{user_id}, #{title}, #{contents}, 0, #{create_date}, #{update_date}, 'Y')
+		<selectKey keyProperty="board_id" resultType="Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert> 
+	<!-- 파일 저장 -->
+	<insert id="saveFile" parameterType="kr.com.conimal.model.dto.FileDto">
+		insert into file (board_id, file_name, file_path, create_date) 
+		values(#{board_id}, #{file_name}, #{file_path}, #{create_date})
+	</insert>
+
+
+	<!-- 상세 보기 / 제목, 작성자, 작성일, 내용, 이미지 -->
+	<select id="findBoard" resultMap="boardMapMap">
+		select * from board inner join user 
+		on user.user_id = board.user_id 
+		where board.board_id = #{board_id}
+	</select>
+	<select id="findFile" resultType="kr.com.conimal.model.dto.FileDto">
+		select * from board inner join file 
+		on board.board_id = file.board_id 
+		where board.board_id = #{board_id}
+	</select>
+	<!-- 조회수 증가 -->
+	<update id="hitCount" parameterType="kr.com.conimal.model.dto.BoardDto">
+		update board set hit = hit + 1 where board_id = #{board_id}
+	</update>
+	
+	
+	<!-- 댓글 보기 / 작성자, 작성일, 내용 (+답글) -->
+	<select id="findCommentAll" parameterType="Long" resultMap="commentMap">
+		select * from comment inner join user 
+		on comment.user_id = user.user_id 
+		where comment.board_id = #{board_id}
+	</select>
+	<resultMap type="kr.com.conimal.model.dto.CommentDto" id="commentMap">
+		<id property="comment_id" column="commencomment_idt_idx"/>
+		<result property="user_id" column="user_id"/>
+		<result property="board_id" column="board_id"/>
+		<result property="contents" column="contents"/>
+		<result property="create_date" column="create_date"/>
+		<result property="update_date" column="update_date"/>
+		<association property="user" javaType="kr.com.conimal.model.dto.UserDto">
+			<id property="user_id" column="user_id"/>
+			<result property="nickname" column="nickname"/>
+		</association>
+	</resultMap>
+	<select id="findCommentId" parameterType="Long" resultType="kr.com.conimal.model.dto.CommentDto">
+		select * from comment inner join user 
+		on comment.user_id = user.user_id 
+		where comment.board_id = #{board_id}
+	</select>
+	
+	
+	<!-- 글 수정 -->
+	<update id="updateBoard" parameterType="kr.com.conimal.model.dto.BoardDto">
+		update community 
+		<set>
+			<if test="title != null">title = #{title},</if> 
+			<if test="content != null">content = #{content}</if>
+			update_date = #{update_date}
+		</set>
+		<where>community_idx = ${community_idx}</where>
+	</update>
+	<!-- 파일 수정 -->
+	<update id="updateFile" parameterType="kr.com.conimal.model.dto.FileDto">
+		update file
+		<set>
+			<if test="file_name">file_name = #{file_name},</if> 
+			<if test="file_path">file_path = #{file_path}</if> 
+		</set>
+	</update>
+	
+	<!-- 글 삭제 -->
+	<delete id="deleteBoard" parameterType="Long">
+		delete from board where board_id = #{board_id}
+	</delete>
+	<!-- 파일 삭제 -->
+	<delete id="deleteFile" parameterType="Long">
+		delete from file where board_id = #{board_id}
+	</delete>
+	
+	
+	<!-- 댓글 작성 -->
+	<insert id="saveComment" parameterType="kr.com.conimal.model.dto.CommentDto">
+		insert into comment (board_id, user_id, contents, create_date, update_date) 
+		values (#{board_id}, #{user_id}, #{contents}, #{create_date}, #{update_date})
+	</insert>
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="kr.com.conimal.model.dto.CommentDto">
+		update comment 
+		<set><if test="contents != null">contents = #{contents}</if></set>
+		<where>comment_id = #{comment_id}</where>
+	</update>
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="Long">
+		delete from comment where comment_id = #{comment_id}
+	</delete>
+	<select id="findComment" resultType="kr.com.conimal.model.dto.CommentDto">
+		select * from comment where comment_id = #{comment_id}
+	</select>
+
+	
+	<!-- 좋아요 수 증가 -->
+	
+	 
+	<!-- 검색 / 제목, 작성자 -->
+	
+	
+	
+</mapper>

@@ -2,7 +2,7 @@ package kr.com.conimal.dao;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
-import kr.com.conimal.model.dto.BoardUsedTagDto;
+import kr.com.conimal.model.dto.BoardTagDto;
 import kr.com.conimal.model.dto.TagDto;
 
 public class TagDao extends SqlSessionDaoSupport {
@@ -13,13 +13,13 @@ public class TagDao extends SqlSessionDaoSupport {
 	}
 	
 	// 태그 이름 없으면 DB에 입력
-	public int writeTag(TagDto tag) {
+	public Long writeTag(TagDto tag) {
 		getSqlSession().insert("tag.writeTag", tag);
-		return tag.getTag_idx();
+		return tag.getTag_id();
 	}
 	
 	// 태그 이름 유무에 상관없이 글 작성 시 태그가 있으면 DB에 입력
-	public int writeTagType(BoardUsedTagDto boardUsedTag) {
+	public int writeTagType(BoardTagDto boardUsedTag) {
 		return getSqlSession().insert("tag.writeTagType", boardUsedTag);
 	}
 	

@@ -2,21 +2,17 @@ package kr.com.conimal.model.dto;
 
 import java.time.LocalDate;
 
-public class CommentDto {
+public class BoardDto {
 	
-	private Long comment_id;
-	private Long board_id;
-	private Long user_id;
-	private String contents;
-	private LocalDate create_date;
-	private LocalDate update_date;
+	private Long board_id; // 게시글 번호
+	private Long user_id; // 회원 번호 
+	private String title; // 제목 
+	private String contents; // 내용 
+	private int hit; // 조회수 
+	private char show_yn; // default 'Y'
+	private LocalDate create_date; // 등록일
+	private LocalDate update_date; // 수정일
 	
-	public Long getComment_id() {
-		return comment_id;
-	}
-	public void setComment_id(Long comment_id) {
-		this.comment_id = comment_id;
-	}
 	public Long getBoard_id() {
 		return board_id;
 	}
@@ -29,11 +25,29 @@ public class CommentDto {
 	public void setUser_id(Long user_id) {
 		this.user_id = user_id;
 	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
 	public String getContents() {
 		return contents;
 	}
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
+	public char getShow_yn() {
+		return show_yn;
+	}
+	public void setShow_yn(char show_yn) {
+		this.show_yn = show_yn;
 	}
 	public LocalDate getCreate_date() {
 		return create_date;
@@ -47,4 +61,5 @@ public class CommentDto {
 	public void setUpdate_date(LocalDate update_date) {
 		this.update_date = update_date;
 	}
+	
 }

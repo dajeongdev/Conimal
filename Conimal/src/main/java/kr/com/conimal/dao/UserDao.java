@@ -1,11 +1,7 @@
 package kr.com.conimal.dao;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
-import kr.com.conimal.model.command.LoginCommand;
 import kr.com.conimal.model.dto.UserDto;
 
 public interface UserDao {

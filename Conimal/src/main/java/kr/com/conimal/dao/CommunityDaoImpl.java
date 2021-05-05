@@ -1,109 +1,84 @@
 package kr.com.conimal.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import kr.com.conimal.model.command.PagingCommand;
+import kr.com.conimal.model.dto.BoardDto;
 import kr.com.conimal.model.dto.CommentDto;
-import kr.com.conimal.model.dto.CommunityDto;
-import kr.com.conimal.model.dto.CommunityFileDto;
-import kr.com.conimal.model.dto.TagDto;
+import kr.com.conimal.model.dto.FileDto;
 
 public class CommunityDaoImpl extends SqlSessionDaoSupport implements CommunityDao {
 	
-	// 인기 태그 목록
-	@Override
-	public List<TagDto> getHitTagList() {
-		return getSqlSession().selectList("community.getHitTagList");
-	}
-	
 	// 글 목록
 	@Override
-	public List<Map<String, Object>> list(PagingCommand page) {
-		return getSqlSession().selectList("community.list", page);
+	public List<BoardDto> findBoardAll(PagingCommand page) {
+		return getSqlSession().selectList("board.list", page);
 	}
 	@Override
-	public int getCount() {
-		return getSqlSession().selectOne("community.getCount");
-	}
-	@Override
-	public List<TagDto> tagList(int community_idx) {
-		return getSqlSession().selectList("community.tagList", community_idx);
+	public int findBoardCount() throws Exception {
+		return getSqlSession().selectOne("board.findBoardCount");
 	}
 	
 	// 글 작성
 	@Override
-	public int writeCommunity(CommunityDto community) throws Exception {
-		getSqlSession().insert("community.writeCommunity", community);
-		return community.getCommunity_idx();
+	public int saveBoard(BoardDto board) throws Exception {
+		return getSqlSession().insert("board.saveBoard", board);
 	}
 	@Override
-	public int writeCommunityFile(CommunityFileDto file) throws Exception {
-		return getSqlSession().insert("community.writeCommunityFile", file);
-	}
-	@Override
-	public void writeFile(Map<String, Object> map) throws Exception {
-		getSqlSession().insert("community.writeFile", map);
+	public int saveFile(FileDto file) throws Exception {
+		return getSqlSession().insert("board.saveFile", file);
 	}
 	
 	// 글 상세 보기
 	@Override
-	public CommunityDto readCommunity(int community_idx) throws Exception {
-		return getSqlSession().selectOne("community.readCommunity", community_idx);
+	public BoardDto findBoard(Long board_id) throws Exception {
+		return getSqlSession().selectOne("board.findBoard", board_id);
 	}
 	@Override
-	public List<CommunityFileDto> readCommunityFile(int community_idx) throws Exception {
-		return getSqlSession().selectList("community.readFile", community_idx);
+	public List<FileDto> findFile(Long board_id) throws Exception {
+		return getSqlSession().selectList("board.findFile", board_id);
 	}
 	@Override
-	public List<TagDto> getTags(int board_idx) throws Exception {
-		return getSqlSession().selectList("community.getTags", board_idx);
+	public int hitCount(Long board_id) throws Exception {
+		return getSqlSession().selectOne("board.hitCount", board_id);
 	}
-	// 조회수 증가
 	@Override
-	public int hitCount(int community_idx) throws Exception {
-		return getSqlSession().update("community.hitCount", community_idx);
+	public List<CommentDto> findCommentAll(Long board_id) throws Exception {
+		return getSqlSession().selectList("board.findCommentAll", board_id);
 	}
 	
 	// 글 수정
 	@Override
-	public int editCommunity(CommunityDto community) throws Exception {
-		return getSqlSession().update("community.editCommunity", community);
+	public int updateBoard(BoardDto board) throws Exception {
+		return getSqlSession().update("board.updateBoard", board);
 	}
 	
 	// 글 삭제
 	@Override
-	public int deleteCommunity(int community_idx) {
-		return getSqlSession().update("community.deleteCommunity", community_idx);
+	public int deleteBoard(Long board_id) throws Exception {
+		return getSqlSession().delete("board.deleteBoard", board_id);
 	}
-	
+	@Override
+	public int deleteFile(Long board_id) throws Exception {
+		return getSqlSession().delete("board.deleteFile", board_id);
+	}
 	
 	// 댓글 작성
 	@Override
-	public int writeComment(CommentDto comment) throws Exception {
-		return getSqlSession().insert("community.writeComment", comment);
-	}
-	// 댓글 보기
-	@Override
-	public List<CommentDto> readComment(int community_idx) throws Exception {
-		return getSqlSession().selectList("community.readComment", community_idx);
+	public int saveComment(CommentDto comment) throws Exception {
+		return getSqlSession().insert("board.saveComment", comment);
 	}
 	// 댓글 수정
 	@Override
-	public int editComment(CommentDto comment) throws Exception {
-		return getSqlSession().update("community.editComment", comment);
+	public int updateComment(CommentDto comment) throws Exception {
+		return getSqlSession().update("board.updateComment", comment);
 	}
 	// 댓글 삭제
 	@Override
-	public int deleteComment(int comment_idx) throws Exception {
-		return getSqlSession().delete("community.deleteComment", comment_idx);
+	public int deleteComment(Long comment_id) throws Exception {
+		return getSqlSession().delete("board.deleteComment", comment_id);
 	}
-	// 선택 댓글 보기
-	@Override
-	public CommentDto getComment(int comment_idx) throws Exception {
-		return getSqlSession().selectOne("community.getComment", comment_idx);
-	}
-
+	
 }
