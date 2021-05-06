@@ -41,9 +41,19 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public Long saveBoard(BoardDto dto) throws Exception {
 		BoardDto board = new BoardDto();
+		if (dto.getTitle() != null) {
+			board.setTitle(dto.getTitle());
+		}
+		if (dto.getUser_id() != null) {
+			board.setUser_id(dto.getUser_id());
+		}
+		if (dto.getContents() != null) {
+			board.setContents(dto.getContents());
+		}
 		board.setCreate_date(LocalDate.now());
 		board.setUpdate_date(LocalDate.now());
 		dao.saveBoard(board);
+		System.out.println("Service user_id : " + board.getUser_id());
 		return board.getBoard_id();
 	}
 	
@@ -81,16 +91,13 @@ public class CommunityServiceImpl implements CommunityService {
 	// 글 보기
 	@Override
 	public BoardDto findBoard(Long board_id) throws Exception {
+		// 조회수 증가
+		dao.hitCount(board_id);
 		return dao.findBoard(board_id);
 	}
 	@Override
 	public List<FileDto> findFile(Long board_id) throws Exception {
 		return dao.findFile(board_id);
-	}
-	// 조회수 증가 
-	@Override
-	public int hitCount(Long board_id) throws Exception {
-		return dao.hitCount(board_id);
 	}
 	// 댓글 목록 보기
 	@Override

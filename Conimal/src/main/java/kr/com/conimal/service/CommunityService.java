@@ -22,8 +22,6 @@ public interface CommunityService {
 	// 글 보기 
 	public BoardDto findBoard(Long board_id) throws Exception;
 	public List<FileDto> findFile(Long board_id) throws Exception;
-	// 조회수 증가 
-	public int hitCount(Long board_id) throws Exception;
 	// 댓글 보기 
 	public List<CommentDto> findCommentAll(Long board_id) throws Exception;
 	

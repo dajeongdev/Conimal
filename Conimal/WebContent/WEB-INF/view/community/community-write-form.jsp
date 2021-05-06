@@ -26,7 +26,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>
-	//태그를 저장할 배열
+/* 	//태그를 저장할 배열
 	var tags = [];
 	var tagNames = [];
 	//태그를 보여줄 element
@@ -87,7 +87,7 @@
 			$(this).remove();
 		});
 	}
-	
+	 */
 	var stored_files = [];
 	var selected = "";
 	
@@ -95,14 +95,12 @@
 		selected = $("#selectFiles");
 		$("#files").on("change", preview);
 		$("#img").on("click", removeFile);
-		form = $("form[name=writeCommunity]")[0];
 		
 		form.onsubmit = function(e) {
 			e.preventDefault();
 			var formData = new FormData(form);
 			var str = $("#files").val();
 			console.log(str);
-			formData.append("rdTag", tags);
 			if(str === true) {
 				$.ajax({
 					url : "community-write-form",
@@ -170,23 +168,17 @@
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<div class = "page-container">
-		<form method="post" enctype="multipart/form-data" name="writeCommunity">
+		<form method="post" enctype="multipart/form-data">
 		<div class="community-container">
 		
 			<div class="community-intro">
 				<h3 class="title">커뮤니티</h3>
 			</div>
 			
-				<input type="hidden" name="user_idx" value="${user.user_idx}" readonly />
+				<input type="hidden" name="user_id" value="${user.user_id}" readonly />
 				<input type="text" class="marB_20" id="cm-title" name="title" placeholder="제목을 입력하세요"/>
 				
-				<textarea class="community-contents marB_20" id="cm-contents" name="content" placeholder="내용을 입력하세요"></textarea>
-				
-				<input type="hidden" value="" name="tag_name" id="rdTag">
-				<input class="community-tags marB_20" type="text" id="tag" name="tag" placeholder="태그를 입력하세요"/>
-				<div id="tag-list">
-				
-				</div>
+				<textarea class="community-contents marB_20" id="cm-contents" name="contents" placeholder="내용을 입력하세요"></textarea>
 				
 				<div class="marB_60">
 					<input type="file" class="form-control community-files marR_10" id="files" name="file" multiple/>

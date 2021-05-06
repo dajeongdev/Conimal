@@ -14,7 +14,7 @@ public class CommunityDaoImpl extends SqlSessionDaoSupport implements CommunityD
 	// 글 목록
 	@Override
 	public List<BoardDto> findBoardAll(PagingCommand page) {
-		return getSqlSession().selectList("board.list", page);
+		return getSqlSession().selectList("board.findBoardAll", page);
 	}
 	@Override
 	public int findBoardCount() throws Exception {
@@ -24,6 +24,7 @@ public class CommunityDaoImpl extends SqlSessionDaoSupport implements CommunityD
 	// 글 작성
 	@Override
 	public int saveBoard(BoardDto board) throws Exception {
+		System.out.println("Dao user_id : " + board.getUser_id());
 		return getSqlSession().insert("board.saveBoard", board);
 	}
 	@Override
@@ -42,7 +43,7 @@ public class CommunityDaoImpl extends SqlSessionDaoSupport implements CommunityD
 	}
 	@Override
 	public int hitCount(Long board_id) throws Exception {
-		return getSqlSession().selectOne("board.hitCount", board_id);
+		return getSqlSession().update("board.hitCount", board_id);
 	}
 	@Override
 	public List<CommentDto> findCommentAll(Long board_id) throws Exception {

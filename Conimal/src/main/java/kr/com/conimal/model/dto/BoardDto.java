@@ -13,6 +13,8 @@ public class BoardDto {
 	private LocalDate create_date; // 등록일
 	private LocalDate update_date; // 수정일
 	
+	private UserDto user;
+	
 	public Long getBoard_id() {
 		return board_id;
 	}
@@ -61,5 +63,10 @@ public class BoardDto {
 	public void setUpdate_date(LocalDate update_date) {
 		this.update_date = update_date;
 	}
-	
+	public UserDto getUser() {
+		return user;
+	}
+	public void setUser(UserDto user) {
+		this.user = user;
+	}
 }

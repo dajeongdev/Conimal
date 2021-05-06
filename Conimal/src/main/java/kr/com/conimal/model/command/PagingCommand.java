@@ -1,5 +1,8 @@
 package kr.com.conimal.model.command;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class PagingCommand {
 	
 	private int listSize = 10; // 목록 사이즈

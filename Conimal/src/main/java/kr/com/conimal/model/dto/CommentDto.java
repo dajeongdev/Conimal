@@ -11,6 +11,8 @@ public class CommentDto {
 	private LocalDate create_date;
 	private LocalDate update_date;
 	
+	private UserDto user;
+	
 	public Long getComment_id() {
 		return comment_id;
 	}
@@ -46,5 +48,11 @@ public class CommentDto {
 	}
 	public void setUpdate_date(LocalDate update_date) {
 		this.update_date = update_date;
+	}
+	public UserDto getUser() {
+		return user;
+	}
+	public void setUser(UserDto user) {
+		this.user = user;
 	}
 }

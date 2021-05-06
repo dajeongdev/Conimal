@@ -7,6 +7,7 @@
 	<select id="findBoardAll" resultType="kr.com.conimal.model.dto.BoardDto">
 		select * 
 		from board 
+		order by board_id desc
 		limit #{startList}, #{listSize}
 	</select>
 	<select id="findBoardCount" resultType="int">
@@ -15,8 +16,8 @@
 
 	<!-- 글 작성 / 제목, 내용 -->
 	<insert id="saveBoard" parameterType="kr.com.conimal.model.dto.BoardDto">
-		insert into board (user_id, title, contents, hit, create_date, update_date, show_yn) 
-		values (#{user_id}, #{title}, #{contents}, 0, #{create_date}, #{update_date}, 'Y')
+		insert into board (board_id, user_id, title, contents, hit, create_date, update_date, show_yn) 
+		values (board_id, #{user_id}, #{title}, #{contents}, 0, #{create_date}, #{update_date}, 'Y')
 		<selectKey keyProperty="board_id" resultType="Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -29,7 +30,7 @@
 
 
 	<!-- 상세 보기 / 제목, 작성자, 작성일, 내용, 이미지 -->
-	<select id="findBoard" resultMap="boardMapMap">
+	<select id="findBoard" resultMap="boardMap">
 		select * from board inner join user 
 		on user.user_id = board.user_id 
 		where board.board_id = #{board_id}
@@ -43,6 +44,19 @@
 	<update id="hitCount" parameterType="kr.com.conimal.model.dto.BoardDto">
 		update board set hit = hit + 1 where board_id = #{board_id}
 	</update>
+	<resultMap type="kr.com.conimal.model.dto.BoardDto" id="boardMap">
+		<result property="board_id" column="board_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="title" column="title"/>
+		<result property="contents" column="contents"/>
+		<result property="hit" column="hit"/>
+		<result property="create_date" column="create_date"/>
+		<result property="update_date" column="update_date"/>
+		<association property="user" javaType="kr.com.conimal.model.dto.UserDto">
+			<id property="user_id" column="user_id"/>
+			<result property="nickname" column="nickname"/>
+		</association>
+	</resultMap>
 	
 	
 	<!-- 댓글 보기 / 작성자, 작성일, 내용 (+답글) -->
@@ -52,7 +66,7 @@
 		where comment.board_id = #{board_id}
 	</select>
 	<resultMap type="kr.com.conimal.model.dto.CommentDto" id="commentMap">
-		<id property="comment_id" column="commencomment_idt_idx"/>
+		<id property="comment_id" column="comment_id"/>
 		<result property="user_id" column="user_id"/>
 		<result property="board_id" column="board_id"/>
 		<result property="contents" column="contents"/>

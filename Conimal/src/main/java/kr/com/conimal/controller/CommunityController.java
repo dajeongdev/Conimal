@@ -2,6 +2,8 @@ package kr.com.conimal.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +35,8 @@ public class CommunityController {
 	// 게시판 목록
 	@RequestMapping(value = "/community/community-list")
 	public ModelAndView boardList(BoardDto board, 
-			@RequestParam(required = false, defaultValue = "1") int page
-			, @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+			@RequestParam(required = false, defaultValue = "1") int page,
+			@RequestParam(required = false, defaultValue = "1") int range) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
 		int listCount = cs.findBoardCount();
@@ -56,7 +58,7 @@ public class CommunityController {
 		return mav;
 	}
 	@RequestMapping(value = "/community/community-write-form", method = RequestMethod.POST)
-	public String saveBoard(BoardDto board, FileDto file, MultipartHttpServletRequest request) throws Exception {
+	public String saveBoard(Long user_id, BoardDto board, FileDto file, MultipartHttpServletRequest request) throws Exception {
 
 		Long board_id = cs.saveBoard(board);
 		
@@ -65,7 +67,7 @@ public class CommunityController {
 			cs.saveFile(board_id, request);
 		}
 		
-		return "/community/community-list";
+		return "redirect:/community/community-list";
 	}
 	
 	// 상세 보기
@@ -76,7 +78,6 @@ public class CommunityController {
 		BoardDto dto = cs.findBoard(board_id);
 		List<FileDto> fileDto = cs.findFile(board_id);
 		List<CommentDto> comments = cs.findCommentAll(board_id);
-		cs.hitCount(board_id);
 		
 		mav.addObject("board", dto);
 		mav.addObject("file", fileDto);
