@@ -58,12 +58,12 @@ public class CommunityController {
 		return mav;
 	}
 	@RequestMapping(value = "/community/community-write-form", method = RequestMethod.POST)
-	public String saveBoard(Long user_id, BoardDto board, FileDto file, MultipartHttpServletRequest request) throws Exception {
+	public String saveBoard(Long user_id, BoardDto board, MultipartHttpServletRequest request) throws Exception {
 
 		Long board_id = cs.saveBoard(board);
 		
-		if(file != null) {
-			System.out.println(file);
+		if(request.getFileNames().hasNext()) {
+			System.out.println("Board has file : " + request.getFileNames().toString());
 			cs.saveFile(board_id, request);
 		}
 		
@@ -88,10 +88,39 @@ public class CommunityController {
 	
 	
 	// 글 수정
-	
+	@RequestMapping(value = "/community/community-update", method = RequestMethod.GET)
+	public ModelAndView updatePage(Long board_id) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		BoardDto dto = cs.findBoard(board_id);
+		List<FileDto> fileDto = cs.findFile(board_id);
+
+		mav.addObject("board", dto);
+		mav.addObject("file", fileDto);
+		mav.setViewName("/community/community-update");
+		return mav;
+	}
+	@RequestMapping(value = "/community/community-update", method = RequestMethod.POST)
+	public String updateBoard(Long user_id, BoardDto board, MultipartHttpServletRequest request) throws Exception {
+
+		cs.updateBoard(board);
+		Long board_id = board.getBoard_id();
+		
+		if(request.getFileNames().hasNext()) {
+			System.out.println("Board has new file : " + request.getFileNames().toString());
+			cs.saveFile(board_id, request);
+		}
+		
+		return "redirect:/community/community-detail?board_id=" + board_id;
+	}
 	
 	// 글 삭제
-	
+	@RequestMapping(value = "/community/community-delete", method = RequestMethod.DELETE)
+	public String deleteBoard(Long board_id) throws Exception {
+
+		cs.deleteBoard(board_id);
+		
+		return "redirect:/community/community-list";
+	}
 	
 	
 	// 댓글 작성

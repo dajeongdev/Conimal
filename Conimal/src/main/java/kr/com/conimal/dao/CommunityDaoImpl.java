@@ -29,6 +29,7 @@ public class CommunityDaoImpl extends SqlSessionDaoSupport implements CommunityD
 	}
 	@Override
 	public int saveFile(FileDto file) throws Exception {
+		System.out.println("Dao file_name : " + file.getFile_name());
 		return getSqlSession().insert("board.saveFile", file);
 	}
 	

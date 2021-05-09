@@ -53,7 +53,6 @@ public class CommunityServiceImpl implements CommunityService {
 		board.setCreate_date(LocalDate.now());
 		board.setUpdate_date(LocalDate.now());
 		dao.saveBoard(board);
-		System.out.println("Service user_id : " + board.getUser_id());
 		return board.getBoard_id();
 	}
 	
@@ -75,16 +74,17 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	@Override
 	public void saveFile(Long board_id, MultipartHttpServletRequest request) throws Exception {
-		List<FileUploadCommand> files = fileService.upload(request, "/img/board/");
+		List<FileUploadCommand> files = fileService.uploadList(request, "/img/board/");
 		
 		for(FileUploadCommand file : files) {
-			FileDto filedto = new FileDto();
-			filedto.setBoard_id(board_id);
-			filedto.setFile_name(file.getFile_name());
-			filedto.setFile_path(file.getFile_path());
-			filedto.setCreate_date(LocalDate.now());
+			FileDto fileDto = new FileDto();
+			fileDto.setBoard_id(board_id);
+			fileDto.setFile_name(file.getFile_name());
+			fileDto.setFile_path(file.getFile_path());
+			fileDto.setCreate_date(LocalDate.now());
 			
-			dao.saveFile(filedto);
+			System.out.println("BoardService fileDto : " + fileDto);
+			dao.saveFile(fileDto);
 		}
 	}
 	
@@ -125,11 +125,14 @@ public class CommunityServiceImpl implements CommunityService {
 	// 댓글 작성
 	@Override
 	public int saveComment(CommentDto comment) throws Exception {
+		comment.setCreate_date(LocalDate.now());
+		comment.setUpdate_date(LocalDate.now());
 		return dao.saveComment(comment);
 	}
 	// 댓글 수정
 	@Override
 	public int updateComment(CommentDto comment) throws Exception {
+		comment.setUpdate_date(LocalDate.now());
 		return dao.updateComment(comment);
 	}
 	// 댓글 삭제

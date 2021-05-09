@@ -121,8 +121,10 @@
 	<!-- 댓글 수정 -->
 	<update id="updateComment" parameterType="kr.com.conimal.model.dto.CommentDto">
 		update comment 
-		<set><if test="contents != null">contents = #{contents}</if></set>
-		<where>comment_id = #{comment_id}</where>
+			<set>
+				<if test="contents != null">contents = #{contents}</if>
+			</set>
+			<where>comment_id = #{comment_id}</where>
 	</update>
 	<!-- 댓글 삭제 -->
 	<delete id="deleteComment" parameterType="Long">
