@@ -27,6 +27,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>
 
+	var board_id = ${board.board_id};
 	var stored_files = [];
 	var selected = "";
 	
@@ -34,7 +35,8 @@
 		selected = $("#selectFiles");
 		$("#files").on("change", preview);
 		$("#img").on("click", removeFile);
-		
+
+		form = $("form[name='updateForm']")[0];
 		form.onsubmit = function(e) {
 			e.preventDefault();
 			var formData = new FormData(form);
@@ -44,8 +46,8 @@
 				formData.append("files", stored_files[i]);
 			}
 			$.ajax({
-				url : "community-update",
-				type : "post",
+				url : "/community/update",
+				type : "POST",
 				enctype : "multipart/form-data",
 				contentType : false,
 				processData : false,
@@ -56,17 +58,17 @@
 			})
 		}
 	})
+	
 	function preview(e) {
 		var files = e.target.files;
 		var filesArr = Array.prototype.slice.call(files);
 		filesArr.forEach(function(f) {
+			
 			if(!f.type.match("image.*")) {
 				return;
 			}
-			var str = $("#files").val();
-			console.log(str === true);
-			console.log(f);
 			stored_files.push(f);
+			
 			var reader = new FileReader();
 			reader.onload = function(e) {
 				var html = "<span class='preview'>";
@@ -75,7 +77,6 @@
 				selected.append(html);
 				
 			}
-			console.log("preview success!");
 			reader.readAsDataURL(f);
 		});
 	}
@@ -94,27 +95,34 @@
 <body>
 	<%@ include file="../include/header.jsp" %>
 	<div class = "page-container">
-		<form method="post" enctype="multipart/form-data">
+		<form method="POST" enctype="multipart/form-data" name="updateForm">
 		<div class="community-container">
 		
 			<div class="community-intro">
 				<h3 class="title">커뮤니티</h3>
 			</div>
-			
-				<input type="hidden" name="user_id" value="${user.user_id}" readonly />
+				<input type="hidden" name="board_id" value="${board.board_id}"> 
+				<input type="hidden" name="user_id" value="${user.user_id}"/>
 				<input type="text" class="marB_20" id="cm-title" name="title" value="${board.title}"/>
 				
 				<textarea class="community-contents marB_20" id="cm-contents" name="contents">${board.contents}</textarea>
 				
 				<div class="marB_60">
-					<input type="file" class="form-control community-files marR_10" id="files" name="file" value="${file}"multiple/>
-					<span class="row" id="selectFiles"></span>
+					<input type="file" class="form-control community-files marR_10" id="files" name="file" multiple/>
+					<div class="row" id="selectFiles">
+						<c:if test="${file.size() > 0}">
+							<c:forEach var="img" items="${file}">
+								<div class="preview">
+									<img src="/resources/upload/img/board/${img.file_name}" width="100" height="70">
+								</div>
+							</c:forEach>
+						</c:if>
+					</div>
 				</div>
 				
 				<div class="txt-center">
 					<button type="submit" class="btn" id="upload-btn">수정</button>
 				</div>
-			
 		</div>
 		</form>
 		

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,9 +14,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.com.conimal.model.command.PagingCommand;
+import kr.com.conimal.model.command.SearchCommand;
 import kr.com.conimal.model.dto.BoardDto;
 import kr.com.conimal.model.dto.CommentDto;
 import kr.com.conimal.model.dto.FileDto;
+import kr.com.conimal.service.CommentService;
 import kr.com.conimal.service.CommunityService;
 import kr.com.conimal.service.TagService;
 import kr.com.conimal.service.UserService;
@@ -27,26 +30,35 @@ public class CommunityController {
 	CommunityService cs;
 	
 	@Autowired
-	TagService ts;
+	CommentService ms;
 	
 	@Autowired
 	UserService us;
 
 	// 게시판 목록
-	@RequestMapping(value = "/community/community-list")
-	public ModelAndView boardList(BoardDto board, 
-			@RequestParam(required = false, defaultValue = "1") int page,
-			@RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+	@RequestMapping(value = "/community/community-list", method = RequestMethod.GET)
+	public ModelAndView boardList(
+			@RequestParam(value="page", required = false, defaultValue = "1") int page,
+			@RequestParam(value="range", required = false, defaultValue = "1") int range,
+			@RequestParam(required = false, defaultValue = "title") String searchType,
+			@RequestParam(required = false) String keyword,
+			@ModelAttribute("search") SearchCommand search) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
-		int listCount = cs.findBoardCount();
+		search.setSearchType(searchType);
+		search.setKeyword(keyword);
+
+		// 전체 게시글 개수
+		int listCount = cs.findBoardCount(search);
 		
-		PagingCommand paging = new PagingCommand();
-		paging.pageInfo(page, range, listCount);
-		List<BoardDto> list = cs.findBoardAll(paging);
+		// 검색 및 페이징
+		search.pageInfo(page, range, listCount);
+		
+		List<BoardDto> list = cs.findBoardAll(search);
 		
 		mav.addObject("list", list);
-		mav.addObject("paging", paging);
+		mav.addObject("paging", search);
+		mav.addObject("search", search);
 		mav.setViewName("/community/community-list");
 		return mav;
 	}
@@ -77,7 +89,7 @@ public class CommunityController {
 		
 		BoardDto dto = cs.findBoard(board_id);
 		List<FileDto> fileDto = cs.findFile(board_id);
-		List<CommentDto> comments = cs.findCommentAll(board_id);
+		List<CommentDto> comments = ms.findCommentAll(board_id);
 		
 		mav.addObject("board", dto);
 		mav.addObject("file", fileDto);
@@ -90,31 +102,32 @@ public class CommunityController {
 	// 글 수정
 	@RequestMapping(value = "/community/community-update", method = RequestMethod.GET)
 	public ModelAndView updatePage(Long board_id) throws Exception {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("/community/community-update");
+		
 		BoardDto dto = cs.findBoard(board_id);
 		List<FileDto> fileDto = cs.findFile(board_id);
 
 		mav.addObject("board", dto);
 		mav.addObject("file", fileDto);
-		mav.setViewName("/community/community-update");
 		return mav;
 	}
-	@RequestMapping(value = "/community/community-update", method = RequestMethod.POST)
-	public String updateBoard(Long user_id, BoardDto board, MultipartHttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/community/update", method = RequestMethod.POST)
+	public String updateBoard(BoardDto board, MultipartHttpServletRequest request) throws Exception {
 
 		cs.updateBoard(board);
 		Long board_id = board.getBoard_id();
 		
-		if(request.getFileNames().hasNext()) {
-			System.out.println("Board has new file : " + request.getFileNames().toString());
-			cs.saveFile(board_id, request);
+		if(request.getFile("file").getSize() != 0) {
+			if(request.getFileNames().hasNext()) {
+				cs.saveFile(board_id, request);
+			}
 		}
 		
 		return "redirect:/community/community-detail?board_id=" + board_id;
 	}
 	
 	// 글 삭제
-	@RequestMapping(value = "/community/community-delete", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/community/board-delete")
 	public String deleteBoard(Long board_id) throws Exception {
 
 		cs.deleteBoard(board_id);
@@ -127,33 +140,35 @@ public class CommunityController {
 	@RequestMapping(value = "/community/writeCom", method = RequestMethod.POST)
 	public String writeCom(CommentDto comment) throws Exception {
 
-		cs.saveComment(comment);
+		ms.saveComment(comment);
 		Long board_id = comment.getBoard_id();
 		
 		return "redirect:/community/community-detail?board_id=" + board_id;
 	}
 	
 	// 댓글 수정
-	@RequestMapping(value = "/community/updateCom", method = RequestMethod.GET)
-	public ModelAndView updateCom(CommentDto comment) throws Exception {
-		ModelAndView mav = new ModelAndView();
+	@RequestMapping(value = "/community/updateCom", method = RequestMethod.POST)
+	public String updateCom(CommentDto comment) throws Exception {
 		
 		Long board_id = comment.getBoard_id();
-		List<CommentDto> com = cs.findCommentAll(comment.getComment_id());
 		
-		mav.addObject("board_id", board_id);
-		mav.addObject("commentList", com);
-		mav.setViewName("/community/communtiy-detail?board_id=" + board_id);
-		return mav;
+		ms.updateComment(comment);
+
+		return "/community/communtiy-detail?board_id=" + board_id;
 	}
 	
 	// 댓글 삭제
-	@RequestMapping(value = "/community/deleteCom", method = RequestMethod.GET)
-	public String deleteCom(CommentDto comment) throws Exception {
-		Long board_id = comment.getBoard_id();
-		cs.deleteComment(comment.getComment_id());
+	@RequestMapping(value = "/community/deleteCom")
+	public ModelAndView deleteCom(Long comment_id) throws Exception {
+		ModelAndView mav = new ModelAndView();
 		
-		return "redirect:/community/communtiy-detail?board_id=" + board_id;
+		CommentDto dto = ms.findByCommentId(comment_id);
+		Long board_id = dto.getBoard_id();
+		
+		ms.deleteComment(comment_id);
+		
+		mav.setViewName("redirect:/community/community-detail?board_id=" + board_id);
+		return mav;
 	}
 
 }

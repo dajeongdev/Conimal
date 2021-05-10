@@ -1,19 +1,45 @@
 package kr.com.conimal.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.mybatis.spring.support.SqlSessionDaoSupport;
+
 import kr.com.conimal.model.dto.UserDto;
 
-public interface MypageDao {
+public class MypageDao extends SqlSessionDaoSupport {
 	
-	// 정보 변경
-	public int updateUserInfo(UserDto user);
-	public int updateEmail(UserDto user);
-	public int getUserKey(Long user_id, String user_key);
-	public int updUserKey(Long user_id);
+	public int updateUserInfo(UserDto user) {
+		return getSqlSession().update("mypage.updateUserInfo", user);
+	}
+
+	public int updateEmail(UserDto user) {
+		return getSqlSession().update("mypage.updateEmail", user);
+	}
 	
-	// 비밀번호 확인
-	public boolean checkPwd(String id, String password);
-	
-	// 회원 탈퇴
-	public int secession(UserDto user);
-	
+	public int getUserKey(Long user_id, String user_key) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("user_id", user_id);
+		map.put("user_key", user_key);
+		return getSqlSession().update("mypage.getUserKey", map);
+	}
+
+	public int updUserKey(Long user_id) {
+		return getSqlSession().update("mypage.updUserKey", user_id);
+	}
+
+	public boolean checkPwd(String id, String password) {
+		boolean result = false;
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("password", password);
+		int i = getSqlSession().selectOne("mypage.checkPwd", map);
+		if(i == 1) result = true;
+		return result;
+	}
+
+	public int secession(UserDto user) {
+		return getSqlSession().delete("mypage.secession", user);
+	}
+
 }

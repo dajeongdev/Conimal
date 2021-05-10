@@ -4,14 +4,38 @@
 <mapper namespace="board">
 
 	<!-- 글 목록 -->
-	<select id="findBoardAll" resultType="kr.com.conimal.model.dto.BoardDto">
+	<select id="findBoardAll" resultMap="boardMap">
 		select * 
-		from board 
-		order by board_id desc
+		from board inner join user 
+		on user.user_id = board.user_id 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'title' and keyword != null and keyword != '' ">
+				AND title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType == 'contents' and keyword != null and keyword != '' ">
+				AND contents LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType == 'id' and keyword != null and keyword != '' ">
+				AND id LIKE CONCAT('%', #{keyword}, '%') 
+			</if>	
+		</trim>
+		order by board_id desc 
 		limit #{startList}, #{listSize}
 	</select>
 	<select id="findBoardCount" resultType="int">
-		select COUNT(*) as listCount from board
+		select COUNT(*) as listCount 
+		from board 
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType == 'title' and keyword != null and keyword != '' ">
+				AND title LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType == 'contents' and keyword != null and keyword != '' ">
+				AND contents LIKE CONCAT('%', #{keyword}, '%') 
+			</if>
+			<if test="searchType == 'id' and keyword != null and keyword != '' ">
+				AND id LIKE CONCAT('%', #{keyword}, '%')
+			</if>	
+		</trim>
 	</select>
 
 	<!-- 글 작성 / 제목, 내용 -->
@@ -57,13 +81,12 @@
 			<result property="nickname" column="nickname"/>
 		</association>
 	</resultMap>
-	
-	
 	<!-- 댓글 보기 / 작성자, 작성일, 내용 (+답글) -->
 	<select id="findCommentAll" parameterType="Long" resultMap="commentMap">
-		select * from comment inner join user 
-		on comment.user_id = user.user_id 
-		where comment.board_id = #{board_id}
+		select c.comment_id, c.board_id, c.user_id, c.contents, u.user_id, u.nickname 
+		from comment c inner join user u 
+		on c.user_id = u.user_id 
+		where c.board_id = #{board_id}
 	</select>
 	<resultMap type="kr.com.conimal.model.dto.CommentDto" id="commentMap">
 		<id property="comment_id" column="comment_id"/>
@@ -77,22 +100,17 @@
 			<result property="nickname" column="nickname"/>
 		</association>
 	</resultMap>
-	<select id="findCommentId" parameterType="Long" resultType="kr.com.conimal.model.dto.CommentDto">
-		select * from comment inner join user 
-		on comment.user_id = user.user_id 
-		where comment.board_id = #{board_id}
-	</select>
 	
 	
 	<!-- 글 수정 -->
 	<update id="updateBoard" parameterType="kr.com.conimal.model.dto.BoardDto">
-		update community 
+		update board 
 		<set>
 			<if test="title != null">title = #{title},</if> 
-			<if test="content != null">content = #{content}</if>
-			update_date = #{update_date}
+			<if test="contents != null">contents = #{contents},</if> 
+			update_date = #{update_date} 
 		</set>
-		<where>community_idx = ${community_idx}</where>
+		<where>board_id = #{board_id}</where>
 	</update>
 	<!-- 파일 수정 -->
 	<update id="updateFile" parameterType="kr.com.conimal.model.dto.FileDto">
@@ -111,32 +129,10 @@
 	<delete id="deleteFile" parameterType="Long">
 		delete from file where board_id = #{board_id}
 	</delete>
-	
-	
-	<!-- 댓글 작성 -->
-	<insert id="saveComment" parameterType="kr.com.conimal.model.dto.CommentDto">
-		insert into comment (board_id, user_id, contents, create_date, update_date) 
-		values (#{board_id}, #{user_id}, #{contents}, #{create_date}, #{update_date})
-	</insert>
-	<!-- 댓글 수정 -->
-	<update id="updateComment" parameterType="kr.com.conimal.model.dto.CommentDto">
-		update comment 
-			<set>
-				<if test="contents != null">contents = #{contents}</if>
-			</set>
-			<where>comment_id = #{comment_id}</where>
-	</update>
-	<!-- 댓글 삭제 -->
-	<delete id="deleteComment" parameterType="Long">
-		delete from comment where comment_id = #{comment_id}
-	</delete>
-	<select id="findComment" resultType="kr.com.conimal.model.dto.CommentDto">
-		select * from comment where comment_id = #{comment_id}
-	</select>
 
-	
-	<!-- 좋아요 수 증가 -->
-	
+	<select id="findByFileName" resultType="kr.com.conimal.model.dto.FileDto">
+		select * from file where file_name = #{file_name}
+	</select>
 	 
 	<!-- 검색 / 제목, 작성자 -->
 	
