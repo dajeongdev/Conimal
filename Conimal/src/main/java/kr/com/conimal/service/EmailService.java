@@ -83,7 +83,7 @@ public class EmailService {
 
 		try {
 			// 이메일 제목 (인코딩 필수)
-			message.setSubject("[Conimal] 코니멀 :: 본인인증을 위한 인증 메일입니다.", "UTF-8");
+			message.setSubject("[MyBoard] 본인인증을 위한 인증 메일입니다.", "UTF-8");
 			
 			// 이메일 내용 (인코딩 필수) - HTML 컨텐츠 
 			message.setText(content, "UTF-8", "html");
@@ -110,46 +110,6 @@ public class EmailService {
 		return result;
 	}
 	
-	// 비밀번호 찾기 이메일 발송 
-	public void sendPwd(Long user_id, String email) throws Exception {
-		
-		// 비밀번호는 8자리로 보내고 DB에 저장된 비밀번호를 변경
-		String key = getKey(false, 8);
-		
-		// 회원의 닉네임 가져오기
-		UserDto dto = user.findByUserId(user_id);
-		String nickname = dto.getNickname();
-		
-		MimeMessage message = mailSender.createMimeMessage();
-		String content = "<h1>안녕하세요 코니멀입니다!</h1><br><br>" +
-				"<h2>" + nickname + "님</h2>" + "<h3>임시 비밀번호를 발급해드렸습니다." +
-				"임시로 발급해드린 비밀번호는 </h3><h3 style='color: blue;'>" + key + "</h3><h3>입니다.</h3>" +
-				"<h3>로그인 후 마이페이지에서 비밀번호를 변경해주세요.</h3>" +
-				"<a href='http://localhost:8080/join/login'>코니멀 바로가기</a></h3>" +
-				"<h3>감사합니다!</h3>";
-		try {
-			// 이메일 제목 (인코딩 필수)
-			message.setSubject("[Conimal] 코니멀 :: 임시 비밀번호가 발급되었습니다.", "UTF-8");
-						
-			// 이메일 내용 (인코딩 필수) - HTML 컨텐츠 
-			message.setText(content, "UTF-8", "html");
-						
-			// 이메일 발신자
-			message.setRecipient(RecipientType.TO, new InternetAddress(email));
-						
-			// 이메일 보내기
-			mailSender.send(message);	
-		} catch(MessagingException e) {
-			e.printStackTrace();
-		}
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", dto.getId());
-		map.put("password", key);
-		map.put("email", email);
-		user.findPassword(dto.getId(), email, key);
-	}
-	
 	// 이메일 변경용 인증
 	public void updateEmail(String email, Long user_id) {
 
@@ -166,7 +126,7 @@ public class EmailService {
 		
 		try {
 			// 이메일 제목 (인코딩 필수)
-			message.setSubject("[Conimal] 코니멀 :: 이메일 변경을 위한 인증 메일입니다..", "UTF-8");
+			message.setSubject("[MyBoard] 이메일 변경을 위한 인증 메일입니다.", "UTF-8");
 						
 			// 이메일 내용 (인코딩 필수) - HTML 컨텐츠 
 			message.setText(content, "UTF-8", "html");
@@ -190,6 +150,7 @@ public class EmailService {
 	public int updateUserKey(Long user_id, String email, UserDto user) {
 		int result = mypage.updUserKey(user_id);
 		user.setUpdate_date(LocalDate.now());
+		
 		result = mypage.updateEmail(user);
 		return result;
 	}

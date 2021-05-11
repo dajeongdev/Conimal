@@ -3,37 +3,73 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Conimal</title>
+	<title>MyBoard</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	var board_id = ${board.board_id};
 
-	function saveCom(id) {
-		var contents = $("#comContents").val();
+	/* 댓글 유효성 검증 */
+	function isValidate(obj) {
+            if (obj.contents.value === "") {
+                alert("내용을 입력해주세요.");
+                return false;
+            }
+            return true;
+        }
+
+	/* 글 삭제 */
+	function deleteBoard(id) {
+		if(confirm("정말 삭제하시겠습니까?") === true) {
+			location.href="/community/board-delete?board_id="+id;
+		}
+	}
+
+	/* 댓글 수정 버튼 클릭 */
+	function update(comment_id, user_id, contents) {
+		var html = "";
+		html += "<div id='comment_id' value='" + comment_id + "'>";
+		html += "<textarea class='marB_30' id='updateContents' name='updateContents'>" + contents + "</textarea>";
+		html += "<span class='light-gray'>";
+		html += "<span id='updateCom'><a href='javascript:void(0)' onClick='updateCom('" + comment_id + "', '" + user_id +"')'>저장</a></span>";
+		html += "<span id='deleteCom'><a href='javascript:void(0)' onClick='rollback()'>취소</a></span></span></div>";
+
+		$('#comment_id' + comment_id).replaceWith(html);
+		$('#comment_id' + comment_id + '#updateContents').focus();
+	}
+	
+	/* 댓글 수정 후 저장 버튼 클릭 */
+	function updateCom(comment_id, user_id) {
+		var contents = $("#updateContents").val();
+		var param = JSON.stringfy({"contents" : contents, "comment_id" : comment_id});
+		var headers = {"contentType" : "application/json", "X-HTTP-Method-Override" : "POST"};
+		
 		$.ajax({
 			url : "/community/updateCom",
-			type : "POST",
-			contentType : "applcation/json",
-			data : { "comment_id" : comment_id, "contents" : contents },
+			headers : headers,
+			data : param,
+			dataType : "text",
 			success : function() {
-				location.href = "/community/community-detail?board_id=" + board_id;
+				console.log("success update comment");
+			}, error : function() {
+				console.log("error");
 			}
 		})
 	}
+	
+	/* 댓글 수정 후 취소 버튼 클릭 */
+	function rollback() {
+		return false;
+	}
+	
+	/* 댓글 삭제 */
 	function deleteCom(id) {
 		if(confirm("정말 삭제하시겠습니까?") === true) {
-			location="/community/deleteCom?comment_id="+id;
+			location.href="/community/deleteCom?comment_id="+id;
 		} 
 	}
-
-	function deleteBoard(id) {
-		if(confirm("정말 삭제하시겠습니까?") === true) {
-			location="/community/board-delete?board_id="+id;
-		}
-	}
+	
 </script>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -66,7 +102,7 @@
 				</c:forEach>							
 			</div>
 
-			<!-- 댓글  -->
+			<!-- 댓글 목록 -->
 			<div class="comment-box marB_30">
 				<div class="comment-items">
 				<c:forEach var="comments" items="${comments}">
@@ -79,13 +115,14 @@
 							<span class="comment-date"><c:out value="${comments.create_date}"/></span>
 							<c:if test="${user.user_id == comments.user_id}">
 								<span class="light-gray">
-									<span id="updateCom" onClick="updateCom('${comments.comment_id}')">수정</span>
-									<span id="deleteCom" onClick="deleteCom('${comments.comment_id}')">삭제</span>
+									<span id="updateCom"><a href="javascript:void(0)" onClick="update('${comments.comment_id}', '${user.user_id}', '${comments.contents}')">수정</a></span>
+									<span id="deleteCom"><a href="javascript:void(0)" onClick="deleteCom('${comments.comment_id}')">삭제</a></span>
 								</span>
 							</c:if>
 						</div>
 					</div>
 					<div class="comment-contents" id="comment-contents">
+						<input type="hidden" id="comment_id" value="${comments.comment_id}">
 						<c:out value="${comments.contents}" />
 					</div>
 				</c:forEach>	
@@ -93,10 +130,10 @@
 			</div>
 			
 			<!-- 댓글 작성 -->
-			<form method="POST" action="writeCom" name="writeCom">
+			<form method="POST" action="writeCom" name="writeCom" onsubmit="return isValidate(this)">
 				<input type="hidden" name=board_id id="board_id" value="${board.board_id}">
 				<input type="hidden" name="user_id" id="user_id" value="${user.user_id}">
-				<input type="text" class="marB_30" id="comment" name="contents" placeholder="댓글을 입력하세요."/>
+				<textarea class="comment-c marB_30" id="comment" name="contents" placeholder="댓글을 입력하세요."></textarea>
 				<button type="submit" class="btn" id="upload-btn">입력</button>
 			</form>
 			
@@ -108,7 +145,7 @@
 				<c:if test="${user.user_id == board.user_id}">
 					<div>
 						<button class="btn" id="update" onClick="location.href='/community/community-update?board_id=${board.board_id}'">수정</button>
-						<button class="btn marR_10" id="delete" onClick="deleteBoard(${board.board_id})"> 삭제</button>
+						<button class="btn marR_10" id="delete" onClick="deleteBoard(${board.board_id})">삭제</button>
 					</div>
 				</c:if>
 			</div>

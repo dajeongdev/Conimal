@@ -7,7 +7,7 @@
 <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 <!-- Title -->
-<title>코니멀</title>
+<title>MyBoard</title>
 <!-- fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 
@@ -26,6 +26,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-2.2.4.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>var $j = jQuery.noConflict(true);</script>
 <script>
 	window.ctx = "${pageContext.request.contextPath}"; 

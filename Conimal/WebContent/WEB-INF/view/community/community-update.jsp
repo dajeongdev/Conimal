@@ -5,23 +5,9 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Conimal</title>
+	<title>MyBoard</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
-<style>
-#tag-list { 
-	margin-top:2px;
-	width: 500px;
-	height: 50px;
-}
-.hashTag { 
-	background: #7986cb;
-	padding: 5px 5px;
-	margin: 5px 5px;
-	border-radius: 10%;
-	display: inline-block;
-}
-</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

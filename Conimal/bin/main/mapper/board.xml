@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="board">
 
-	<!-- 글 목록 -->
+	<!-- 글 목록 및 페이징 & 검색 -->
 	<select id="findBoardAll" resultMap="boardMap">
 		select * 
 		from board inner join user 
@@ -22,6 +21,8 @@
 		order by board_id desc 
 		limit #{startList}, #{listSize}
 	</select>
+	
+	<!-- 글 갯수 조회 -->
 	<select id="findBoardCount" resultType="int">
 		select COUNT(*) as listCount 
 		from board 
@@ -38,7 +39,7 @@
 		</trim>
 	</select>
 
-	<!-- 글 작성 / 제목, 내용 -->
+	<!-- 글 작성 -->
 	<insert id="saveBoard" parameterType="kr.com.conimal.model.dto.BoardDto">
 		insert into board (board_id, user_id, title, contents, hit, create_date, update_date, show_yn) 
 		values (board_id, #{user_id}, #{title}, #{contents}, 0, #{create_date}, #{update_date}, 'Y')
@@ -46,14 +47,14 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 	</insert> 
+	
 	<!-- 파일 저장 -->
 	<insert id="saveFile" parameterType="kr.com.conimal.model.dto.FileDto">
 		insert into file (board_id, file_name, file_path, create_date) 
 		values(#{board_id}, #{file_name}, #{file_path}, #{create_date})
 	</insert>
 
-
-	<!-- 상세 보기 / 제목, 작성자, 작성일, 내용, 이미지 -->
+	<!-- 상세 보기 -->
 	<select id="findBoard" resultMap="boardMap">
 		select * from board inner join user 
 		on user.user_id = board.user_id 
@@ -64,10 +65,6 @@
 		on board.board_id = file.board_id 
 		where board.board_id = #{board_id}
 	</select>
-	<!-- 조회수 증가 -->
-	<update id="hitCount" parameterType="kr.com.conimal.model.dto.BoardDto">
-		update board set hit = hit + 1 where board_id = #{board_id}
-	</update>
 	<resultMap type="kr.com.conimal.model.dto.BoardDto" id="boardMap">
 		<result property="board_id" column="board_id"/>
 		<result property="user_id" column="user_id"/>
@@ -81,6 +78,12 @@
 			<result property="nickname" column="nickname"/>
 		</association>
 	</resultMap>
+	
+	<!-- 조회수 증가 -->
+	<update id="hitCount" parameterType="kr.com.conimal.model.dto.BoardDto">
+		update board set hit = hit + 1 where board_id = #{board_id}
+	</update>
+	
 	<!-- 댓글 보기 / 작성자, 작성일, 내용 (+답글) -->
 	<select id="findCommentAll" parameterType="Long" resultMap="commentMap">
 		select c.comment_id, c.board_id, c.user_id, c.contents, u.user_id, u.nickname 
@@ -101,7 +104,6 @@
 		</association>
 	</resultMap>
 	
-	
 	<!-- 글 수정 -->
 	<update id="updateBoard" parameterType="kr.com.conimal.model.dto.BoardDto">
 		update board 
@@ -112,30 +114,10 @@
 		</set>
 		<where>board_id = #{board_id}</where>
 	</update>
-	<!-- 파일 수정 -->
-	<update id="updateFile" parameterType="kr.com.conimal.model.dto.FileDto">
-		update file
-		<set>
-			<if test="file_name">file_name = #{file_name},</if> 
-			<if test="file_path">file_path = #{file_path}</if> 
-		</set>
-	</update>
 	
 	<!-- 글 삭제 -->
 	<delete id="deleteBoard" parameterType="Long">
 		delete from board where board_id = #{board_id}
 	</delete>
-	<!-- 파일 삭제 -->
-	<delete id="deleteFile" parameterType="Long">
-		delete from file where board_id = #{board_id}
-	</delete>
-
-	<select id="findByFileName" resultType="kr.com.conimal.model.dto.FileDto">
-		select * from file where file_name = #{file_name}
-	</select>
-	 
-	<!-- 검색 / 제목, 작성자 -->
-	
-	
 	
 </mapper>

@@ -1,10 +1,8 @@
 package kr.com.conimal.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,124 +27,100 @@ public class UserController {
 	@Autowired
 	EmailService es;
 	
-	// 메인 페이지 
+	/* 메인 페이지 */
 	@RequestMapping(value = "main")
 	public ModelAndView main(HttpSession session) {
 		ModelAndView mav = new ModelAndView("main");
 		return mav;
 	} 
 	
-	// 로그인 페이지로 이동 
+	/* 로그인 페이지로 이동 */
 	@RequestMapping(value = "/join/login")
 	public String loginPage() {
 		return "/join/login";
 	}
 	
-	// 회원가입 선택 페이지로 이동 
-	@RequestMapping(value = "/join/join-select")
-	public String joinPage() {
-		return "/join/join-select";
-	}
-	
-	// 회원가입 입력 페이지로 이동 
+	/* 회원가입 입력 페이지로 이동 */
 	@RequestMapping(value = "/join/join-form")
 	public String joinForm() {
 		return "/join/join-form";
 	}
 	
-	// 아이디 중복 체크
+	/* 아이디 중복 체크 */
+	@ResponseBody
 	@RequestMapping(value = "/join-form/checkId", method = RequestMethod.GET)
-	@ResponseBody // ajax 사용 
 	public int checkId(@RequestParam("id") String id) throws Exception {
 		int result = us.checkId(id);
+		
 		return result;
 	} 
 	
-	// 이메일 중복 체크 
-	@RequestMapping(value = "/join-form/checkEmail", method = RequestMethod.GET)
+	/* 이메일 중복 체크 */
 	@ResponseBody
+	@RequestMapping(value = "/join-form/checkEmail", method = RequestMethod.GET)
 	public int checkEmail(@RequestParam("email") String email) throws Exception {
 		int result = us.checkEmail(email);
+		
 		return result;
 	} 
 	
-	// 닉네임 중복 체크
-	@RequestMapping(value = "/join-form/checkNick", method = RequestMethod.GET)
+	/* 닉네임 중복 체크 */
 	@ResponseBody
+	@RequestMapping(value = "/join-form/checkNick", method = RequestMethod.GET)
 	public int checkNick(@RequestParam("nickname") String nickname) throws Exception {
 		int result = us.checkNick(nickname);
+		
 		return result;
 	} 
 	
-	// 회원가입
+	/* 회원가입 */
 	@RequestMapping(value = "/join/join-form", method = RequestMethod.POST)
 	public String join(UserDto userDto) throws Exception {
-		// 회원가입
-		us.join(userDto);
+		
+		us.join(userDto); // 회원가입
 		
 		UserDto user = us.findByUserId(userDto.getUser_id());
-		// 인증 메일 보내기
-		es.sendEmail(user.getEmail(), user.getUser_id());
+		es.sendEmail(user.getEmail(), user.getUser_id()); // 인증 메일 보내기
+		
 		return "redirect:/";
 	}
 	
-	// 이메일 인증 
+	/* 이메일 인증 */
 	@RequestMapping(value = "/updUserKey", method = RequestMethod.GET)
 	public String updUserKey(@RequestParam("user_id") Long user_id) throws Exception {
+		
 		es.updUserKey(user_id);
+		
 		return "/join/login";
 	}
 	
-	// 로그인
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	/* 로그인 */
 	@ResponseBody
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(UserDto userDto, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		
 		UserDto result = us.login(userDto);
-		System.out.println("UserController " + result);
+		
 		UserDto user = us.findById(userDto.getId());
+		
 		if(result != null) { // 로그인 성공 
 			session.setAttribute("user", user);
-			System.out.println("로그인 성공");
 			mav.setViewName("redirect:/");
 		} else { // 로그인 실패 
 			session.setAttribute("user", null);
-			System.out.println("로그인 실패");
 			mav.setViewName("redirect:/join/login");
 		}
+		
 		return mav;
 	} 
 	
-	// 로그아웃
+	/* 로그아웃 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
 		session.invalidate();
+		
 		return "redirect:/";
-	}
-	
-	// ID 찾기 페이지 이동
-	@RequestMapping(value = "/join/find-id", method = RequestMethod.GET)
-	public String findIdPage() {
-		return "/join/find-id";
-	}
-	// ID 찾기
-	@RequestMapping(value = "/join/find-id", method = RequestMethod.POST)
-	@ResponseBody
-	public String findId(@RequestParam String email) throws Exception {
-		return us.findId(email);
-	}
-	
-	// 비밀번호 찾기 페이지 이동
-	@RequestMapping(value = "/join/find-password", method = RequestMethod.GET)
-	public String findPwdPage() {
-		return "/join/find-password";
-	}
-	// 비밀번호 찾기 
-	@RequestMapping(value = "/join/find-password", method = RequestMethod.POST)
-	@ResponseBody
-	public String findPwd(@RequestParam Long user_id, @RequestParam String email) throws Exception {
-		es.sendPwd(user_id, email);
-		return "/join/login";
 	}
 	
 }

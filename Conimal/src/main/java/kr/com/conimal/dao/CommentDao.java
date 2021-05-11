@@ -30,7 +30,6 @@ public class CommentDao extends SqlSessionDaoSupport {
 	
 	// 댓글 삭제
 	public int deleteComment(Long comment_id) throws Exception {
-		System.out.println("CommentDao deleteComment");
 		return getSqlSession().delete("comment.deleteComment", comment_id);
 	}
 }

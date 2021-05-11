@@ -16,22 +16,18 @@ import kr.com.conimal.model.command.FileUploadCommand;
 public class FileUploadService {
 
 	public FileUploadCommand upload(MultipartHttpServletRequest request, String path) {
-		System.out.println("upload() 호출");
-		
 		MultipartFile file = request.getFile("file");
+		
 		FileUploadCommand command = new FileUploadCommand();
 		
-		// 파일 경로 지정
+		// 파일 경로 가져오기 
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
-		System.out.println(rootPath);
 		String resourcePath = "resources/upload";
 		
 		// 파일 이름 변경
 		String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-		System.out.println("fileName : " + fileName);
-		
+		// 파일 경로 설정 
 		String filePath = rootPath + resourcePath + path;
-		System.out.println("filePath : " + filePath + fileName);
 		
 		// 저장할 폴더, 저장할 파일 이름
 		File saveFile = new File(filePath + fileName);
@@ -49,12 +45,10 @@ public class FileUploadService {
 	}
 	
 	public List<FileUploadCommand> uploadList(MultipartHttpServletRequest request, String path) {
-		System.out.println("uploadList() 호출");
-		
 		List<FileUploadCommand> files = new ArrayList<>();
+		
 		Iterator<String> fileNames = request.getFileNames();
 		
-		// 파일 경로 지정 
 		String rootPath = request.getSession().getServletContext().getRealPath("/");
 		String uploadPath = "resources/upload";
 	
@@ -64,21 +58,16 @@ public class FileUploadService {
 			for(MultipartFile file : uploadFiles) {
 				FileUploadCommand command = new FileUploadCommand();
 				
-				// 파일 이름 변경 
 				String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-				System.out.println("fileName : " + fileName);
 				
 				String filePath = rootPath + uploadPath + path;
-				System.out.println("filePath : " + filePath + fileName);
 			
-				// 저장할 폴더, 저장할 파일 이름 
 				File saveFile = new File(filePath + fileName); 
 				
 				try {
 					file.transferTo(saveFile);
 					command.setFile_name(fileName);
 					command.setFile_path(filePath);
-					System.out.println("command : " + command);
 				} catch(IOException e) {
 					e.printStackTrace();
 				} catch(Exception e) {
@@ -87,7 +76,6 @@ public class FileUploadService {
 				files.add(command);
 			}
 		}
-		System.out.println("files : " + files);
 		return files;
 	}
 }

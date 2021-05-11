@@ -13,7 +13,7 @@
 	color: #002F6C;
 	text-align: center;
 	line-height: 36px;
-	margin-bottom: 20px; 
+	margin-bottom: 50px; 
 }
 
 .community-intro .sub{
@@ -146,12 +146,16 @@
 }
 
 
+.form-control-sm {
+	height: 40px;
+}
 
-
-
-
-
-
+.page-link {
+	margin: 15px;
+	margin-left: 15px;
+	margin-right: 15px;
+	padding: 10px;
+}
 
 
 
@@ -193,7 +197,7 @@
 .detail-contents{
 	margin: auto; 
 	padding: 50px 0; 
-	min-height: 100px;
+	min-height: 50px;
 }
 
 .detail-comment{
@@ -217,26 +221,28 @@
   padding: 15px 0;
   box-sizing: border-box; 
   line-height: 26px;
+
 }
 
 .comment-info {
 	display: flex; 
 	justify-content: space-between; 
-	margin-bottom: 10px;
-}
-
-.comment-date{
-	margin-right: 20px;	
+	margin-bottom: 5px;
 }
 
 .comment-contents{
-	padding-left: 23px
+	padding-left: 23px;
+	margin-bottom: 10px;
 }
 
 .comment.child {
 	background: #bbb;
 	padding-left: 40px; 
 	
+}
+
+.comment-c {
+	width: 610px;
 }
 
 

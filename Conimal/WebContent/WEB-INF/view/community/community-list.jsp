@@ -4,14 +4,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Home</title>
+	<title>MyBoard</title>
 	<%@ include file="../include/head.jsp" %>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 </head>
 <c:url var="findBoardList" value="${pageContext.request.contextPath}/community/community-list">
 </c:url>
 <script>
+
 	//이전 버튼 이벤트
 	function fn_prev(page, range, rangeSize, searchType, keyword) {
 		var page = ((range - 2) * rangeSize) + 1;
@@ -60,6 +60,7 @@
 		location.href = encodeURI(url);
 		console.log(url);
 	});
+	
 </script>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -68,8 +69,7 @@
 		<div class="community-container">
 		
 			<div class="community-intro">
-				<h3 class="title">커뮤니티</h3>
-				<!-- <p class="sub">지금 코니멀 커뮤니티에서 사용되고 있는 해시태그를 확인하고 대화에 참여해보세요</p> -->
+				<h2 class="title">커뮤니티</h2>
 				<div class="community-nav">
 					<div class="form-group row justify-content-center">
 						<div class="w100" style="padding-right:10px">

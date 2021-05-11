@@ -2,7 +2,7 @@ package kr.com.conimal.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,17 +10,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.com.conimal.model.command.PagingCommand;
 import kr.com.conimal.model.command.SearchCommand;
 import kr.com.conimal.model.dto.BoardDto;
 import kr.com.conimal.model.dto.CommentDto;
 import kr.com.conimal.model.dto.FileDto;
 import kr.com.conimal.service.CommentService;
 import kr.com.conimal.service.CommunityService;
-import kr.com.conimal.service.TagService;
 import kr.com.conimal.service.UserService;
 
 @Controller
@@ -35,7 +34,7 @@ public class CommunityController {
 	@Autowired
 	UserService us;
 
-	// 게시판 목록
+	/* 게시판 목록 */
 	@RequestMapping(value = "/community/community-list", method = RequestMethod.GET)
 	public ModelAndView boardList(
 			@RequestParam(value="page", required = false, defaultValue = "1") int page,
@@ -63,7 +62,7 @@ public class CommunityController {
 		return mav;
 	}
 	
-	// 글 작성
+	/* 글 작성 */
 	@RequestMapping(value = "/community/community-write-form", method = RequestMethod.GET)
 	public ModelAndView savePage() {
 		ModelAndView mav = new ModelAndView("/community/community-write-form");
@@ -75,14 +74,14 @@ public class CommunityController {
 		Long board_id = cs.saveBoard(board);
 		
 		if(request.getFileNames().hasNext()) {
-			System.out.println("Board has file : " + request.getFileNames().toString());
 			cs.saveFile(board_id, request);
 		}
 		
 		return "redirect:/community/community-list";
 	}
 	
-	// 상세 보기
+	/* 상세 보기 */
+	@ResponseBody
 	@RequestMapping(value = "/community/community-detail", method = RequestMethod.GET)
 	public ModelAndView community(Long board_id) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -99,7 +98,7 @@ public class CommunityController {
 	}
 	
 	
-	// 글 수정
+	/* 글 수정 */
 	@RequestMapping(value = "/community/community-update", method = RequestMethod.GET)
 	public ModelAndView updatePage(Long board_id) throws Exception {
 		ModelAndView mav = new ModelAndView("/community/community-update");
@@ -126,7 +125,7 @@ public class CommunityController {
 		return "redirect:/community/community-detail?board_id=" + board_id;
 	}
 	
-	// 글 삭제
+	/* 글 삭제 */
 	@RequestMapping(value = "/community/board-delete")
 	public String deleteBoard(Long board_id) throws Exception {
 
@@ -135,8 +134,7 @@ public class CommunityController {
 		return "redirect:/community/community-list";
 	}
 	
-	
-	// 댓글 작성
+	/* 댓글 작성 */
 	@RequestMapping(value = "/community/writeCom", method = RequestMethod.POST)
 	public String writeCom(CommentDto comment) throws Exception {
 
@@ -146,10 +144,10 @@ public class CommunityController {
 		return "redirect:/community/community-detail?board_id=" + board_id;
 	}
 	
-	// 댓글 수정
-	@RequestMapping(value = "/community/updateCom", method = RequestMethod.POST)
-	public String updateCom(CommentDto comment) throws Exception {
-		
+	/* 댓글 수정 */
+	@RequestMapping(value = "/community/updateCom")
+	public String updateCom(CommentDto comment, HttpServletRequest request) throws Exception {
+
 		Long board_id = comment.getBoard_id();
 		
 		ms.updateComment(comment);
@@ -157,7 +155,7 @@ public class CommunityController {
 		return "/community/communtiy-detail?board_id=" + board_id;
 	}
 	
-	// 댓글 삭제
+	/* 댓글 삭제 */
 	@RequestMapping(value = "/community/deleteCom")
 	public ModelAndView deleteCom(Long comment_id) throws Exception {
 		ModelAndView mav = new ModelAndView();

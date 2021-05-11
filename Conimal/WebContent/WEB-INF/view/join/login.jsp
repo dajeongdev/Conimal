@@ -4,12 +4,13 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Login</title>
+	<title>MyBoard</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+
 $(document).ready(function() {
 	$("#login-btn").click(function(){
 		var id = $("#user-id").val();
@@ -69,26 +70,21 @@ $(document).ready(function() {
 		<h2 class="navy noto-sans marB_75">로그인</h2>
 		<div class="login-container">
 			<c:if test="${user == null}">
-			
-			<div class="login-box">
-				<form action="/login" method="post">		
-					<div class="user-input"><input type="text" id="user-id" name="id" placeholder="아이디"/><div id="check_id"></div></div>
-					<div class="user-input marB_30"><input type="password" id="user-pwd" name="password" placeholder="비밀번호"/><div id="check_pwd"></div></div>
-					<button class="btn login-btn mar0_auto" id="login-btn">로그인</button>
-				</form>
-			</div>
-			
+				<div class="login-box">
+					<form action="/login" method="post">		
+						<div class="user-input"><input type="text" id="user-id" name="id" placeholder="아이디"/><div id="check_id"></div></div>
+						<div class="user-input marB_30"><input type="password" id="user-pwd" name="password" placeholder="비밀번호"/><div id="check_pwd"></div></div>
+						<button class="btn login-btn mar0_auto" id="login-btn">로그인</button>
+					</form>
+				</div>
 			</c:if>
 			
 		</div>
 		<div class="user-find-box">
-			<a href ="/join/find-id" class="text-button">아이디 찾기</a>
-			<a href ="/join/find-password" class="text-button">비밀번호 찾기</a>
 			<a href ="/join/join-form" class="text-button">회원가입</a>
 		</div>
 	
 	</div>
-	
 	
 </div>
 <%@ include file="../include/footer.jsp" %>

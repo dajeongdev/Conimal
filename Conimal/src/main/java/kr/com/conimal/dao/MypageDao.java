@@ -21,21 +21,12 @@ public class MypageDao extends SqlSessionDaoSupport {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_id", user_id);
 		map.put("user_key", user_key);
+		
 		return getSqlSession().update("mypage.getUserKey", map);
 	}
 
 	public int updUserKey(Long user_id) {
 		return getSqlSession().update("mypage.updUserKey", user_id);
-	}
-
-	public boolean checkPwd(String id, String password) {
-		boolean result = false;
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		map.put("password", password);
-		int i = getSqlSession().selectOne("mypage.checkPwd", map);
-		if(i == 1) result = true;
-		return result;
 	}
 
 	public int secession(UserDto user) {

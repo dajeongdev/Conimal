@@ -37,6 +37,7 @@
 	<select id="login" resultType="kr.com.conimal.model.dto.UserDto">
 		select * from user where id = #{id} and password = #{password}
 	</select>
+	<!-- 마지막 로그인 날짜 저장 -->
 	<update id="lastLogin" parameterType="kr.com.conimal.model.dto.UserDto">
 		update user set last_login = now() where user_id = #{user_id}
 	</update>

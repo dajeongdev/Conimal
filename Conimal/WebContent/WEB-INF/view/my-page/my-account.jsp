@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Home</title>
+	<title>MyBoard</title>
 	<%@ include file="../include/head.jsp" %>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
@@ -135,7 +135,7 @@ $(document).ready(function(){
 
 	<div class="sub-container">
 		<form method="post">
-		<h3 class="marB_30">계정정보</h3>
+		<h3 class="marB_30">계정 정보</h3>
 		<c:if test="${not empty user}">
 		<input type="hidden" name="user_id" id="user-id" value="${user.user_id}">
 		<div class="user-input" >

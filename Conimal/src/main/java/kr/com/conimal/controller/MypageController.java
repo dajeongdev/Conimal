@@ -28,7 +28,7 @@ public class MypageController {
 	@Autowired
 	EmailService emailService;
 	
-	// 마이페이지 계정 정보 페이지로 이동
+	/* 정보 수정 페이지로 이동 */
 	@RequestMapping(value = "/my-page/my-account", method = RequestMethod.GET)
 	public ModelAndView myaccountPage(HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView("/my-page/my-account");
@@ -39,39 +39,40 @@ public class MypageController {
 		return mav;
 	} 
 	
-	// 정보 수정
-	@RequestMapping(value = "/my-page/my-account", method = RequestMethod.POST)
+	/* 정보 수정 */
 	@ResponseBody
+	@RequestMapping(value = "/my-page/my-account", method = RequestMethod.POST)
 	public ModelAndView updateUserInfo(@ModelAttribute UserDto dto, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		UserDto user = us.findByUserId(dto.getUser_id());
 		
 		if (user.getPassword() != dto.getPassword() || user.getNickname() != dto.getNickname()) {
 			ms.updateUserInfo(dto);
-			System.out.println("정보 수정 성공");
 		} else if (user.getEmail() != dto.getEmail()) {
 			emailService.updateEmail(dto.getEmail(), dto.getUser_id());
-			System.out.println("이메일 수정 성공");
 		} 
+		
 		session.invalidate();
+		
 		mav.setViewName("redirect:/");
 		return mav;
 	}
 	
-	// 이메일 인증 
+	/* 이메일 인증 */
 	@RequestMapping(value = "/updateUserKey", method = RequestMethod.GET)
 	public String updateUserKey(@RequestParam Long user_id, @RequestParam String email, UserDto user) throws Exception {
 		emailService.updateUserKey(user_id, email, user);
+		
 		return "redirect:/join/login";
 	}
 	
-	// 회원 탈퇴
+	/* 회원 탈퇴 */
 	@RequestMapping(value = "/secession", method = RequestMethod.POST)
 	public String secession(UserDto user, HttpSession session) throws Exception {
-		session.getAttribute("user");
 		if(user.getPassword() != null) {
 			ms.secession(user);
 			session.invalidate();
+			
 			return "redirect:/";
 		} else {
 			return "/my-page/my-account";

@@ -18,22 +18,6 @@ repositories {
 }
 
 dependencies {
-	// Logging
-	// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.30'
-	// https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j
-	compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '2.0.0-alpha1'
-	// https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
-	testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.30'
-	// https://mvnrepository.com/artifact/log4j/log4j
-	compile group: 'log4j', name: 'log4j', version: '1.2.17'
-	// https://mvnrepository.com/artifact/javax.jms/jms
-	compile group: 'javax.jms', name: 'jms', version: '1.1'
-	// https://mvnrepository.com/artifact/com.sun.jdmk/jmxtools
-	compile group: 'com.sun.jdmk', name: 'jmxtools', version: '1.2.1'
-	// https://mvnrepository.com/artifact/javax.management/jmxri
-	compile group: 'javax.management', name: 'jmxri', version: '1.2.1'
-	
 	// https://mvnrepository.com/artifact/com.googlecode.log4jdbc/log4jdbc
 	compile group: 'com.googlecode.log4jdbc', name: 'log4jdbc', version: '1.2'
 	// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-web
@@ -42,29 +26,6 @@ dependencies {
 	compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
 	// https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
-	
-	// Google API
-	// https://mvnrepository.com/artifact/org.springframework.social/spring-social-google
-	compile group: 'org.springframework.social', name: 'spring-social-google', version: '1.0.0.RELEASE'
-	// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
-	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
-	
-	// Naver API
-	// https://mvnrepository.com/artifact/com.github.scribejava/scribejava-core
-	compile group: 'com.github.scribejava', name: 'scribejava-core', version: '2.8.1'
-
-	// Spring Security
-	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
-	compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.3.4.RELEASE'
-	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
-	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.4.RELEASE'
-	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-config
-	compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.3.4.RELEASE'
-	
-	
-	// Password Encryption
-	// https://mvnrepository.com/artifact/commons-codec/commons-codec
-	compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
 	
 	// JSON
 	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple

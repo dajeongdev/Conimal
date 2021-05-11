@@ -25,7 +25,7 @@ public class CommunityServiceImpl implements CommunityService {
 	@Autowired
 	FileUploadService fileService;
 	
-	// 글 목록
+	/* 글 목록 */
 	@Override
 	public List<BoardDto> findBoardAll(SearchCommand search) {
 		return dao.findBoardAll(search);
@@ -35,7 +35,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return dao.findBoardCount(search);
 	}
 
-	// 글 작성
+	/* 글 작성 */
 	@Override
 	public Long saveBoard(BoardDto dto) throws Exception {
 		BoardDto board = new BoardDto();
@@ -53,6 +53,7 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.saveBoard(board);
 		return board.getBoard_id();
 	}
+	/* 파일 저장 */
 	@Override
 	public void saveFile(Long board_id, MultipartHttpServletRequest request) throws Exception {
 		List<FileUploadCommand> files = fileService.uploadList(request, "/img/board/");
@@ -64,31 +65,31 @@ public class CommunityServiceImpl implements CommunityService {
 			fileDto.setFile_path(file.getFile_path());
 			fileDto.setCreate_date(LocalDate.now());
 			
-			System.out.println("BoardService fileDto : " + fileDto);
 			dao.saveFile(fileDto);
 		}
 	}
 	
-	// 글 보기
+	/* 글 가져오기 */
 	@Override
 	public BoardDto findBoard(Long board_id) throws Exception {
-		// 조회수 증가
-		dao.hitCount(board_id);
+		dao.hitCount(board_id); // 조회수 증가
+		
 		return dao.findBoard(board_id);
 	}
+	/* 파일 가져오기 */
 	@Override
 	public List<FileDto> findFile(Long board_id) throws Exception {
 		return dao.findFile(board_id);
 	}
 	
-	// 글 수정
+	/* 글 수정 */
 	@Override
 	public int updateBoard(BoardDto board) throws Exception {
 		board.setUpdate_date(LocalDate.now());
 		return dao.updateBoard(board);
 	}
 	
-	// 글 삭제
+	/* 글 삭제 */
 	@Override
 	public int deleteBoard(Long board_id) throws Exception {
 		return dao.deleteBoard(board_id);
