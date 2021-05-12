@@ -7,7 +7,7 @@
 - **구성원 및 역할** : 백엔드 1, 프론트엔드 2, 디자이너 1 / 자바 백엔드
 - **기간** : 2020.07.10 - 2020.09.21 -> 2021.05 리팩토링
 - **주제** : 기본형 게시판 웹 사이트
-- **구현 목표** : 로그인, 회원가입, 정보수정, 기본형 게시판 기능으로 구성된 웹 사이트를 제작하였습니다.
+- **제작 목표** : Spring, MyBatis를 기반으로 한 기본형 게시판 및 로그인, 회원가입, 정보수정 기능 구현
 <br />
 
 ## 개발 환경
@@ -45,7 +45,7 @@
 ### 회원가입
 * 아이디, 비밀번호, 닉네임, 이메일을 입력해야 하며, 이메일을 통해 인증을 진행한다.
 ![myboard_join](https://user-images.githubusercontent.com/61612976/117929008-478e1880-b337-11eb-805b-1bfc5c582790.png)
-![myboard_join_success](https://user-images.githubusercontent.com/61612976/117933604-b1f58780-b33c-11eb-9b77-5dd4a6f9d5ee.png)
+![myboard_join_success](https://user-images.githubusercontent.com/61612976/117936412-c7b87c00-b33f-11eb-9930-91c7e2d4d85e.png)
 ![myboard_authenticate_email](https://user-images.githubusercontent.com/61612976/117933618-b457e180-b33c-11eb-8338-9ddade330c3b.png)
 <br />
 
