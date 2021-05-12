@@ -69,7 +69,7 @@
 
 ### 게시판 글 상세 보기
 * 작성한 글과 댓글을 볼 수 있으며, 댓글 작성이 가능하고 글과 동일하게 댓글 작성자 본인만이 수정 및 삭제가 가능하다.
-![myboard_detail_with_comment](https://user-images.githubusercontent.com/61612976/117929016-48bf4580-b337-11eb-992a-ec8253b5694f.png)
+![myboard_detail_with_img](https://user-images.githubusercontent.com/61612976/117934132-49f37100-b33d-11eb-83df-2fe5d78a9754.png)
 <br />
 
 ### 게시판 검색
