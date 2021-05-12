@@ -14,15 +14,9 @@
 	
         <section class="main-pt1-header">
           <div class="main-header-content">
-            <!-- <h1>반려동물과의 건강한 삶을<br>
-            이야기하는 커뮤니티,코니멀
-          </h1>
-            <h2>
-              다시 생각해봐 이게 우리 최선은 아닐 거잖아<br>
-왜 애써 네 맘을 숨겨 자 나를 봐 이렇게 금방 낚이는 시선<br>
-좀 더 가까이 그렇게 말고 이렇게 포근하게<br>
-작은 내 심장 소리에 감동하게 함께 좀 더 있자
-            </h2> -->
+            
+            <h2>Welcome to MyBoard</h2>
+            <img width="800" height="500" src="/resources/image/thumbnail.jpeg">
             
           </div>
         </section>
