@@ -50,6 +50,11 @@
 ![myboard_authenticate_email](https://user-images.githubusercontent.com/61612976/117933618-b457e180-b33c-11eb-8338-9ddade330c3b.png)
 <br />
 
+### 정보수정
+* 아이디는 변경할 수 없으며, 이메일을 변경할 때는 재인증 절차를 진행한다.
+![myboard_user_update](https://user-images.githubusercontent.com/61612976/118242410-447e5e00-b4d8-11eb-9689-329a2a1a996b.png)
+<br />
+
 ### 게시판 글 목록
 * 게시글의 목록을 볼 수 있으며, 페이징과 검색이 가능하다.
 ![myboard_list](https://user-images.githubusercontent.com/61612976/117929000-45c45500-b337-11eb-9873-1a83a1affd25.png)
